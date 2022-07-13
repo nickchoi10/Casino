@@ -3,7 +3,7 @@ package com.github.zipcodewilmington.casino.games.cardgames;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hand {
+public abstract class Hand {
     List<PlayingCard> cards;
 
     public Hand() {
