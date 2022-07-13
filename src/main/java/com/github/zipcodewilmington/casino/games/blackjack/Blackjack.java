@@ -1,15 +1,23 @@
 package com.github.zipcodewilmington.casino.games.blackjack;
 
+import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
+import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Blackjack {
+public class Blackjack implements GameInterface {
 
     Scanner scanner = new Scanner((System.in));
-    Deck deck;
-    Dealer dealerHand;
-    Player playerHand;
+    StandardDeck deck = new StandardDeck();
+    BlackjackDealer dealerHand = new BlackjackDealer();
+//    BlackjackPlayer playerHand = new BlackjackPlayer();
+    List<BlackjackPlayer> players = new ArrayList<>();
 
-    // BlackJack is usually a table of 2-7 players and uses one to 52-card deck.
+    // Blackjack is usually a table of 2-7 players and uses one to 52-card deck.
     // Jack, Queen, King are all 10 points. Ace is one or 11 points.
     // deal one card face up to all players, then deal second card to all players. AKA deal 2 cards to player.
     // dealer receive two card, one face up and one face down.
@@ -17,18 +25,32 @@ public class Blackjack {
     // Beginning of game players place their bets.
     // "Hit" or "Stand" without being busted (exceeding 21).
     // After each player Hit or Stand, dealer's turn to hit or stand.
-    // Players can also Split, Double Down, Insurance (if dealer's up card is an ace, Surrender (give up half your bet)
-    // ^Dunno if we will be having these options yet o.o
 
-    public Blackjack() { //constructor
+    public Blackjack() {
 
     }
 
-    public int Blackjack(int balance) { //to take in
+//    public int blackjackBalance(int balance) {
+//
+//    }
 
-    }
+    public void startGame() {
+        System.out.println("Welcome to Blackjack at Stardust Casino! \n");
+        int numOfPlayers;
+        do {
+            System.out.println("How many people are playing (1-6)?");
+            numOfPlayers = scanner.nextInt();
+        } while (numOfPlayers > 6 || numOfPlayers < 0);
 
-    public void startGame() { //welcome the player with rules of BJ?
+        for (int i = 1; i <= numOfPlayers; i++) {
+            BlackjackPlayer player = new BlackjackPlayer(i);
+            players.add(player); //add player to ArrayList
+        }
+
+        for (BlackjackPlayer blackjackPlayer : players) {
+            blackjackPlayer.addToHand(dealCards());
+            blackjackPlayer.addToHand(dealCards());
+        }
 
     }
 
@@ -37,29 +59,58 @@ public class Blackjack {
         return 0;
     }
 
-    public void dealCards() {
-
+    public PlayingCard dealCards() {
+        deck.dealCard();
     }
 
     public void checkForBlackjack() {
-        if (//sum)
+//        if (condition) {
+//
+//        }
+    }
 
+    public void hit() {
+
+    }
+
+    public String stand() {
+        return null;
     }
 
     public String checkForBust() {
-
-    }
-
-    public String hitOrStand() { //hit to get additional card or stand to keep current
         return null;
     }
 
-    public Deck cardFaceUp() {
-        return null;
+    public void dealerTurn() {
+
     }
 
-    public Deck cardFaceDown() {
-        return null;
+    public double winner() {
+        return 0;
     }
+
+    boolean playAgain() {
+        return true;
+
+    }
+
+    @Override
+    public void add(PlayerInterface player) {
+
+    }
+
+    @Override
+    public void remove(PlayerInterface player) {
+
+    }
+
+    @Override
+    public void run() {
+
+        //run playerSetup().get(account name, balance)
+
+    }
+
+
 
 }
