@@ -8,24 +8,16 @@ import java.util.Random;
 public class RouletteTest {
 
     @Test
-public void spinWheelTest() {
-    //Given
+    public void spinWheelTest() {
+        //Given
         Random rand = new Random(00);
 
-    //When
+        //When
         Integer r = rand.nextInt(37);
 
-    //Then
+        //Then
         Integer expected = r;
         Assert.assertEquals(expected, r);
-}
 
-    @Test
-public void placeStraightUpBet() {
-
-
-
-}
-
-
+    }
 }
