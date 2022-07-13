@@ -21,8 +21,8 @@ public void spinWheelTest() {
 }
 
     @Test
-public void placeInsideBet() {
-        //Given
+public void placeStraightUpBet() {
+
 
 
 }
