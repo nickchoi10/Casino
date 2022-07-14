@@ -64,7 +64,11 @@ class PokerHandTest {
 
     @Test
     void getHighestCard() {
-        
+        PlayingCard expectedCard = hand.getCard(0);
+
+        PlayingCard actualCard = hand.getHighestCard(this.hand);
+
+        Assert.assertTrue(expectedCard.equals(actualCard));
     }
 
 }

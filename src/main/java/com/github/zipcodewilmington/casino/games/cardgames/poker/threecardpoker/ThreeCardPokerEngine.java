@@ -9,7 +9,6 @@ public class ThreeCardPokerEngine {
 
     public ThreeCardPokerEngine() {
         deck = new StandardDeck();
-
     }
 
     // Deals 3 cards to specified player from deck.
@@ -17,15 +16,33 @@ public class ThreeCardPokerEngine {
     protected void dealCards(PlayerInterface player){}
 
     // Returns positive int if hand1 is greater than hand2, 0 if equal, negative if less
-    protected int compareHands(Hand hand1, Hand hand2) {return 0;}
-
-    protected void addAnteWager(PlayerInterface player, int wager) {
+    public int compareHands(Hand hand1, Hand hand2) {
+        return 0;
     }
 
-    protected void addPairPlusWager(PlayerInterface player, int wager) {}
-
-    protected int getHandPointValue(Hand hand1, Hand hand2) {
-        return 0;
+    public int getHandPointValue(PokerHand hand) {
+        ThreePokerHandRank rank = hand.getRank();
+        int points = 0;
+        int highestCardVal = hand.getHighestCard(hand).getRank().getValue();
+        switch (rank) {
+            case STRAIGHT_FLUSH:
+                points += ThreePokerHandRank.STRAIGHT_FLUSH.POINTS + highestCardVal;
+                return points;
+            case THREE_OF_A_KIND:
+                points += ThreePokerHandRank.THREE_OF_A_KIND.POINTS + highestCardVal;
+                return points;
+            case STRAIGHT:
+                points += ThreePokerHandRank.STRAIGHT.POINTS + highestCardVal;
+                return points;
+            case FLUSH:
+                points += ThreePokerHandRank.FLUSH.POINTS + highestCardVal;
+                return points;
+            case PAIR:
+                return ThreePokerHandRank.PAIR.getPoints();
+            case HIGH_CARD:
+                return highestCardVal;
+        }
+        return points;
     }
 
 }

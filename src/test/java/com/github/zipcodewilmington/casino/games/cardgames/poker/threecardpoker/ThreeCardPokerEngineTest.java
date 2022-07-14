@@ -6,6 +6,8 @@ import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -16,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ThreeCardPokerEngineTest {
     ThreeCardPokerEngine engine;
 
-    @Before
+    @BeforeEach
     public void init() {
         engine = new ThreeCardPokerEngine();
     }
@@ -40,14 +42,15 @@ class ThreeCardPokerEngineTest {
     }
 
     @Test
-    void addAnteWager() {
-    }
+    void testGetHandPointValue() {
+        List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE),
+                new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE), new PlayingCard(CardSuit.DIAMONDS, CardRank.FOUR));
+        PokerHand hand1 = new PokerHand(cards1);
 
-    @Test
-    void addPairPlusWager() {
-    }
+        Integer expected = 400 + 5;
 
-    @Test
-    void getHandPointValue() {
+        Integer actual = engine.getHandPointValue(hand1);
+
+        Assert.assertEquals(expected, actual);
     }
 }

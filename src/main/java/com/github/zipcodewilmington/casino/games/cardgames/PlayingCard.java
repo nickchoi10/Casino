@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames;
 
-public class PlayingCard {
+public class PlayingCard{
     private final CardSuit SUIT;
     private final CardRank RANK;
 
