@@ -1,4 +1,4 @@
-package com.github.zipcodewilmington.casino.games.blackjack;
+package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
@@ -7,9 +7,9 @@ import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
 import java.util.Scanner;
 
 public class BlackjackEngine implements GameInterface {
-    Scanner scanner = new Scanner((System.in));
-    StandardDeck deck = new StandardDeck();
-    Blackjack blackjack = new Blackjack();
+    Scanner scanner;
+    Blackjack blackjack;
+
 
     //Ensure PlayerInterface is garbage collected upon completing a respective GameInterface
     //After the game ends, the player is deleted.
@@ -31,6 +31,9 @@ public class BlackjackEngine implements GameInterface {
 
     @Override
     public void run() { //write my bj game in here.
+        Scanner scanner = new Scanner((System.in));
+        StandardDeck deck = new StandardDeck();
+        Blackjack blackjack = new Blackjack();
 
 //        while(true)
 //        {
