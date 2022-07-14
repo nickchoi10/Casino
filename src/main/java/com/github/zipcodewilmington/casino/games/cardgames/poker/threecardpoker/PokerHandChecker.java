@@ -4,13 +4,13 @@ import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 
 public interface PokerHandChecker {
 
-    boolean isPair(Hand hand);
+    boolean hasPair(Hand hand);
 
-    boolean isFlush(Hand hand);
+    boolean hasFlush(Hand hand);
 
-    boolean isStraight(Hand hand);
+    boolean hasStraight(Hand hand);
 
     boolean isStraightFlush(Hand hand);
 
-    boolean isThreeOfAKind(Hand hand);
+    boolean hasThreeOfAKind(Hand hand);
 }

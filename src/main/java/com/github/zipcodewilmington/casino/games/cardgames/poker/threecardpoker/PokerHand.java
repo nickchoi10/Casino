@@ -3,34 +3,45 @@ package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PokerHand extends Hand implements PokerHandChecker {
     ThreeCardPokerHandRank handRank;
 
-    public boolean isPair(Hand hand) {
+    public PokerHand(List<PlayingCard> cards) {
+        this.cards = cards;
+    }
+
+    public PokerHand() {
+        this.cards = new ArrayList<PlayingCard>();
+    }
+
+    public boolean hasPair(Hand hand) {
         return false;
     }
 
-    public boolean isFlush(Hand hand) {
+    public boolean hasFlush(Hand hand) {
         return false;
     }
 
 
     public boolean isStraightFlush(Hand hand) {
-        return (isThreeOfAKind(hand) && isFlush(hand));
+        return (hasThreeOfAKind(hand) && hasFlush(hand));
     }
 
-    public boolean isStraight(Hand hand){
+    public boolean hasStraight(Hand hand){
         return false;
     }
-    public boolean isThreeOfAKind(Hand hand) {
+    public boolean hasThreeOfAKind(Hand hand) {
         return false;
     }
 
+    public ThreeCardPokerHandRank checkRank() {
+        return null;
+    }
     protected PlayingCard getHighestCard(Hand hand) {
         return null;
     }
 
-    protected PlayingCard getLowestCard(Hand hand) {
-        return null;
-    }
 }
