@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames;
 
-public class PlayingCard{
+public class PlayingCard implements Comparable<PlayingCard>{
     private final CardSuit SUIT;
     private final CardRank RANK;
 
@@ -22,6 +22,11 @@ public class PlayingCard{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(PlayingCard c) {
+        return this.getRank().getValue() - c.getRank().getValue();
     }
 
     // TODO: Add console graphic representation of card

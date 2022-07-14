@@ -46,14 +46,14 @@ class PokerHandTest {
 
     @Test
     void isStraight() {
-        PlayingCard diamondCard = new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE);
+        PlayingCard diamondCard = new PlayingCard(CardSuit.HEARTS, CardRank.THREE);
         hand.swapCard(diamondCard, 1);
 
         Assert.assertTrue(hand.hasStraight(this.hand));
     }
 
     @Test
-    void isThreeOfAKind() {
+    void testHasThreeOfAKind() {
         PlayingCard threeCard1 = new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE);
         PlayingCard threeCard2 = new PlayingCard(CardSuit.HEARTS, CardRank.THREE);
         PlayingCard threeCard3 = new PlayingCard(CardSuit.SPADES, CardRank.THREE);
