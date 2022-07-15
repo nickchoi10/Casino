@@ -1,7 +1,6 @@
 package com.github.zipcodewilmington.casino.games.numberguess;
 
 import com.github.zipcodewilmington.Casino;
-import com.github.zipcodewilmington.casino.PlayerSetup;
 
 import java.util.Scanner;
 
@@ -14,9 +13,11 @@ public class NumberGuessMain {
     static NumberGuessEngine guessEngine = new NumberGuessEngine();
     static Scanner scanner = new Scanner(System.in);
 
-    public static void playGame() {
-        PlayerSetup.playerSetup(1);
+    public static void main(String[] args){
+        playGame();
+    }
 
+    public static void playGame() {
 
         guessEngine.prompt();
         input = scanner.nextInt();
@@ -25,25 +26,22 @@ public class NumberGuessMain {
             Casino.splashScreen();
         }
         while(running){
+            int randomNum = guessEngine.randomNumber();
+            guessEngine.promptForGuess();
 
             while(true){
-                guessEngine.promptForGuess();
-                //input = scanner.nextInt();
-                guessEngine.getInput();
-                int userGuess = guessEngine.guessNumber();
-                if(userGuess == input){
+                input = guessEngine.getInput();
+                System.out.println(input);
+                System.out.println(randomNum);
+                if(randomNum == input){
                     System.out.println("Congrats you won!!!");
                     break;
-                } else if (userGuess > input){
-                    System.out.println("Number is higher");
-                } else if (userGuess < input){
-                    System.out.println("Number is lower");
-                }else {
-                    System.out.println("Unfortunately you lost.");
+                } else if (randomNum > input){
+                    System.out.println("Number is higher, try again");
+                } else if (randomNum < input){
+                    System.out.println("Number is lower, try again");
                 }
             }
-
-
             guessEngine.promptContinue();
             input = scanner.nextInt();
             if(input == 1){

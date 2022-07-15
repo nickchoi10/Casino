@@ -14,7 +14,7 @@ class NumberGuessEngineTest {
             engine.setRandom(random);
 
             Integer expected = 6;
-            Integer actual = engine.guessNumber();
+            Integer actual = engine.randomNumber();
 
             Assert.assertEquals(expected, actual);
 
