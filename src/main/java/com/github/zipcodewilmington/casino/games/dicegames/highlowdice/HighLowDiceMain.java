@@ -38,8 +38,9 @@ public class HighLowDiceMain {
             mainGame.placeBets();
             mainGame.highLowPrompt();
             int playerInput = mainGame.getInput(); //take input per player. set player input to 0 for high, 1 for low, 2 for seven
+            System.out.println("Rolling Dice... ");
             int toss = dice.tossAndSum(2);
-            System.out.println("Rolling Dice... \n Roll: " + toss);
+            System.out.println("Roll: " + toss);
             int highOrLow = mainGame.checkHighOrLow(toss);
             mainGame.resultsCheck(highOrLow);
             mainGame.winOrLose(playerInput, highOrLow);
