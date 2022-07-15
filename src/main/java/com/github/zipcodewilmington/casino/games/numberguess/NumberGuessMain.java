@@ -17,8 +17,14 @@ public class NumberGuessMain {
     public static void playGame() {
         PlayerSetup.playerSetup(1);
 
+
+        guessEngine.prompt();
+        input = scanner.nextInt();
+        if(input == 2) {
+            running = false;
+            Casino.splashScreen();
+        }
         while(running){
-            guessEngine.prompt();
             guessEngine.promptForGuess();
             input = scanner.nextInt();
             if(guessEngine.checkNumber(input) == true){
@@ -28,6 +34,7 @@ public class NumberGuessMain {
             }
 
             guessEngine.promptContinue();
+            input = scanner.nextInt();
             if(input == 1){
                 continue;
             } else if (input == 2) {
@@ -35,6 +42,5 @@ public class NumberGuessMain {
                 Casino.splashScreen();
             }
         }
-
     }
 }
