@@ -20,4 +20,9 @@ public class RouletteTest {
         Assert.assertEquals(expected, r);
 
     }
+
+    @Test
+    public void playerBetOne() {
+
+    }
 }

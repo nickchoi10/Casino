@@ -1,5 +1,7 @@
 package com.github.zipcodewilmington;
 
+import com.github.zipcodewilmington.casino.games.roulette.RouletteEngine;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,5 +11,3 @@ public class MainApplication {
         new Casino().run();
     }
 }
-
-
