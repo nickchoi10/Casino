@@ -29,6 +29,15 @@ class PokerHandTest {
     }
 
     @Test
+    void testGetPairRanking() {
+        Integer expectedRank = 5;
+
+        Integer actualRank = hand.getPairRanking(hand);
+
+        Assert.assertEquals(expectedRank, actualRank);
+    }
+
+    @Test
     void isFlush() {
         PlayingCard diamondCard = new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE);
         hand.swapCard(diamondCard, 1);

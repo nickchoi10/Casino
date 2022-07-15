@@ -53,4 +53,28 @@ class ThreeCardPokerEngineTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    void testFlushTieBreaker() {
+        List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE),
+                new PlayingCard(CardSuit.DIAMONDS, CardRank.SEVEN), new PlayingCard(CardSuit.DIAMONDS, CardRank.JACK));
+        List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.HEARTS, CardRank.FIVE),
+                new PlayingCard(CardSuit.HEARTS, CardRank.FIVE), new PlayingCard(CardSuit.HEARTS, CardRank.JACK));
+        PokerPlayer player1 = new PokerPlayer(cards1);
+        PokerPlayer player2 = new PokerPlayer(cards2);
+
+        PokerPlayer expectedWinner = player1;
+
+        PokerPlayer actualWinner = engine.flushTieBreaker(player1, player2);
+
+        Assert.assertEquals(expectedWinner, actualWinner);
+    }
+
+    @Test
+    void pairTieBreaker() {
+    }
+
+    @Test
+    void highCardTieBreaker() {
+    }
 }

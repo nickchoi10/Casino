@@ -5,9 +5,7 @@ import com.github.zipcodewilmington.casino.games.cardgames.CardSuit;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PokerHand extends Hand implements PokerHandChecker {
     ThreePokerHandRank handRank;
@@ -17,30 +15,46 @@ public class PokerHand extends Hand implements PokerHandChecker {
         handRank = calculateRank(this);
     }
 
+
     public PokerHand() {
         this.cards = new ArrayList<PlayingCard>();
     }
+
 
     public ThreePokerHandRank getRank() {
         return handRank;
     }
 
+
     private boolean isFullHand(List<PlayingCard> handCards) {
-        if (handCards.size() != 3) {
-            return false;
-        }
-        return true;
+        return handCards.size() == 3;
     }
 
+
     public boolean hasPair(Hand hand) {
+        return getPairRanking(hand) > 0;
+    }
+
+
+    public int getPairRanking(Hand hand) {
         List<PlayingCard> cards = hand.getCards();
         if (!isFullHand(hand.getCards())) {
-            return false;
+            return 0;
         }
-        int middleCardRank = cards.get(1).getRank().getValue();
-        return (cards.get(0).getRank().getValue() == middleCardRank ||
-                    middleCardRank == cards.get(2).getRank().getValue());
+        Map<CardRank, Integer> cardMap = new HashMap<>(3);
+        for (PlayingCard c : cards) {
+            if (cardMap.containsKey(c.getRank())) {
+                return c.getRank().getValue();
+            }
+            cardMap.put(c.getRank(), c.getRank().getValue());
+        }
+        return 0;
     }
+
+    public int getPairOddRanking(Hand hand) {
+        return 0;
+    }
+
 
     public boolean hasFlush(Hand hand) {
         List<PlayingCard> cards = hand.getCards();
@@ -56,6 +70,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
         return (hasStraight(hand) && hasFlush(hand));
     }
 
+
     public boolean hasStraight(Hand hand){
         List<PlayingCard> cards = new ArrayList(hand.getCards());
         if (!isFullHand(hand.getCards())) {
@@ -67,6 +82,8 @@ public class PokerHand extends Hand implements PokerHandChecker {
         return (cards.get(0).getRank().getValue() + 1 == middleCardRank
                     && cards.get(2).getRank().getValue() - 1 == middleCardRank);
     }
+
+
     public boolean hasThreeOfAKind(Hand hand) {
         CardRank targetRank = null;
         for (PlayingCard card : hand.getCards()) {
@@ -80,6 +97,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
         }
         return true;
     }
+
 
     public ThreePokerHandRank calculateRank(PokerHand hand) {
         if (isStraightFlush(hand)) {
@@ -96,6 +114,8 @@ public class PokerHand extends Hand implements PokerHandChecker {
             return ThreePokerHandRank.HIGH_CARD;
         }
     }
+
+
     protected PlayingCard getHighestCard(Hand hand) {
         PlayingCard max = null;
 

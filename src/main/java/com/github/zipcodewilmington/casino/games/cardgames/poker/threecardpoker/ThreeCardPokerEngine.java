@@ -3,6 +3,8 @@ package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.*;
 
+import java.util.List;
+
 public class ThreeCardPokerEngine {
     private Deck<PlayingCard> deck;
 
@@ -43,6 +45,28 @@ public class ThreeCardPokerEngine {
                 return highestCardVal;
         }
         return points;
+    }
+
+    public PokerPlayer flushTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
+//        if (hand1.getRank() != ThreePokerHandRank.FLUSH || hand2.getRank() != ThreePokerHandRank.FLUSH) {
+//            throw new IllegalArgumentException("Both hands must be a flush");
+//        }
+//
+//        while (hand1.getNumberOfCards() != 0 && hand2.getNumberOfCards() != 0) {
+//            if (hand1.getHighestCard(hand1)
+//        }
+        return null;
+    }
+
+    public PokerPlayer pairTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
+//        if (hand1.getRank() != ThreePokerHandRank.PAIR || hand2.getRank() != ThreePokerHandRank.PAIR) {
+//            throw new IllegalArgumentException("Both hands must be a flush");
+//        }
+        return null;
+    }
+
+    public PokerPlayer highCardTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
+        return null;
     }
 
 }
