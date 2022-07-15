@@ -10,7 +10,7 @@ public class PlayerSetupTest {
     public void testAddActivePlayer() {
         PlayerSetup.activeAccounts.clear();
         Account account = new Account();
-        PlayerSetup.addActivePlayer(account);
+        PlayerSetup.addActiveAccount(account);
         int expected = 1;
         int actual = PlayerSetup.activeAccounts.size();
         Assert.assertEquals(actual, expected);
@@ -19,8 +19,8 @@ public class PlayerSetupTest {
     public void testRemoveActivePlayer() {
         PlayerSetup.activeAccounts.clear();
         Account account = new Account();
-        PlayerSetup.addActivePlayer(account);
-        PlayerSetup.removeActivePlayer(account);
+        PlayerSetup.addActiveAccount(account);
+        PlayerSetup.removeActiveAccount(account);
         int expected = 0;
         int actual = PlayerSetup.activeAccounts.size();
         Assert.assertEquals(actual, expected);
@@ -31,16 +31,16 @@ public class PlayerSetupTest {
         PlayerSetup.activeAccounts.clear();
         Account account1 = new Account("test1","test1","test1", 1000);
         Account account2 = new Account("test2","test2","test2", 1000);
-        PlayerSetup.addActivePlayer(account1);
-        PlayerSetup.addActivePlayer(account2);
-        String actual = PlayerSetup.showActivePlayers();
+        PlayerSetup.addActiveAccount(account1);
+        PlayerSetup.addActiveAccount(account2);
+        String actual = PlayerSetup.showActiveAccounts();
         String expected = "Player 1: test1\n" + "Player 2: test2\n";
         Assert.assertEquals(actual, expected);
     }
     @Test
     public void testShowActivePlayerEmpty() {
         PlayerSetup.activeAccounts.clear();
-        String actual = PlayerSetup.showActivePlayers();
+        String actual = PlayerSetup.showActiveAccounts();
         String expected = "There are no active players.";
         Assert.assertEquals(actual, expected);
     }

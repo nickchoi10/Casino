@@ -22,7 +22,7 @@ public class HighLowDiceMain {
     }
 
     public static void playGame() {
-        PlayerSetup.playerSetup(2);
+        PlayerSetup.numPlayers(2);
 
 
         while (running) {

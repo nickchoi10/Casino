@@ -15,7 +15,7 @@ public class NumberGuessMain {
     static Scanner scanner = new Scanner(System.in);
 
     public static void playGame() {
-        PlayerSetup.playerSetup(1);
+        PlayerSetup.numPlayers(1);
 
 
         guessEngine.prompt();

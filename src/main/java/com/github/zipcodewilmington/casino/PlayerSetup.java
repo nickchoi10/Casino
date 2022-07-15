@@ -12,7 +12,7 @@ public class PlayerSetup {
     public static ArrayList<Account> activeAccounts = new ArrayList<>();
 //    static Map<String, Account> activePlayers = new HashMap<>();
 
-    public static void addActivePlayer(Account account){
+    public static void addActiveAccount(Account account){
         if (activeAccounts.contains(account)){
             System.out.println("This player is already logged in, please choose another account.");
         }
@@ -20,17 +20,17 @@ public class PlayerSetup {
             System.out.println("Added " + account.getAccountName() + " as Player" + activeAccounts.size());}
     }
 
-    public static void removeActivePlayer(Account account) {
+    public static void removeActiveAccount(Account account) {
         if (activeAccounts.contains(account)){
             activeAccounts.remove(account);
             System.out.println("Removed " + account.getName() + " from active player list.\n" +
                     "Remaining active players:\n");
-            showActivePlayers();
+            showActiveAccounts();
         }
         else {System.out.println("That player is not currently logged in.");}
     }
 
-    public static String showActivePlayers(){
+    public static String showActiveAccounts(){
         String output = "";
         for (int i = 0 ; i < activeAccounts.size() ; i++) {
             output += "Player " + (i+1) + ": " + activeAccounts.get(i).getAccountName() + "\n";
@@ -39,7 +39,7 @@ public class PlayerSetup {
         else return ("There are no active players.");
     }
 
-    public static void playerSetup(int maxPlayers) {
+    public static void numPlayers(int maxPlayers) {
         int numPlayers;
         while (true) {
             numPlayers = TheScanner.getNumber("How many players are going to be playing in this game?\n");
@@ -55,10 +55,8 @@ public class PlayerSetup {
 
 
 
-
-
     public static void activePlayerManager() {
-        showActivePlayers();
+        showActiveAccounts();
         System.out.println("What would you like to do ?\n" +
                 "1) Log in a new account\n" +
                 "2) Log out of an active account\n" +
@@ -75,7 +73,7 @@ public class PlayerSetup {
             } else if (choice == 2) {
                 System.out.println("Type the Account Name you would like to remove\n");
                 String acctName = scan.nextLine();
-                PlayerSetup.removeActivePlayer(Account.getAccount(acctName));
+                PlayerSetup.removeActiveAccount(Account.getAccount(acctName));
             } else if (choice == 3) {
                 activeAccounts.clear();
                 System.out.println("All players have been logged out.");
