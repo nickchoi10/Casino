@@ -1,10 +1,12 @@
 package com.github.zipcodewilmington.casino.games.slots;
 
+import com.github.zipcodewilmington.casino.PlayerSetup;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class SlotsEngine {
+public abstract class SlotsEngine {
 
     ArrayList slotList;
     int betAmount;
@@ -16,27 +18,7 @@ public class SlotsEngine {
         this.slotList = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
-        SlotsEngine run = new SlotsEngine();
-        run.playSlots();
-    }
 
-    public void playSlots() {
-            beginMessage();
-            beginningBalance();
-        while (play) {
-            currentBalance();
-            betMessage();
-            inputBet();
-            clearArray();
-            spinSlot();
-            displayBoard();
-            winConditions(slotList);
-            jackPotCondition(slotList);
-            losingCondition();
-            continuePlaying();
-        }
-    }
 
     public boolean isPlaying() {
         return play;
@@ -46,7 +28,7 @@ public class SlotsEngine {
         this.play= play;
     }
     public void beginMessage() {
-        System.out.println("Hello, welcome to the Slot Game\n" +
+        System.out.println("Hello, welcome to the StarDust's Slot Game\n" +
                 "Match 3 numbers across the board, you win!\n" +
                 "Get Triple 7 in the middle row, *JACKPOT*\n" +
                 "Good Luck!");
@@ -109,21 +91,38 @@ public class SlotsEngine {
                 slotList.get(1)==slotList.get(4) && slotList.get(4)==slotList.get(7)||
                 slotList.get(2)==slotList.get(5) && slotList.get(5)==slotList.get(8)||
                 slotList.get(0)==slotList.get(4) && slotList.get(4)==slotList.get(8)){
-            winMessage();
+            winMessage1();
             balance+=betAmount;
         }else{
             balance-=betAmount;
         }
     }
-
+    public void winConditions1(ArrayList slotList){
+        if(slotList.get(0)==slotList.get(1) && slotList.get(1)!=slotList.get(2)||
+                slotList.get(3)==slotList.get(4) && slotList.get(4)!=slotList.get(5)||
+                slotList.get(6)==slotList.get(7) && slotList.get(7)!=slotList.get(8)||
+                slotList.get(0)==slotList.get(3) && slotList.get(3)!=slotList.get(6)||
+                slotList.get(1)==slotList.get(4) && slotList.get(4)!=slotList.get(7)||
+                slotList.get(2)==slotList.get(5) && slotList.get(5)!=slotList.get(8)||
+                slotList.get(0)==slotList.get(4) && slotList.get(4)!=slotList.get(8)||
+                slotList.get(0)!=slotList.get(1) && slotList.get(1)==slotList.get(2)||
+                slotList.get(3)!=slotList.get(4) && slotList.get(4)==slotList.get(5)||
+                slotList.get(6)!=slotList.get(7) && slotList.get(7)==slotList.get(8)||
+                slotList.get(0)!=slotList.get(3) && slotList.get(3)==slotList.get(6)||
+                slotList.get(1)!=slotList.get(4) && slotList.get(4)==slotList.get(7)||
+                slotList.get(2)!=slotList.get(5) && slotList.get(5)==slotList.get(8)||
+                slotList.get(0)!=slotList.get(4) && slotList.get(4)==slotList.get(8)){
+            winMessage2();
+            balance+=betAmount/4;
+        }else{
+            balance-=betAmount;
+        }
+    }
     public void jackPotCondition(ArrayList slotList){
         if(slotList.get(3)==slotList.get(4)&&slotList.get(4)==slotList.get(5)){
             jackPotMessage();
             balance+=betAmount*500;
         }
-    }
-    public void losingCondition1(){
-
     }
 
     public void losingCondition(){
@@ -132,7 +131,8 @@ public class SlotsEngine {
         }
     }
 
-    public void winMessage(){System.out.println("Congratulations, you have won "+betAmount+" dollars!!");}
+    public void winMessage1(){System.out.println("Congratulations, you have won "+betAmount+" dollars!!");}
+    public void winMessage2(){System.out.println("Congratulations, you have won "+betAmount/4+" dollars!!");}
     public void jackPotMessage(){System.out.println("WINNER WINNER CHICKEN DINNER!!!, you won "+betAmount*500+" dollars!!");}
 
     public void continuePlaying(){
