@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class PlayerSetup {
+public class ActiveAccount {
     static Scanner scan = new Scanner(System.in);
     public static ArrayList<Account> activeAccounts = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class PlayerSetup {
 
     public static void checkActiveAccounts(int numPlayers, int maxPlayers) {
         if (numPlayers == activeAccounts.size()) {
-            PlayerSetup.showActiveAccounts();
+            ActiveAccount.showActiveAccounts();
         } else if (numPlayers > activeAccounts.size()) {
             System.out.println("Not enough active players, please add another account.");
             Account.login(2, numPlayers, maxPlayers);
@@ -75,7 +75,6 @@ public class PlayerSetup {
         }
     }
 
-
     public static void activeAccountManager() {
         showActiveAccounts();
         System.out.println("What would you like to do ?\n" +
@@ -95,7 +94,7 @@ public class PlayerSetup {
         } else if (choice == 2) {
             System.out.println("Type the Account Name you would like to remove\n");
             String acctName = scan.nextLine();
-            PlayerSetup.removeActiveAccount(Account.getAccount(acctName));
+            ActiveAccount.removeActiveAccount(Account.getAccount(acctName));
             activeAccountManager();
         } else if (choice == 3) {
             activeAccounts.clear();
