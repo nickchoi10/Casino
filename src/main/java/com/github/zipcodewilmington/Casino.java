@@ -2,6 +2,8 @@ package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
+import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.Scanner;
@@ -20,6 +22,7 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
+        PlayerSetup.activePlayers.clear();
         System.out.println("""
                  WELCOME TO...
                  
@@ -46,7 +49,7 @@ public class Casino implements Runnable {
                                     | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                   \s
                                      '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                   \s
                 
-                Press Enter to GAMBLE!""");
+                Press Enter to GAMBLE!\n""");
 
 
 
@@ -57,6 +60,8 @@ public class Casino implements Runnable {
     }
 
     public static void mainMenu(){
+        PlayerSetup.activePlayers.clear();
+
         int menuChoice;
 
         System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
@@ -65,22 +70,21 @@ public class Casino implements Runnable {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
                     "1) Create new STARDUST VIP Account\n" +
                     "2) Play Games\n" +
-                    "2) Go to the Lounge\n" +
-                    "3) Leave Casino\n");
-            if (menuChoice >= 1 && menuChoice <= 5) {
+                    "3) Go to the Lounge\n" +
+                    "4) Leave Casino\n");
+            if (menuChoice >= 1 && menuChoice <= 4) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
         }
         if (menuChoice == 1) {
-//            PlayerSetup.addActivePlayer();
-        } else if (menuChoice == 2) {
-            //load manage active players method
-        } else if (menuChoice == 3) {
             createAccount();
-        } else if (menuChoice == 4) {
+        } else if (menuChoice == 2) {
+            pickGame();
+        } else if (menuChoice == 3) {
             lounge();
-        } else if (menuChoice == 5) {
-            quit();}
+        } else if (menuChoice == 4) {
+            quit();
+        }
     }
 
     public static void createAccount(){
@@ -90,7 +94,7 @@ public class Casino implements Runnable {
         String acctName;
         while(true) {
             acctName = scan.nextLine();
-            if (Account.checkForDupes(acctName) == true){break;}
+            if (!Account.accountExists(acctName)){break;}
             else System.out.println("An account by that name already exists, please choose another name\n");
         }
         System.out.println("Excellent Choice!\n" +
@@ -103,9 +107,9 @@ public class Casino implements Runnable {
         System.out.println("Your password is safe with us, " + name + ". You can count on us keeping your password (" + password + ") safe.\n\n");
         int balance;
         while(true) {
-            balance = TheScanner.getNumber("Finally, please tell us how much you would like to deposit in your account.");
+            balance = TheScanner.getNumber("Finally, please tell us how much you would like to deposit in your account.\n\n");
             if (balance > 10000000){
-                System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.");
+                System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.\n");
             }else break;
         }
 
@@ -121,12 +125,12 @@ public class Casino implements Runnable {
         int menuChoice;
         while (true) {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
-                    "1) LIST\n" +
-                    "2) OF\n" +
-                    "3) GAMES\n" +
-                    "4) GOES\n" +
-                    "5) HERE\n" +
-                    "6) !!!!!\n" +
+                    "1) High-Low Dice\n" +
+                    "2) Number Guess Game (No Gambling)\n" +
+                    "3) Under Construction\n" +
+                    "4) Under Construction\n" +
+                    "5) Under Construction\n" +
+                    "6) Under Construction\n" +
                     "7) Return to Main Menu\n" +
                     "8) Leave Casino\n");
             if (menuChoice >= 1 && menuChoice <= 8) {
@@ -134,9 +138,9 @@ public class Casino implements Runnable {
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
-            //load game 1
+            HighLowDiceMain.playGame();
         } else if (menuChoice == 2) {
-            //load game 2
+            NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
             //load game 3
         }else if (menuChoice == 4) {
