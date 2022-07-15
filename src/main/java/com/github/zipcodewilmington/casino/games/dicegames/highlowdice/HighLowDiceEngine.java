@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino.games.dicegames.highlowdice;
 
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,6 +10,7 @@ import java.util.Scanner;
 public class HighLowDiceEngine {
     static Scanner scanner = new Scanner(System.in);
     Integer results;
+    static IOConsole ioConsole = new IOConsole(AnsiColor.BLUE);
 
     //**********||GAME METHODS||**********//
     public Integer placeBets() {
@@ -55,8 +59,10 @@ public class HighLowDiceEngine {
     //**********||PROMPTS||**********//
     public void startPrompt() {
         String d = String.valueOf((Character.toChars(0x0001F3B2)));
-        System.out.println("Welcome to High Low Dice Game " + d + d +"\n");
-        System.out.println("Please choose from the following: \n1) Play Game\n2) Quit\n3) Rules\nEnter 1, 2, or 3 \n");
+        ioConsole.println("Welcome to High Low Dice Game " + d + d +"\n");
+        ioConsole.println("Please choose from the following: \n1) Play Game\n2) Quit\n3) Rules\nEnter 1, 2, or 3 \n");
+        //System.out.println("Welcome to High Low Dice Game " + d + d +"\n");
+        //System.out.println("Please choose from the following: \n1) Play Game\n2) Quit\n3) Rules\nEnter 1, 2, or 3 \n");
     }
 
     public void instructionsPrompt() {
