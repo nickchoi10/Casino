@@ -38,6 +38,25 @@ class PokerHandTest {
     }
 
     @Test
+    void testgetPairOddRanking() {
+        List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
+                new PlayingCard(CardSuit.HEARTS, CardRank.FIVE), new PlayingCard(CardSuit.DIAMONDS, CardRank.FOUR));
+        List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE),
+                new PlayingCard(CardSuit.HEARTS, CardRank.FIVE), new PlayingCard(CardSuit.DIAMONDS, CardRank.JACK));
+        PokerHand hand1 = new PokerHand(cards1);
+        PokerHand hand2 = new PokerHand(cards2);
+
+        Integer expectedRankValue1 = 4;
+        Integer expectedRankValue2 = 11;
+
+        Integer actual1 = hand.getPairOddRanking(hand1);
+        Integer actual2 = hand.getPairOddRanking(hand2);
+
+        Assert.assertEquals(expectedRankValue1, actual1);
+        Assert.assertEquals(expectedRankValue2, actual2);
+    }
+
+    @Test
     void isFlush() {
         PlayingCard diamondCard = new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE);
         hand.swapCard(diamondCard, 1);
@@ -61,6 +80,18 @@ class PokerHandTest {
         Assert.assertTrue(hand.hasStraight(this.hand));
     }
 
+    @Test
+    void isStraightHighestCombo() {
+        List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.CLUBS, CardRank.ACE),
+                new PlayingCard(CardSuit.HEARTS, CardRank.QUEEN), new PlayingCard(CardSuit.DIAMONDS, CardRank.KING));
+        hand = new PokerHand(cards1);
+
+        Boolean expected = true;
+
+        Boolean actual = hand.hasStraight(this.hand);
+
+        Assert.assertTrue(actual);
+    }
     @Test
     void testHasThreeOfAKind() {
         PlayingCard threeCard1 = new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE);

@@ -47,12 +47,13 @@ class ThreeCardPokerEngineTest {
                 new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE), new PlayingCard(CardSuit.DIAMONDS, CardRank.FOUR));
         PokerHand hand1 = new PokerHand(cards1);
 
-        Integer expected = 400 + 5;
+        Integer expected = 600 + 5;
 
         Integer actual = engine.getHandPointValue(hand1);
 
         Assert.assertEquals(expected, actual);
     }
+
 
     @Test
     void testFlushTieBreaker() {

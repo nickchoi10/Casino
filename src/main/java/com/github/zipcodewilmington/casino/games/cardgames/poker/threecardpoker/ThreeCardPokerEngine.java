@@ -31,6 +31,9 @@ public class ThreeCardPokerEngine {
                 points += ThreePokerHandRank.STRAIGHT_FLUSH.POINTS + highestCardVal;
                 return points;
             case THREE_OF_A_KIND:
+                if (hand.getHighestCard(hand).getRank() == CardRank.ACE) {
+                    highestCardVal = 14;
+                }
                 points += ThreePokerHandRank.THREE_OF_A_KIND.POINTS + highestCardVal;
                 return points;
             case STRAIGHT:
