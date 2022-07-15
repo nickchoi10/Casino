@@ -60,8 +60,7 @@ public class ThreeCardPokerEngine {
         if (!hand1.isFullHand(hand1.getCards()) || !hand2.isFullHand(hand2.getCards())) {
             throw new IllegalArgumentException("Both players must have full hands");
         }
-//        Collections.sort(hand1.getCards());
-//        Collections.sort(hand2.getCards());
+
         while (hand1.getNumberOfCards() > 0 && hand2.getNumberOfCards() > 0) {
             PlayingCard card1 = hand1.getHighestCard(hand1, true);
             PlayingCard card2 = hand2.getHighestCard(hand2, true);
@@ -74,29 +73,55 @@ public class ThreeCardPokerEngine {
             hand1.removeCard(card1);
             hand2.removeCard(card2);
         }
-
         return null;
-
-//        if (hand1.getCard(0).getRank() == CardRank.ACE && hand2.getCard(0).getRank() != CardRank.ACE) {
-//            return player1;
-//        } else if (hand2.getCard(0).getRank() == CardRank.ACE && hand1.getCard(0).getRank() != CardRank.ACE) {
-//            return player2;
-//        }
-//
-//        for (int i = hand1.getNumberOfCards() - 1; i >= 0; i ++) {
-//            if (hand1.getCard(i).getRank().getValue() > (hand2.getCard(i)).getRank().getValue()){
-//                return player1;
-//            } else if (hand1.getCard(i).getRank().getValue() > (hand2.getCard(i)).getRank().getValue())
     }
 
     public PokerPlayer pairTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
-//        if (hand1.getRank() != ThreePokerHandRank.PAIR || hand2.getRank() != ThreePokerHandRank.PAIR) {
-//            throw new IllegalArgumentException("Both hands must be a flush");
-//        }
+        PokerHand hand1 = player1.getHand();
+        PokerHand hand2 = player2.getHand();
+
+        if (hand1.getRank() != ThreePokerHandRank.PAIR || hand2.getRank() != ThreePokerHandRank.PAIR) {
+            throw new IllegalArgumentException("Both hands must be a pair");
+        }
+        int pairRank1 = hand1.getPairRanking(hand1);
+        int pairRank2 = hand2.getPairRanking(hand2);
+
+        if (pairRank1 > 0 && pairRank1 > pairRank2) {
+            return player1;
+        } else if (pairRank2 > 0 && pairRank2 > pairRank1) {
+            return player2;
+        }
+
+        int oddRank1 = hand1.getPairOddRanking(hand1);
+        int oddRank2 = hand2.getPairOddRanking(hand2);
+        if(oddRank1 > 0 && oddRank1 > oddRank2) {
+            return player1;
+        } else if (oddRank2 > 0 && oddRank2 > oddRank1) {
+            return player2;
+        }
+
         return null;
     }
 
     public PokerPlayer highCardTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
+        PokerHand hand1 = player1.getHand();
+        PokerHand hand2 = player2.getHand();
+        if (hand1.getRank() != ThreePokerHandRank.HIGH_CARD || hand2.getRank() != ThreePokerHandRank.HIGH_CARD) {
+            throw new IllegalArgumentException("Both hands must be high card");
+        }
+
+        while (hand1.getNumberOfCards() > 0 && hand2.getNumberOfCards() > 0) {
+            PlayingCard card1 = hand1.getHighestCard(hand1, true);
+            PlayingCard card2 = hand2.getHighestCard(hand2, true);
+
+            if (card1.getRank().getValue() > card2.getRank().getValue()) {
+                return player1;
+            } else if (card2.getRank().getValue() > card1.getRank().getValue()) {
+                return player2;
+            }
+            hand1.removeCard(card1);
+            hand2.removeCard(card2);
+        }
         return null;
     }
 

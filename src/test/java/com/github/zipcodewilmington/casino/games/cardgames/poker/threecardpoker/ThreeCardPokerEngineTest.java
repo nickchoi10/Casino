@@ -77,7 +77,7 @@ class ThreeCardPokerEngineTest {
         List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.TWO),
                 new PlayingCard(CardSuit.DIAMONDS, CardRank.TWO), new PlayingCard(CardSuit.HEARTS, CardRank.JACK));
         List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.HEARTS, CardRank.TWO),
-                new PlayingCard(CardSuit.HEARTS, CardRank.TWO), new PlayingCard(CardSuit.CLUBS, CardRank.TEN));
+                new PlayingCard(CardSuit.CLUBS, CardRank.TWO), new PlayingCard(CardSuit.CLUBS, CardRank.TEN));
         PokerPlayer player1 = new PokerPlayer(cards1);
         PokerPlayer player2 = new PokerPlayer(cards2);
 
@@ -85,17 +85,17 @@ class ThreeCardPokerEngineTest {
 
         PokerPlayer expectedWinner = player1;
 
-        PokerPlayer actualWinner = engine.flushTieBreaker(player1, player2);
+        PokerPlayer actualWinner = engine.pairTieBreaker(player1, player2);
 
         Assert.assertEquals(expectedWinner, actualWinner);
     }
 
     @Test
     void highCardTieBreaker() {
-        List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.TWO),
-                new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE), new PlayingCard(CardSuit.HEARTS, CardRank.JACK));
-        List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.HEARTS, CardRank.TWO),
-                new PlayingCard(CardSuit.HEARTS, CardRank.SIX), new PlayingCard(CardSuit.CLUBS, CardRank.JACK));
+        List<PlayingCard> cards1 = new ArrayList(Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.TWO),
+                new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE), new PlayingCard(CardSuit.HEARTS, CardRank.JACK)));
+        List<PlayingCard> cards2 = new ArrayList(Arrays.asList(new PlayingCard(CardSuit.HEARTS, CardRank.TWO),
+                new PlayingCard(CardSuit.HEARTS, CardRank.SIX), new PlayingCard(CardSuit.CLUBS, CardRank.JACK)));
         PokerPlayer player1 = new PokerPlayer(cards1);
         PokerPlayer player2 = new PokerPlayer(cards2);
 

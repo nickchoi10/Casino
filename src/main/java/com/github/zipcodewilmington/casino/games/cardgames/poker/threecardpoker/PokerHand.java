@@ -56,6 +56,9 @@ public class PokerHand extends Hand implements PokerHandChecker {
         Map<CardRank, Integer> cardMap = getRankOccurrence(hand);
         for (Map.Entry<CardRank, Integer> e : cardMap.entrySet()) {
             if (e.getValue() > 1) {
+                if (e.getKey() == CardRank.ACE) {
+                    return 14;
+                }
                 return e.getKey().getValue();
             }
         }
@@ -69,6 +72,9 @@ public class PokerHand extends Hand implements PokerHandChecker {
         Map<CardRank, Integer> cardMap = getRankOccurrence(hand);
         for (Map.Entry<CardRank, Integer> e : cardMap.entrySet()) {
             if (e.getValue() == 1) {
+                if (e.getKey() == CardRank.ACE) {
+                    return 14;
+                }
                 return e.getKey().getValue();
             }
         }
