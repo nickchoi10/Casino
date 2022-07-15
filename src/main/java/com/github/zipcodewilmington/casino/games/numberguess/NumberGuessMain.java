@@ -25,13 +25,24 @@ public class NumberGuessMain {
             Casino.splashScreen();
         }
         while(running){
-            guessEngine.promptForGuess();
-            input = scanner.nextInt();
-            if(guessEngine.checkNumber(input) == true){
-                System.out.println("Congrats you won!!!");
-            } else {
-                System.out.println("Unfortunately you lost.");
+
+            while(true){
+                guessEngine.promptForGuess();
+                //input = scanner.nextInt();
+                guessEngine.getInput();
+                int userGuess = guessEngine.guessNumber();
+                if(userGuess == input){
+                    System.out.println("Congrats you won!!!");
+                    break;
+                } else if (userGuess > input){
+                    System.out.println("Number is higher");
+                } else if (userGuess < input){
+                    System.out.println("Number is lower");
+                }else {
+                    System.out.println("Unfortunately you lost.");
+                }
             }
+
 
             guessEngine.promptContinue();
             input = scanner.nextInt();

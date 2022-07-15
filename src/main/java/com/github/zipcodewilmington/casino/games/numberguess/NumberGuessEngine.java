@@ -20,6 +20,16 @@ public class NumberGuessEngine {
             return true;
         } else return false;
     }
+    public boolean checkNumberHigher(int number) {
+        if (number > guessNumber()){
+            return true;
+        } else return false;
+    }
+    public boolean checkNumberLower(int number) {
+        if (number < guessNumber()){
+            return true;
+        } else return false;
+    }
 
     public void prompt(){
         System.out.println("Welcome to the Number Guessing Game!\nWe do not accept your money here\n");
