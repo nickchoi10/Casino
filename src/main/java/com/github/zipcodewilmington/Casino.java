@@ -77,7 +77,7 @@ public class Casino implements Runnable {
         if (menuChoice == 1) {
             createAccount();
         } else if (menuChoice == 2) {
-            PlayerSetup.activePlayerManager();
+            PlayerSetup.activeAccountManager();
         } else if (menuChoice == 3) {
             pickGame();
         } else if (menuChoice == 4) {

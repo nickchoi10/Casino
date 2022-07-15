@@ -6,6 +6,7 @@ import com.github.zipcodewilmington.casino.games.dicegames.Dice;
 import java.util.Scanner;
 
 import static com.github.zipcodewilmington.casino.PlayerSetup.activeAccounts;
+import static com.github.zipcodewilmington.casino.PlayerSetup.numPlayers;
 import static com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceEngine.*;
 
 public class HighLowDiceMain {
@@ -19,7 +20,7 @@ public class HighLowDiceMain {
     }
 
     public static void playGame() {
-
+        numPlayers(4);
         mainGame.startPrompt();
 
         while (true) {
