@@ -25,13 +25,26 @@ public class PokerHand extends Hand implements PokerHandChecker {
         return handRank;
     }
 
+    private boolean isFullHand(List<PlayingCard> handCards) {
+        if (handCards.size() != 3) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean hasPair(Hand hand) {
-        return false;
+        List<PlayingCard> cards = hand.getCards();
+        if (!isFullHand(hand.getCards())) {
+            return false;
+        }
+        int middleCardRank = cards.get(1).getRank().getValue();
+        return (cards.get(0).getRank().getValue() == middleCardRank ||
+                    middleCardRank == cards.get(2).getRank().getValue());
     }
 
     public boolean hasFlush(Hand hand) {
         List<PlayingCard> cards = hand.getCards();
-        if (cards.size() != 3) {
+        if (!isFullHand(hand.getCards())) {
             return false;
         }
         CardSuit target = cards.get(0).getSuit();
@@ -45,7 +58,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
 
     public boolean hasStraight(Hand hand){
         List<PlayingCard> cards = new ArrayList(hand.getCards());
-        if (cards.size() != 3) {
+        if (!isFullHand(hand.getCards())) {
             return false;
         }
         Collections.sort(cards);
