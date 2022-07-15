@@ -63,6 +63,19 @@ public void startRouletteGame() {
         return scan;
     }
 
+    public String spinWheel() {
+        Random random = new Random();
+        int spinResult = random.nextInt(38); //Obtain a number from [00 - 36]
+
+        if (spinResult == 37) {
+            return "00";
+        } else if (spinResult % 2 == 0) {
+            return spinResult + ", Red, Even";
+        } else {
+            return spinResult + ", Black, Odd";
+        }
+    }
+
 
     /* The straight-up bet in roulette, is an inside bet on a single number
      (or group of single numbers). It pays out 35:1.
@@ -100,18 +113,6 @@ public void startRouletteGame() {
 //    }
 
 
-    public String spinWheel() {
-        Random random = new Random();
-        int spinResult = random.nextInt(38); //Obtain a number from [00 - 36]
-
-        if (spinResult == 37) {
-           return "00";
-        } else if (spinResult % 2 == 0) {
-           return spinResult + ", Red, Even";
-        } else {
-            return spinResult + ", Black, Odd";
-        }
-    }
 }
 
 //    public int winLose() {
