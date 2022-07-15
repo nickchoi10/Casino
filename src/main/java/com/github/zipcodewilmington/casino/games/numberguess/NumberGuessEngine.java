@@ -13,15 +13,9 @@ public class NumberGuessEngine {
         this.random = random;
     }
 
-    public Integer guessNumber(){
+    public Integer randomNumber(){
         this.number = random.nextInt(10) + 1;
         return this.number;
-    }
-
-    public boolean checkNumber(int number) {
-        if (number == guessNumber()){
-            return true;
-        } else return false;
     }
 
     public void prompt(){
@@ -30,7 +24,7 @@ public class NumberGuessEngine {
     }
 
     public void promptForGuess() {
-        System.out.println("Please guess a number between 1 - 10\n");
+        System.out.println("Please guess a number between 1 - 10\nYou have 3 tries\n");
     }
 
     public void promptContinue() {
@@ -39,7 +33,7 @@ public class NumberGuessEngine {
 
     int getInput() {
         while (true) {
-            System.out.print("");
+
             try {
                 int input = scanner.nextInt();
                 if (input >= 0) {
