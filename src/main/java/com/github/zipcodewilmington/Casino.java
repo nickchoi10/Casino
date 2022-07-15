@@ -2,6 +2,7 @@ package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.games.cardgames.blackjack.BlackjackMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -142,7 +143,8 @@ public class Casino implements Runnable {
         } else if (menuChoice == 2) {
             NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
-            //load game 3
+            BlackjackMain blackjackMain = new BlackjackMain();
+            blackjackMain.playGame();
         }else if (menuChoice == 4) {
             //load game 4
         }else if (menuChoice == 5) {

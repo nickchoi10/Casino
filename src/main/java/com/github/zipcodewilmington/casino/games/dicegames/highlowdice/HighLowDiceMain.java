@@ -17,9 +17,9 @@ public class HighLowDiceMain {
     static HighLowDiceEngine mainGame = new HighLowDiceEngine();
 
 
-    public static void main(String[] args){
-        playGame();
-    }
+//    public static void main(String[] args){
+//        playGame();
+//    }
 
     public static void playGame() {
         PlayerSetup.playerSetup(2);
