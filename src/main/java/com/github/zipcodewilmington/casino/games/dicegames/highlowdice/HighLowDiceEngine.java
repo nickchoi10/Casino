@@ -54,7 +54,8 @@ public class HighLowDiceEngine {
 
     //**********||PROMPTS||**********//
     public void startPrompt() {
-        System.out.println("Welcome to High Low Dice Game\n");
+        String d = String.valueOf((Character.toChars(0x0001F3B2)));
+        System.out.println("Welcome to High Low Dice Game " + d + d +"\n");
         System.out.println("Please choose from the following: \n1) Play Game\n2) Quit\n3) Rules\nEnter 1, 2, or 3 \n");
     }
 
