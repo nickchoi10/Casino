@@ -144,7 +144,7 @@ public class Casino implements Runnable {
             NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
             BlackjackMain blackjackMain = new BlackjackMain();
-            blackjackMain.playGame();
+            blackjackMain.run();
         }else if (menuChoice == 4) {
             //load game 4
         }else if (menuChoice == 5) {

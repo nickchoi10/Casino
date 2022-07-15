@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
+import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.CardSuit;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
@@ -18,13 +19,13 @@ public class TestBlackjackEngine {
     public void testIsBlackJack() { //write the method you are testing
         Hand hand = new Hand(Arrays.asList(new PlayingCard(CardSuit.CLUBS, CardRank.ACE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.JACK)));
+        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
+        blackjackPlayer.setHand(hand);
+        blackjackPlayer.initializeHandValue();
 
-        for (PlayingCard card : hand.getCards()) {
-            blackjackEngine.convertValue(card);
-        }
         Boolean expected = true;
 
-        Boolean actual = blackjackEngine.isBlackJack(hand);
+        Boolean actual = blackjackEngine.isBlackJack(blackjackPlayer);
 
         Assert.assertEquals(expected, actual);
     }
@@ -36,13 +37,13 @@ public class TestBlackjackEngine {
                 new PlayingCard(CardSuit.CLUBS, CardRank.NINE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TWO)));
+        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
+        blackjackPlayer.setHand(hand);
+        blackjackPlayer.initializeHandValue();
 
-        for (PlayingCard card : hand.getCards()) {
-            blackjackEngine.convertValue(card);
-        }
         Boolean expected = false;
 
-        Boolean actual = blackjackEngine.isBlackJack(hand);
+        Boolean actual = blackjackEngine.isBlackJack(blackjackPlayer);
 
         Assert.assertEquals(expected, actual);
     }
@@ -53,13 +54,13 @@ public class TestBlackjackEngine {
                 new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.EIGHT)));
+        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
+        blackjackPlayer.setHand(hand);
+        blackjackPlayer.initializeHandValue();
 
-        for (PlayingCard card : hand.getCards()) {
-            blackjackEngine.convertValue(card);
-        }
         Boolean expected = true;
 
-        Boolean actual = blackjackEngine.isBust(hand);
+        Boolean actual = blackjackEngine.isBust(blackjackPlayer);
 
         Assert.assertEquals(expected, actual);
     }
@@ -70,13 +71,13 @@ public class TestBlackjackEngine {
                 new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.TWO)));
+        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
+        blackjackPlayer.setHand(hand);
+        blackjackPlayer.initializeHandValue();
 
-        for (PlayingCard card : hand.getCards()) {
-            blackjackEngine.convertValue(card);
-        }
         Boolean expected = false;
 
-        Boolean actual = blackjackEngine.isBust(hand);
+        Boolean actual = blackjackEngine.isBust(blackjackPlayer);
 
         Assert.assertEquals(expected, actual);
     }
@@ -88,13 +89,13 @@ public class TestBlackjackEngine {
                 new PlayingCard(CardSuit.CLUBS, CardRank.ACE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.TWO)));
+        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
+        blackjackPlayer.setHand(hand);
+        blackjackPlayer.initializeHandValue();
 
-        for (PlayingCard card : hand.getCards()) {
-            blackjackEngine.convertValue(card);
-        }
         Boolean expected = false;
 
-        Boolean actual = blackjackEngine.isBust(hand);
+        Boolean actual = blackjackEngine.isBust(blackjackPlayer);
 
         Assert.assertEquals(expected, actual);
     }

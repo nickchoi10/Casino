@@ -1,11 +1,7 @@
 package com.github.zipcodewilmington.casino.games.cardgames;
 
-public enum CardRank { //helper method? in BJ engine that returns an integer such as
-    // getCardValue(CardRank)
-    //
-    //  return int 10
-    // else return value
-    ACE(1), //in blackjack, ace can be 1 or 11 -GY
+public enum CardRank {
+    ACE(1),
     TWO(2),
     THREE(3),
     FOUR(4),
@@ -15,7 +11,7 @@ public enum CardRank { //helper method? in BJ engine that returns an integer suc
     EIGHT(8),
     NINE(9),
     TEN(10),
-    JACK(11), //in blackjack, J Q K is value 10 -GY
+    JACK(11),
     QUEEN(12),
     KING(13);
     int value;
@@ -26,9 +22,5 @@ public enum CardRank { //helper method? in BJ engine that returns an integer suc
 
     public int getValue() {
         return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 }

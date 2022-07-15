@@ -49,24 +49,10 @@ public class BlackjackEngine {
         // How many players.
         // Deal the card to the players.
     }
-    public void convertValue(PlayingCard card) {
-        if (card.getRank().equals(CardRank.JACK) || card.getRank().equals(CardRank.QUEEN)
-                || card.getRank().equals(CardRank.KING)) {
-            card.getRank().setValue(10);
-        }
 
-        if (card.getRank().equals(CardRank.ACE)) {
-            card.getRank().setValue(11);
-        }
-    }
-
-    public boolean isBlackJack(Hand hand) {
-
-        int sum = 0;
-        for (PlayingCard playingCard : hand.getCards()) {
-            sum += playingCard.getRank().getValue();
-        }
-        return hand.getNumberOfCards() == 2 && sum == 21;
+    public boolean isBlackJack(BlackjackPlayer blackjackPlayer) {
+        return blackjackPlayer.getHandValue() == 21
+                && blackjackPlayer.getHand().getCards().size() == 2;
     }
 
     public void hit(Hand hand) {
@@ -77,22 +63,11 @@ public class BlackjackEngine {
         //possibly boolean, not sure yet.
     }
 
-    public boolean isBust(Hand hand) {
-        int sum = 0;
-        for (PlayingCard playingCard : hand.getCards()) {
-            sum += playingCard.getRank().getValue();
+    public boolean isBust(BlackjackPlayer blackjackPlayer) {
+        if (blackjackPlayer.getHandValue() > 21) {
+            blackjackPlayer.recalculateHandValue();
         }
-
-        if (sum > 21) {
-            for (PlayingCard playingCard : hand.getCards()) {
-                if (playingCard.getRank().equals(CardRank.ACE)) {
-                    playingCard.getRank().setValue(1);
-                    sum -= 10;
-                }
-            }
-        }
-
-        return sum > 21;
+        return blackjackPlayer.getHandValue() > 21;
     }
 
     public void dealerTurn() {

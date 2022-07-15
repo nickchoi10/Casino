@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
 import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
@@ -18,6 +19,8 @@ public class BlackjackPlayer {
 
     Account casinoAccount;
     Hand hand;
+    int handValue;
+
     boolean isWinner;
 
 
@@ -57,4 +60,46 @@ public class BlackjackPlayer {
     public void setWinner(boolean winner) {
         isWinner = winner;
     }
+
+
+    public int getHandValue() {
+        return handValue;
+    }
+
+    public void setHandValue(int handValue) {
+        this.handValue = handValue;
+    }
+
+    public void initializeHandValue() {
+        int sum = 0;
+
+        for (PlayingCard card : hand.getCards()) {
+            if (card.getRank().equals(CardRank.JACK) || card.getRank().equals(CardRank.QUEEN)
+                    || card.getRank().equals(CardRank.KING)) {
+                sum += 10;
+            } else if (card.getRank().equals(CardRank.ACE)) {
+                sum += 11;
+            } else {
+                sum += card.getRank().getValue();
+            }
+        }
+
+        setHandValue(sum);
+    }
+
+    public void recalculateHandValue() {
+        int sum = 0;
+
+        for (PlayingCard card : hand.getCards()) {
+            if (card.getRank().equals(CardRank.JACK) || card.getRank().equals(CardRank.QUEEN)
+                    || card.getRank().equals(CardRank.KING)) {
+                sum += 10;
+            } else {
+                sum += card.getRank().getValue();
+            }
+        }
+
+        setHandValue(sum);
+    }
+
 }

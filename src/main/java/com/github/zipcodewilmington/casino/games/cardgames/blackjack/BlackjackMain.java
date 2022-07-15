@@ -1,10 +1,12 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
 
+import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.PlayerSetup;
 import java.util.Scanner;
 
-public class BlackjackMain {
+public class BlackjackMain implements GameInterface {
     Scanner scanner;
     BlackjackEngine blackjackEngine;
 
@@ -14,7 +16,19 @@ public class BlackjackMain {
     //we are storing the player's info into an account which keeps track of player's money
     //Ensure at least 6 different implementations of GameInterface and a respective PlayerInterface are defined.
 
-    public void playGame() {
+
+    @Override
+    public void add(PlayerInterface player) {
+
+    }
+
+    @Override
+    public void remove(PlayerInterface player) {
+
+    }
+
+    @Override
+    public void run() {
         PlayerSetup.playerSetup(6);
 
         while(true){
@@ -23,9 +37,9 @@ public class BlackjackMain {
             if(input == 1){
                 blackjackEngine.instructionsPrompt();
             } else if (input == 2) {
-                   break;
+                break;
             } else {
-                   System.out.println("Not a valid number.");
+                System.out.println("Not a valid number.");
             }
         }
     }
