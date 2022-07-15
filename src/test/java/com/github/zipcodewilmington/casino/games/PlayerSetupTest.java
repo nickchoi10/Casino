@@ -34,7 +34,7 @@ public class PlayerSetupTest {
         PlayerSetup.addActiveAccount(account1);
         PlayerSetup.addActiveAccount(account2);
         String actual = PlayerSetup.showActiveAccounts();
-        String expected = "Player 1: test1\n" + "Player 2: test2\n";
+        String expected = "Account 1: test1\n" + "Account 2: test2\n";
         Assert.assertEquals(actual, expected);
     }
     @Test

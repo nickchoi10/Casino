@@ -33,10 +33,13 @@ public class PlayerSetup {
     public static String showActiveAccounts(){
         String output = "";
         for (int i = 0 ; i < activeAccounts.size() ; i++) {
-            output += "Player " + (i+1) + ": " + activeAccounts.get(i).getAccountName() + "\n";
+            output += "Account " + (i+1) + ": " + activeAccounts.get(i).getAccountName() + "\n";
         }
-        if (activeAccounts.size() != 0) {return output;}
-        else return ("There are no active players.");
+        if (activeAccounts.size() != 0) {
+            System.out.println(output);
+            return output;
+        }
+        else return ("There are no active players!");
     }
 
     public static void numPlayers(int maxPlayers) {
@@ -47,12 +50,24 @@ public class PlayerSetup {
                 break;
             } else System.out.println("That is not a valid number of players. Please enter a number between 1 and " + maxPlayers + ".");
         }
-        for (int i = 0 ; i < numPlayers; i++) {
-            Account.login();
+        if (numPlayers == activeAccounts.size()) {
+            PlayerSetup.showActiveAccounts();
+        } else if (numPlayers < activeAccounts.size()) {
+                System.out.println("Not enough active players, please log in another account!");
+                Account.login();
+        } else if (numPlayers > activeAccounts.size()) {
+            System.out.println("You have too many active players, please choose which accounts you would like to use for this game.\n");
+            ArrayList<Account> tempArray = new ArrayList();
+            for (int i = 0 ; i <= numPlayers ; i++) {
+                showActiveAccounts();
+                System.out.println("Player " + (i+1) + ", please pick the number corresponding to the account above.\n");
+                int choice = TheScanner.getNumber("");
+                tempArray.add(activeAccounts.get(choice));
+                activeAccounts.remove(choice);
+            }
+            activeAccounts = tempArray;
         }
     }
-
-
 
 
     public static void activePlayerManager() {
@@ -78,7 +93,7 @@ public class PlayerSetup {
                 activeAccounts.clear();
                 System.out.println("All players have been logged out.");
             } else if (choice == 4) {
-                Casino.splashScreen();
+                Casino.mainMenu();
             }
         }
     }
