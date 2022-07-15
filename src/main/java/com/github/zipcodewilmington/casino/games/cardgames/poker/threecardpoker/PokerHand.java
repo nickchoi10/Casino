@@ -36,22 +36,42 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
+    private Map<CardRank, Integer> getRankOccurrence(Hand hand) {
+        Map<CardRank, Integer> cardMap = new HashMap<>(3);
+        for (PlayingCard c : hand.getCards()) {
+            Integer count = cardMap.get(c.getRank());
+            if (count == null) {
+                cardMap.put(c.getRank(), 1);
+                continue;
+            }
+            cardMap.put(c.getRank(), ++count);
+        }
+        return cardMap;
+    }
+
     public int getPairRanking(Hand hand) {
-        List<PlayingCard> cards = hand.getCards();
         if (!isFullHand(hand.getCards())) {
             return 0;
         }
-        Map<CardRank, Integer> cardMap = new HashMap<>(3);
-        for (PlayingCard c : cards) {
-            if (cardMap.containsKey(c.getRank())) {
-                return c.getRank().getValue();
+        Map<CardRank, Integer> cardMap = getRankOccurrence(hand);
+        for (Map.Entry<CardRank, Integer> e : cardMap.entrySet()) {
+            if (e.getValue() > 1) {
+                return e.getKey().getValue();
             }
-            cardMap.put(c.getRank(), c.getRank().getValue());
         }
         return 0;
     }
 
     public int getPairOddRanking(Hand hand) {
+        if (!isFullHand(hand.getCards())) {
+            return 0;
+        }
+        Map<CardRank, Integer> cardMap = getRankOccurrence(hand);
+        for (Map.Entry<CardRank, Integer> e : cardMap.entrySet()) {
+            if (e.getValue() == 1) {
+                return e.getKey().getValue();
+            }
+        }
         return 0;
     }
 
@@ -115,14 +135,11 @@ public class PokerHand extends Hand implements PokerHandChecker {
         }
     }
 
-
-    protected PlayingCard getHighestCard(Hand hand) {
+    /** getHighestCard returns the card with the highest CardRank value in a Hand **/
+    public PlayingCard getHighestCard(Hand hand) {
         PlayingCard max = null;
 
         for (PlayingCard card : hand.getCards()) {
-            if (card.getRank() == CardRank.ACE) {
-                return card;
-            }
             if (max == null || (card.getRank().getValue() > max.getRank().getValue())) {
                 max = card;
             }
