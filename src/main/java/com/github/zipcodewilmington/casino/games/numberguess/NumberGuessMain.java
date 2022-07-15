@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.numberguess;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.PlayerSetup;
 
 import java.util.Scanner;
@@ -12,15 +13,18 @@ public class NumberGuessMain {
     static int input;
     static NumberGuessEngine guessEngine = new NumberGuessEngine();
     static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args){
-        playGame();
-    }
 
     public static void playGame() {
         PlayerSetup.playerSetup(1);
 
+
+        guessEngine.prompt();
+        input = scanner.nextInt();
+        if(input == 2) {
+            running = false;
+            Casino.splashScreen();
+        }
         while(running){
-            guessEngine.prompt();
             guessEngine.promptForGuess();
             input = scanner.nextInt();
             if(guessEngine.checkNumber(input) == true){
@@ -30,12 +34,13 @@ public class NumberGuessMain {
             }
 
             guessEngine.promptContinue();
+            input = scanner.nextInt();
             if(input == 1){
                 continue;
             } else if (input == 2) {
                 running = false;
+                Casino.splashScreen();
             }
         }
-
     }
 }

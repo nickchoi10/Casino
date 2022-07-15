@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    List<PlayingCard> cards;
+    protected List<PlayingCard> cards;
+
 
     public Hand() {
         cards = new ArrayList<>();
     }
 
+
     public Hand(List<PlayingCard> cards) {
         this.cards = cards;
     }
 
+
     public PlayingCard getCard(int index) {
         return cards.get(index);
     }
+
 
     public PlayingCard removeAndReturnCard(int index) {
         PlayingCard card = cards.get(index);
@@ -28,13 +32,16 @@ public class Hand {
         return cards;
     }
 
+
     public void clearHand() {
         cards.clear();
     }
 
+
     public int getNumberOfCards() {
         return cards.size();
     }
+
 
     public void swapCard(PlayingCard card, int index) {
         try {
