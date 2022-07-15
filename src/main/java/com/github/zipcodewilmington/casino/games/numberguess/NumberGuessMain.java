@@ -13,9 +13,9 @@ public class NumberGuessMain {
     static NumberGuessEngine guessEngine = new NumberGuessEngine();
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args){
-        playGame();
-    }
+//    public static void main(String[] args){
+//        playGame();
+//    }
 
     public static void playGame() {
 
@@ -26,15 +26,19 @@ public class NumberGuessMain {
             Casino.splashScreen();
         }
         while(running){
+            int count = 0;
             int randomNum = guessEngine.randomNumber();
             guessEngine.promptForGuess();
 
             while(true){
                 input = guessEngine.getInput();
-                System.out.println(input);
-                System.out.println(randomNum);
-                if(randomNum == input){
+
+                count++;
+                if(randomNum == input) {
                     System.out.println("Congrats you won!!!");
+                    break;
+                } else if(count == 3){
+                    System.out.println("You lose!");
                     break;
                 } else if (randomNum > input){
                     System.out.println("Number is higher, try again");

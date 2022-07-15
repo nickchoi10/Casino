@@ -18,19 +18,13 @@ public class NumberGuessEngine {
         return this.number;
     }
 
-    public boolean checkNumber(int input) {
-        if (number == input){
-            return true;
-        } else return false;
-    }
-
     public void prompt(){
         System.out.println("Welcome to the Number Guessing Game!\nWe do not accept your money here\n");
         System.out.println("Please choose from the following: 1) Play Game 2) Quit\nEnter 1 or 2 \n");
     }
 
     public void promptForGuess() {
-        System.out.println("Please guess a number between 1 - 10\n");
+        System.out.println("Please guess a number between 1 - 10\nYou have 3 tries\n");
     }
 
     public void promptContinue() {
