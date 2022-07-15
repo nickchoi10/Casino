@@ -98,6 +98,12 @@ public class PokerHand extends Hand implements PokerHandChecker {
         }
         Collections.sort(cards);
 
+        if (cards.get(0).getRank() == CardRank.ACE
+                && cards.get(1).getRank() == CardRank.QUEEN
+                && cards.get(2).getRank() == CardRank.KING) {
+            return true;
+        }
+
         int middleCardRank = cards.get(1).getRank().getValue();
         return (cards.get(0).getRank().getValue() + 1 == middleCardRank
                     && cards.get(2).getRank().getValue() - 1 == middleCardRank);
