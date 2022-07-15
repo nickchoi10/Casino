@@ -1,6 +1,9 @@
 package com.github.zipcodewilmington.casino.games.numberguess;
 
+import java.util.InputMismatchException;
 import java.util.Random;
+
+import static com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain.scanner;
 
 public class NumberGuessEngine {
     private Random random = new Random();
@@ -32,5 +35,22 @@ public class NumberGuessEngine {
 
     public void promptContinue() {
         System.out.println("Do you want to continue playing?\n1) Continue 2) Quit\n");
+    }
+
+    int getInput() {
+        while (true) {
+            System.out.print("");
+            try {
+                int input = scanner.nextInt();
+                if (input >= 0) {
+                    return input;
+                }
+                throw new IllegalArgumentException("number is negative");
+            } catch (IllegalArgumentException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a positive number!");
+            } catch (InputMismatchException e) {
+                System.out.println("\"" + scanner.next() + "\" isn't a number!");
+            }
+        }
     }
 }

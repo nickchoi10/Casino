@@ -19,14 +19,16 @@ public class NumberGuessMain {
 
 
         guessEngine.prompt();
-        input = scanner.nextInt();
+        //input = scanner.nextInt();
+        guessEngine.getInput();
         if(input == 2) {
             running = false;
             Casino.splashScreen();
         }
         while(running){
             guessEngine.promptForGuess();
-            input = scanner.nextInt();
+            //input = scanner.nextInt();
+            guessEngine.getInput();
             if(guessEngine.checkNumber(input) == true){
                 System.out.println("Congrats you won!!!");
             } else {
@@ -34,7 +36,8 @@ public class NumberGuessMain {
             }
 
             guessEngine.promptContinue();
-            input = scanner.nextInt();
+            //input = scanner.nextInt();
+            guessEngine.getInput();
             if(input == 1){
                 continue;
             } else if (input == 2) {
