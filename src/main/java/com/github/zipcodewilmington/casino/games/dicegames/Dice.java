@@ -94,6 +94,5 @@ public class Dice {
                     "|o o|\n" +
                     "-----");
         }
-
     }
 }
