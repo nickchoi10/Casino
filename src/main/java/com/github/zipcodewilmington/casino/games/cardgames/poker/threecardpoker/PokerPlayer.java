@@ -1,13 +1,13 @@
 package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker;
 
-import com.github.zipcodewilmington.casino.CasinoAccount;
+import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
 import java.util.List;
 
 public class PokerPlayer implements PlayerInterface {
-    CasinoAccount account;
+    Account account;
     PokerHand hand;
     int anteBet;
     int pairPlusBet;
@@ -19,14 +19,14 @@ public class PokerPlayer implements PlayerInterface {
         hand = new PokerHand(cards);
     }
 
-    public CasinoAccount getArcadeAccount() {
+    public Account getArcadeAccount() {
         return account;
     }
     public Integer play() {
         return null;
     }
 
-    public void setAccount(CasinoAccount account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
