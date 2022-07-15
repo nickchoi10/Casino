@@ -47,9 +47,10 @@ public class NumberGuessMain {
                     System.out.println("Number is lower, try again");
                 }
             }
+
             guessEngine.promptContinue();
-            //input = scanner.nextInt();
-            guessEngine.getInput();
+            input = scanner.nextInt();
+            //guessEngine.getInput();
             if(input == 1){
                 continue;
             } else if (input == 2) {
