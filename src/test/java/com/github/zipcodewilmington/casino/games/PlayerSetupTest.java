@@ -27,10 +27,20 @@ public class PlayerSetupTest {
     }
 
     @Test
-    public void testPlayerSetup() {
-
-
-
+    public void testShowActivePlayer() {
+        Account account1 = new Account("test1","test1","test1", 1000);
+        Account account2 = new Account("test2","test2","test2", 1000);
+        PlayerSetup.addActivePlayer(account1);
+        PlayerSetup.addActivePlayer(account2);
+        String actual = PlayerSetup.showActivePlayers();
+        String expected = "Player 1: test1\n" + "Player 2: test2\n";
+        Assert.assertEquals(actual, expected);
     }
 
+    @Test
+    public void testShowActivePlayerEmpty() {
+        String actual = PlayerSetup.showActivePlayers();
+        String expected = "There are no active players.";
+        Assert.assertEquals(actual, expected);
+    }
 }

@@ -1,11 +1,9 @@
 package com.github.zipcodewilmington.casino;
 
-import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class PlayerSetup {
     public static ArrayList<Account> activePlayers = new ArrayList<>();
@@ -29,10 +27,13 @@ public class PlayerSetup {
         else {System.out.println("That player is not currently logged in.");}
     }
 
-    public static void showActivePlayers(){
+    public static String showActivePlayers(){
+        String output = "";
         for (int i = 0 ; i < activePlayers.size() ; i++) {
-            System.out.println("Player " + (i+1) + ": " + activePlayers.get(i).getAccountName());
+            output += "Player " + (i+1) + ": " + activePlayers.get(i).getAccountName() + "\n";
         }
+        if (activePlayers.size() != 0) {return output;}
+        else return ("There are no active players.");
     }
 
     public static void playerSetup(int maxPlayers) {

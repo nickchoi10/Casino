@@ -68,21 +68,24 @@ public class Casino implements Runnable {
 
         while (true) {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
-                    "1) Create new STARDUST VIP Account\n" +
-                    "2) Play Games\n" +
-                    "3) Go to the Lounge\n" +
-                    "4) Leave Casino\n");
-            if (menuChoice >= 1 && menuChoice <= 4) {
+                    "1) Create New STARDUST VIP Account\n" +
+                    "2) Manage Active Players\n" +
+                    "3) Play Games\n" +
+                    "4) Go to the Lounge\n" +
+                    "5) Leave Casino\n");
+            if (menuChoice >= 1 && menuChoice <= 5) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
         }
         if (menuChoice == 1) {
             createAccount();
         } else if (menuChoice == 2) {
-            pickGame();
+            //active account manager
         } else if (menuChoice == 3) {
-            lounge();
+            pickGame();
         } else if (menuChoice == 4) {
+            lounge();
+        } else if (menuChoice == 5) {
             quit();
         }
     }
