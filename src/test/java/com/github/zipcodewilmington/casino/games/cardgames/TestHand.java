@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames;
 
+import com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker.PokerHand;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,12 +21,12 @@ class TestHand {
                     new PlayingCard(CardSuit.CLUBS, CardRank.ACE),
                     new PlayingCard(CardSuit.CLUBS, CardRank.EIGHT),
                     new PlayingCard(CardSuit.DIAMONDS, CardRank.JACK)));
-        hand = new Hand(cards);
+        hand = new PokerHand(cards);
     }
 
     @Test
     public void constructorTest() {
-        Hand newHand = new Hand();
+        Hand newHand = new PokerHand();
         Integer expectedSize = 0;
 
         Integer actualSize = newHand.getNumberOfCards();
