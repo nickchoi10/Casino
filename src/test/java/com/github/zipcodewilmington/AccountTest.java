@@ -79,11 +79,11 @@ public class AccountTest {
 
     @Test
     public void testLogin() {
-        PlayerSetup.activePlayers.clear();
+        PlayerSetup.activeAccounts.clear();
         Account account = new Account("test", "test", "test", 100);
         Account.loginTest();
 
-        int actual = PlayerSetup.activePlayers.size();
+        int actual = PlayerSetup.activeAccounts.size();
         int expected = 1;
 
         Assert.assertEquals(actual, expected);

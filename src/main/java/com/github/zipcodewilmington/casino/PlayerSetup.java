@@ -1,25 +1,28 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class PlayerSetup {
-    public static ArrayList<Account> activePlayers = new ArrayList<>();
+    static Scanner scan = new Scanner(System.in);
+    public static ArrayList<Account> activeAccounts = new ArrayList<>();
 //    static Map<String, Account> activePlayers = new HashMap<>();
 
     public static void addActivePlayer(Account account){
-        if (activePlayers.contains(account)){
+        if (activeAccounts.contains(account)){
             System.out.println("This player is already logged in, please choose another account.");
         }
-        else {activePlayers.add(account);
-            System.out.println("Added " + account.getAccountName() + " as Player" + activePlayers.size());}
+        else {activeAccounts.add(account);
+            System.out.println("Added " + account.getAccountName() + " as Player" + activeAccounts.size());}
     }
 
     public static void removeActivePlayer(Account account) {
-        if (activePlayers.contains(account)){
-            activePlayers.remove(account);
+        if (activeAccounts.contains(account)){
+            activeAccounts.remove(account);
             System.out.println("Removed " + account.getName() + " from active player list.\n" +
                     "Remaining active players:\n");
             showActivePlayers();
@@ -29,10 +32,10 @@ public class PlayerSetup {
 
     public static String showActivePlayers(){
         String output = "";
-        for (int i = 0 ; i < activePlayers.size() ; i++) {
-            output += "Player " + (i+1) + ": " + activePlayers.get(i).getAccountName() + "\n";
+        for (int i = 0 ; i < activeAccounts.size() ; i++) {
+            output += "Player " + (i+1) + ": " + activeAccounts.get(i).getAccountName() + "\n";
         }
-        if (activePlayers.size() != 0) {return output;}
+        if (activeAccounts.size() != 0) {return output;}
         else return ("There are no active players.");
     }
 
@@ -46,6 +49,39 @@ public class PlayerSetup {
         }
         for (int i = 0 ; i < numPlayers; i++) {
             Account.login();
+        }
+    }
+
+
+
+
+
+
+    public static void activePlayerManager() {
+        showActivePlayers();
+        System.out.println("What would you like to do ?\n" +
+                "1) Log in a new account\n" +
+                "2) Log out of an active account\n" +
+                "3) Log out all active accounts\n" +
+                "4) Return to Main Menu\n");
+        int choice;
+        while(true) {
+            choice = TheScanner.getNumber("");
+            if (choice >= 1 && choice <= 4) {
+                break;
+            } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
+            if (choice == 1) {
+                Account.login();
+            } else if (choice == 2) {
+                System.out.println("Type the Account Name you would like to remove\n");
+                String acctName = scan.nextLine();
+                PlayerSetup.removeActivePlayer(Account.getAccount(acctName));
+            } else if (choice == 3) {
+                activeAccounts.clear();
+                System.out.println("All players have been logged out.");
+            } else if (choice == 4) {
+                Casino.splashScreen();
+            }
         }
     }
 }
