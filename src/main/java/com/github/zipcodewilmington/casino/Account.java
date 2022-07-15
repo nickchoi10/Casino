@@ -6,7 +6,7 @@ import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.*;
 
-import static com.github.zipcodewilmington.casino.PlayerSetup.activeAccounts;
+import static com.github.zipcodewilmington.casino.ActiveAccount.*;
 
 public class Account {
 
@@ -48,7 +48,7 @@ public class Account {
     public Integer getBalance(){return this.balance;}
 
     //METHODS
-    public static void login(){
+    public static void login(int menuReturn, int numPlayers, int maxPlayers){
         Account tempAccount;
         Scanner scan = new Scanner(System.in);
         String acctName;
@@ -77,7 +77,13 @@ public class Account {
             } else System.out.println("Password does not match account " + acctName + ".\n");
         }
         activeAccounts.add(tempAccount);
+        if (menuReturn == 1) {
+            ActiveAccount.activeAccountManager();}
+        else {
+            ActiveAccount.checkActiveAccounts(numPlayers, maxPlayers);}
     }
+
+
 
     public static int makeBet(Account account){
         int amount;

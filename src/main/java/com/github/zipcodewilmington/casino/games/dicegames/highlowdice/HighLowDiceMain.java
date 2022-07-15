@@ -3,11 +3,6 @@ package com.github.zipcodewilmington.casino.games.dicegames.highlowdice;
 import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.games.dicegames.Dice;
 
-import java.util.Scanner;
-
-import static com.github.zipcodewilmington.casino.PlayerSetup.activeAccounts;
-import static com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceEngine.*;
-
 public class HighLowDiceMain {
     static boolean running = true;
     static Dice dice = new Dice();
@@ -19,7 +14,6 @@ public class HighLowDiceMain {
     }
 
     public static void playGame() {
-
         mainGame.startPrompt();
 
         while (true) {
