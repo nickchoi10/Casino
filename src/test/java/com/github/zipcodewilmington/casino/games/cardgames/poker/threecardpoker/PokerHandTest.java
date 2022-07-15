@@ -38,7 +38,7 @@ class PokerHandTest {
     }
 
     @Test
-    void testgetPairOddRanking() {
+    void testGetPairOddRanking() {
         List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.FIVE), new PlayingCard(CardSuit.DIAMONDS, CardRank.FOUR));
         List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE),
@@ -129,7 +129,7 @@ class PokerHandTest {
     void getHighestCard() {
         PlayingCard expectedCard = hand.getCard(0);
 
-        PlayingCard actualCard = hand.getHighestCard(this.hand);
+        PlayingCard actualCard = hand.getHighestCard(this.hand, false);
 
         Assert.assertTrue(expectedCard.equals(actualCard));
     }

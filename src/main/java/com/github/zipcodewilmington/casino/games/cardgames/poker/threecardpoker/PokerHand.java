@@ -26,7 +26,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
-    private boolean isFullHand(List<PlayingCard> handCards) {
+    protected boolean isFullHand(List<PlayingCard> handCards) {
         return handCards.size() == 3;
     }
 
@@ -142,15 +142,19 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
     /** getHighestCard returns the card with the highest CardRank value in a Hand **/
-    public PlayingCard getHighestCard(Hand hand) {
+    public PlayingCard getHighestCard(Hand hand, boolean isAceHighest) {
         PlayingCard max = null;
 
         for (PlayingCard card : hand.getCards()) {
+            if (isAceHighest) {
+                if (card.getRank() == CardRank.ACE) {
+                    return card;
+                }
+            }
             if (max == null || (card.getRank().getValue() > max.getRank().getValue())) {
                 max = card;
             }
         }
         return max;
     }
-
 }
