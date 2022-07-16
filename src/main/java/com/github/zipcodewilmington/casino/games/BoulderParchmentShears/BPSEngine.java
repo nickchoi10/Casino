@@ -45,7 +45,7 @@ public class BPSEngine {
         } else if (draw(p1, p2)) {
             Account.deposit(ActiveAccount.activeAccounts.get(0), (wager));
             PvE();
-        } else System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + "threw " + p1 + "and the AI threw " + p2 + "." +
+        } else System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + "." +
                 ActiveAccount.activeAccounts.get(0).getAccountName() + " lost :(\n\n");
         quitPvE();
     }

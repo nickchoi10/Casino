@@ -2,6 +2,7 @@ package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
+import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -127,7 +128,7 @@ public class Casino implements Runnable {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
                     "1) High-Low Dice\n" +
                     "2) Number Guess Game (No Gambling)\n" +
-                    "3) Under Construction\n" +
+                    "3) Boulder Parchment Shears\n" +
                     "4) Under Construction\n" +
                     "5) Under Construction\n" +
                     "6) Under Construction\n" +
@@ -142,7 +143,7 @@ public class Casino implements Runnable {
         } else if (menuChoice == 2) {
             NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
-            //load game 3
+            BPSMain.playBPS();
         }else if (menuChoice == 4) {
             //load game 4
         }else if (menuChoice == 5) {
