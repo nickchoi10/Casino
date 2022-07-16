@@ -29,8 +29,8 @@ public class ActiveAccountTest {
     @Test
     public void testShowActivePlayer() {
         ActiveAccount.activeAccounts.clear();
-        Account account1 = new Account("test1","test1","test1", 1000);
-        Account account2 = new Account("test2","test2","test2", 1000);
+        Account account1 = new Account("test1","test1", 1000);
+        Account account2 = new Account("test2","test2", 1000);
         ActiveAccount.addActiveAccount(account1);
         ActiveAccount.addActiveAccount(account2);
         String actual = ActiveAccount.showActiveAccounts();

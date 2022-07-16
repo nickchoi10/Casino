@@ -21,14 +21,12 @@ public class Account {
     //CONSTRUCTORS
     public Account() {
         this.accountName = "";
-        this.name = "";
         this.password = "";
         this.balance = 0;
         allAccounts.put(accountName, this);
     }
-    public Account(String acctName, String name, String password, int balance){
+    public Account(String acctName, String password, int balance){
         this.accountName = acctName;
-        this.name = name;
         this.password = password;
         this.balance = balance;
         allAccounts.put(accountName, this);

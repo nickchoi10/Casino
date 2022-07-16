@@ -40,7 +40,7 @@ public class BPSEngine {
         wager = Account.makeBet(ActiveAccount.activeAccounts.get(0));
         p1 = getThrow(1);
         p2 = AIThrow();
-        if (pveWin(p1, p2, wager)) {
+        if (pveWin(p1, p2, wager) == true)  {
             Account.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
         } else if (draw(p1, p2)) {
             Account.deposit(ActiveAccount.activeAccounts.get(0), (wager));
@@ -56,7 +56,7 @@ public class BPSEngine {
         else Casino.splashScreen();
     }
     public static boolean pveWin(String p1, String p2, int wager){
-        if (p1.equals(getWinningMove(p1))) {
+        if (p1.equals(getWinner2P(p1, p2))) {
             System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + "Wins! \n" +
                     ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + ".\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");

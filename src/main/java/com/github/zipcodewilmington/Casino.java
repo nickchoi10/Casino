@@ -98,18 +98,15 @@ public class Casino implements Runnable {
             if (!Account.accountExists(acctName)){break;}
             else System.out.println("An account by that name already exists, please choose another name\n");
         }
-        System.out.println("Excellent Choice!\n" +
-                "In order to confirm your identity, age, and sell your information to our sponsors, please enter your real name.\n");
-        String name = scan.nextLine();
-        System.out.println("Welcome to the STARDUST VIP Club " + name + "! Just a few more questions\n" +
+        System.out.println("Excellent Choice! Welcome to the STARDUST VIP Club " + acctName + "! Just a few more questions\n" +
                 "and we'll be ready to start GAMBLING!\n" +
                 "Please enter a password for your account.\n\n");
         String password = scan.nextLine();
-        System.out.println("Your password is safe with us, " + name + ". You can count on us keeping your password (" + password + ") safe.\n\n");
+        System.out.println("Your password is safe with us, " + acctName + ". You can count on us keeping your password (" + password + ") safe.\n\n");
         int balance;
         while(true) {
             balance = TheScanner.getNumber("Finally, please tell us how much you would like to deposit in your account.\n\n");
-            if (balance > 10000000){
+            if (balance > 1000000){
                 System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.\n");
             }else break;
         }
@@ -117,7 +114,7 @@ public class Casino implements Runnable {
         System.out.println("Thank you! Your account is now prepared!\n" +
                 "When you approach one of our game tables you and everyone you are with will be prompted to log in.\n" +
                 "Enjoy your time at the STARDUST VIP Casino and Lounge!!!!");
-        Account account = new Account(acctName, name, password, balance);
+        Account account = new Account(acctName, password, balance);
         mainMenu();
     }
 
