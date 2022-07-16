@@ -15,7 +15,6 @@ public class Account {
     private String name;
     private String password;
     private int balance;
-//    static List<Account> allAccounts = new ArrayList<>();
     static Map<String, Account> allAccounts = new HashMap<>();
 
 
