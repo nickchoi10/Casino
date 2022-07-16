@@ -104,6 +104,9 @@ public class Account {
     public static void deposit(Account account, int amount){
         account.balance += amount;
     }
+    public static void withdraw(Account account, int amount){
+        account.balance -= amount;
+    }
 
     public static boolean accountExists(String acctName){
             if (allAccounts.containsKey(acctName)) {
