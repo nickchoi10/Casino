@@ -14,10 +14,6 @@ public class ThreeCardPokerEngine {
         deck = new StandardDeck();
     }
 
-    // Deals 3 cards to specified player from deck.
-    // TODO: PlayerInterface is temporary filler for PokerPlayer
-    protected void dealCards(PlayerInterface player){}
-
     public PokerPlayer computeWinner(PokerPlayer player1, PokerPlayer player2) {
         int player1Points = getHandPointValue(player1.getHand());
         int player2Points = getHandPointValue(player2.getHand());
@@ -42,30 +38,25 @@ public class ThreeCardPokerEngine {
 
     public int getHandPointValue(PokerHand hand) {
         ThreePokerHandRank rank = hand.getRank();
-        int points = 0;
         int highestCardVal = hand.getHighestCard(hand, false).getRank().getValue();
         switch (rank) {
             case STRAIGHT_FLUSH:
-                points += ThreePokerHandRank.STRAIGHT_FLUSH.POINTS + highestCardVal;
-                return points;
+                return ThreePokerHandRank.STRAIGHT_FLUSH.POINTS + highestCardVal;
             case THREE_OF_A_KIND:
                 if (hand.getHighestCard(hand, false).getRank() == CardRank.ACE) {
                     highestCardVal = 14;
                 }
-                points += ThreePokerHandRank.THREE_OF_A_KIND.POINTS + highestCardVal;
-                return points;
+                return ThreePokerHandRank.THREE_OF_A_KIND.POINTS + highestCardVal;
             case STRAIGHT:
-                points += ThreePokerHandRank.STRAIGHT.POINTS + highestCardVal;
-                return points;
+                return ThreePokerHandRank.STRAIGHT.POINTS + highestCardVal;
             case FLUSH:
-                points += ThreePokerHandRank.FLUSH.POINTS + highestCardVal;
-                return points;
+                return ThreePokerHandRank.FLUSH.POINTS + highestCardVal;
             case PAIR:
                 return ThreePokerHandRank.PAIR.getPoints();
             case HIGH_CARD:
-                return highestCardVal;
+                return ThreePokerHandRank.HIGH_CARD.getPoints() + highestCardVal;
         }
-        return points;
+        return 0;
     }
 
     public PokerPlayer flushTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
@@ -73,9 +64,6 @@ public class ThreeCardPokerEngine {
         PokerHand hand2 = player2.getHand();
         if (hand1.getRank() != ThreePokerHandRank.FLUSH || hand2.getRank() != ThreePokerHandRank.FLUSH) {
             throw new IllegalArgumentException("Both hands must be a flush");
-        }
-        if (!hand1.isFullHand(hand1.getCards()) || !hand2.isFullHand(hand2.getCards())) {
-            throw new IllegalArgumentException("Both players must have full hands");
         }
 
         while (hand1.getNumberOfCards() > 0 && hand2.getNumberOfCards() > 0) {
@@ -100,6 +88,7 @@ public class ThreeCardPokerEngine {
         if (hand1.getRank() != ThreePokerHandRank.PAIR || hand2.getRank() != ThreePokerHandRank.PAIR) {
             throw new IllegalArgumentException("Both hands must be a pair");
         }
+
         int pairRank1 = hand1.getPairRanking(hand1);
         int pairRank2 = hand2.getPairRanking(hand2);
 
