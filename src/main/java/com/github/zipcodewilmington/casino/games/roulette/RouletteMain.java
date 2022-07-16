@@ -22,6 +22,10 @@ import java.util.Random;
 
     public class RouletteMain {
         public static void main(String[] args) {
+            RouletteEngine miniRoulette  = new RouletteEngine();
+            miniRoulette.startRouletteGame();
+
+        }
         }
 
 

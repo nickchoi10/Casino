@@ -44,9 +44,7 @@ public class BPSEngine {
 
     public String BPS1P(String player1){
         String bot = BPSAI();
-
-        getWinner2P(player1, bot);
-
+        return getWinner2P(player1, bot);
     }
 
 

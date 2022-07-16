@@ -101,8 +101,8 @@ public class Account {
     }
 
 
-    public static void deposit(Account account, int amount){
-        account.balance += amount;
+    public static int deposit(Account account, int amount){
+        return account.balance += amount;
     }
 
     public static boolean accountExists(String acctName){
