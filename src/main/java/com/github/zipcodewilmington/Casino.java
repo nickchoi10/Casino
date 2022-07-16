@@ -1,7 +1,8 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
-import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.ActiveAccount;
+import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -22,7 +23,6 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
-        PlayerSetup.activePlayers.clear();
         System.out.println("""
                  WELCOME TO...
                  
@@ -60,29 +60,30 @@ public class Casino implements Runnable {
     }
 
     public static void mainMenu(){
-        PlayerSetup.activePlayers.clear();
-
         int menuChoice;
 
         System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
 
         while (true) {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
-                    "1) Create new STARDUST VIP Account\n" +
-                    "2) Play Games\n" +
-                    "3) Go to the Lounge\n" +
-                    "4) Leave Casino\n");
-            if (menuChoice >= 1 && menuChoice <= 4) {
+                    "1) Create New STARDUST VIP Account\n" +
+                    "2) Manage Active Players\n" +
+                    "3) Play Games\n" +
+                    "4) Go to the Lounge\n" +
+                    "5) Leave Casino\n");
+            if (menuChoice >= 1 && menuChoice <= 5) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
         }
         if (menuChoice == 1) {
             createAccount();
         } else if (menuChoice == 2) {
-            pickGame();
+            ActiveAccount.activeAccountManager();
         } else if (menuChoice == 3) {
-            lounge();
+            pickGame();
         } else if (menuChoice == 4) {
+            lounge();
+        } else if (menuChoice == 5) {
             quit();
         }
     }
@@ -97,18 +98,15 @@ public class Casino implements Runnable {
             if (!Account.accountExists(acctName)){break;}
             else System.out.println("An account by that name already exists, please choose another name\n");
         }
-        System.out.println("Excellent Choice!\n" +
-                "In order to confirm your identity, age, and sell your information to our sponsors, please enter your real name.\n");
-        String name = scan.nextLine();
-        System.out.println("Welcome to the STARDUST VIP Club " + name + "! Just a few more questions\n" +
+        System.out.println("Excellent Choice! Welcome to the STARDUST VIP Club " + acctName + "! Just a few more questions\n" +
                 "and we'll be ready to start GAMBLING!\n" +
                 "Please enter a password for your account.\n\n");
         String password = scan.nextLine();
-        System.out.println("Your password is safe with us, " + name + ". You can count on us keeping your password (" + password + ") safe.\n\n");
+        System.out.println("Your password is safe with us, " + acctName + ". You can count on us keeping your password (" + password + ") safe.\n\n");
         int balance;
         while(true) {
             balance = TheScanner.getNumber("Finally, please tell us how much you would like to deposit in your account.\n\n");
-            if (balance > 10000000){
+            if (balance > 1000000){
                 System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.\n");
             }else break;
         }
@@ -116,7 +114,7 @@ public class Casino implements Runnable {
         System.out.println("Thank you! Your account is now prepared!\n" +
                 "When you approach one of our game tables you and everyone you are with will be prompted to log in.\n" +
                 "Enjoy your time at the STARDUST VIP Casino and Lounge!!!!");
-        Account account = new Account(acctName, name, password, balance);
+        Account account = new Account(acctName, password, balance);
         mainMenu();
     }
 
@@ -127,7 +125,7 @@ public class Casino implements Runnable {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
                     "1) High-Low Dice\n" +
                     "2) Number Guess Game (No Gambling)\n" +
-                    "3) Under Construction\n" +
+                    "3) Boulder Parchment Shears\n" +
                     "4) Under Construction\n" +
                     "5) Under Construction\n" +
                     "6) Under Construction\n" +
@@ -142,7 +140,7 @@ public class Casino implements Runnable {
         } else if (menuChoice == 2) {
             NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
-            //load game 3
+            BPSMain.playBPS();
         }else if (menuChoice == 4) {
             //load game 4
         }else if (menuChoice == 5) {
@@ -197,31 +195,3 @@ public class Casino implements Runnable {
         mainMenu();
     }
 }
-
-
-//        System.out.println("Please confirm your password\n");
-//        scan.nextLine();
-//        System.out.println("Your entries do not match, please confirm your password.\n");
-//        scan.nextLine();
-//        System.out.println("Thank you. Now for the security questions!\n" +
-//                "What is your favorite soup?\n");
-//        scan.nextLine();
-//        System.out.println("Gross! What is your favorite color?\n");
-//        scan.nextLine();
-//        System.out.println("Weird. What is your favorite football team?\n");
-//        while(true){
-//            String football = scan.nextLine().toLowerCase();
-//            if (football.equals("cowboys") || football.equals("dallas cowboys")) {
-//                System.out.println("You have bad taste, pick a different team.\n");
-//            } else if (football.equals("eagles") || football.equals("philadelphia eagles")) {
-//                System.out.println("GO BIRDS!\nGO BIRDS!\nGO BIRDS!\nGO BIRDS!\nGO BIRDS!\n");
-//                break;
-//            }else break;
-//        }
-//        System.out.println("Almost there.\n" +
-//                "If you had to choose one smell to smell for the rest of your life, what would it be?\n");
-//        scan.nextLine();
-//        System.out.println("Ok, last one.\n" +
-//                "If you were had to choose between everyone else being able to read your thoughts,\n" +
-//                "or everyone you know having access to your internet history, which would you choose?\n");
-//        scan.nextLine();

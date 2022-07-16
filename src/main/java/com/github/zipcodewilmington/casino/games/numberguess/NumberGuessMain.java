@@ -1,7 +1,6 @@
 package com.github.zipcodewilmington.casino.games.numberguess;
 
 import com.github.zipcodewilmington.Casino;
-import com.github.zipcodewilmington.casino.PlayerSetup;
 
 import java.util.Scanner;
 
@@ -14,27 +13,44 @@ public class NumberGuessMain {
     static NumberGuessEngine guessEngine = new NumberGuessEngine();
     static Scanner scanner = new Scanner(System.in);
 
-    public static void playGame() {
-        PlayerSetup.playerSetup(1);
+//    public static void main(String[] args){
+//        playGame();
+//    }
 
+    public static void playGame() {
 
         guessEngine.prompt();
-        input = scanner.nextInt();
+        //input = scanner.nextInt();
+        guessEngine.getInput();
         if(input == 2) {
             running = false;
             Casino.splashScreen();
         }
         while(running){
+            int count = 0;
+            int randomNum = guessEngine.randomNumber();
             guessEngine.promptForGuess();
-            input = scanner.nextInt();
-            if(guessEngine.checkNumber(input) == true){
-                System.out.println("Congrats you won!!!");
-            } else {
-                System.out.println("Unfortunately you lost.");
+
+            while(true){
+                input = guessEngine.getInput();
+
+                count++;
+                if(randomNum == input) {
+                    System.out.println("Congrats you won!!!");
+                    break;
+                } else if(count == 3){
+                    System.out.println("You lose!");
+                    break;
+                } else if (randomNum > input){
+                    System.out.println("Number is higher, try again");
+                } else if (randomNum < input){
+                    System.out.println("Number is lower, try again");
+                }
             }
 
             guessEngine.promptContinue();
             input = scanner.nextInt();
+            //guessEngine.getInput();
             if(input == 1){
                 continue;
             } else if (input == 2) {
