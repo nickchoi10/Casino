@@ -1,7 +1,7 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
-import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -79,11 +79,11 @@ public class AccountTest {
 
     @Test
     public void testLogin() {
-        PlayerSetup.activePlayers.clear();
+        ActiveAccount.activeAccounts.clear();
         Account account = new Account("test", "test", "test", 100);
         Account.loginTest();
 
-        int actual = PlayerSetup.activePlayers.size();
+        int actual = ActiveAccount.activeAccounts.size();
         int expected = 1;
 
         Assert.assertEquals(actual, expected);

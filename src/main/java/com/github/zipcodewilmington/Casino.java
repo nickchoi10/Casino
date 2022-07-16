@@ -1,7 +1,7 @@
 package com.github.zipcodewilmington;
 
 import com.github.zipcodewilmington.casino.Account;
-import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -22,7 +22,6 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
-        PlayerSetup.activePlayers.clear();
         System.out.println("""
                  WELCOME TO...
                  
@@ -60,29 +59,30 @@ public class Casino implements Runnable {
     }
 
     public static void mainMenu(){
-        PlayerSetup.activePlayers.clear();
-
         int menuChoice;
 
         System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
 
         while (true) {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
-                    "1) Create new STARDUST VIP Account\n" +
-                    "2) Play Games\n" +
-                    "3) Go to the Lounge\n" +
-                    "4) Leave Casino\n");
-            if (menuChoice >= 1 && menuChoice <= 4) {
+                    "1) Create New STARDUST VIP Account\n" +
+                    "2) Manage Active Players\n" +
+                    "3) Play Games\n" +
+                    "4) Go to the Lounge\n" +
+                    "5) Leave Casino\n");
+            if (menuChoice >= 1 && menuChoice <= 5) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
         }
         if (menuChoice == 1) {
             createAccount();
         } else if (menuChoice == 2) {
-            pickGame();
+            ActiveAccount.activeAccountManager();
         } else if (menuChoice == 3) {
-            lounge();
+            pickGame();
         } else if (menuChoice == 4) {
+            lounge();
+        } else if (menuChoice == 5) {
             quit();
         }
     }
@@ -197,31 +197,3 @@ public class Casino implements Runnable {
         mainMenu();
     }
 }
-
-
-//        System.out.println("Please confirm your password\n");
-//        scan.nextLine();
-//        System.out.println("Your entries do not match, please confirm your password.\n");
-//        scan.nextLine();
-//        System.out.println("Thank you. Now for the security questions!\n" +
-//                "What is your favorite soup?\n");
-//        scan.nextLine();
-//        System.out.println("Gross! What is your favorite color?\n");
-//        scan.nextLine();
-//        System.out.println("Weird. What is your favorite football team?\n");
-//        while(true){
-//            String football = scan.nextLine().toLowerCase();
-//            if (football.equals("cowboys") || football.equals("dallas cowboys")) {
-//                System.out.println("You have bad taste, pick a different team.\n");
-//            } else if (football.equals("eagles") || football.equals("philadelphia eagles")) {
-//                System.out.println("GO BIRDS!\nGO BIRDS!\nGO BIRDS!\nGO BIRDS!\nGO BIRDS!\n");
-//                break;
-//            }else break;
-//        }
-//        System.out.println("Almost there.\n" +
-//                "If you had to choose one smell to smell for the rest of your life, what would it be?\n");
-//        scan.nextLine();
-//        System.out.println("Ok, last one.\n" +
-//                "If you were had to choose between everyone else being able to read your thoughts,\n" +
-//                "or everyone you know having access to your internet history, which would you choose?\n");
-//        scan.nextLine();
