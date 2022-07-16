@@ -11,7 +11,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     ThreePokerHandRank handRank;
 
     public PokerHand(List<PlayingCard> cards) {
-        this.cards = cards;
+        super(cards);
         handRank = calculateRank(this);
     }
 
