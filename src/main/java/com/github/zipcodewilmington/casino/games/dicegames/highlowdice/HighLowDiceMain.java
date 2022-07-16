@@ -3,10 +3,14 @@ package com.github.zipcodewilmington.casino.games.dicegames.highlowdice;
 import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.games.dicegames.Dice;
 
+
 public class HighLowDiceMain {
     static boolean running = true;
     static Dice dice = new Dice();
     static HighLowDiceEngine mainGame = new HighLowDiceEngine();
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+
 
 
     public static void main(String[] args){
@@ -29,10 +33,13 @@ public class HighLowDiceMain {
 
 
         while (running) {
+
             mainGame.placeBets();
             mainGame.highLowPrompt();
             int playerInput = mainGame.getInput(); //take input per player. set player input to 0 for high, 1 for low, 2 for seven
             System.out.println("Rolling Dice... ");
+//            String msg = "";
+//            int playerInput = HighLowDiceEngine.ioConsole.getIntegerInput(msg);
             int toss = dice.tossAndSum(2);
             System.out.println("Roll: " + toss);
             int highOrLow = mainGame.checkHighOrLow(toss);
@@ -40,7 +47,7 @@ public class HighLowDiceMain {
             mainGame.winOrLose(playerInput, highOrLow);
             mainGame.resolveBets();
 
-            System.out.println("Do you want to continue playing?\n1) Continue 2) Quit\n");
+            System.out.println("Do you want to continue playing?\n1) Continue 2) Quit\n"+ANSI_WHITE);
             int input = mainGame.getInput();
             if(input == 1){
                 continue;
