@@ -18,9 +18,26 @@ public class ThreeCardPokerEngine {
     // TODO: PlayerInterface is temporary filler for PokerPlayer
     protected void dealCards(PlayerInterface player){}
 
-    // Returns positive int if hand1 is greater than hand2, 0 if equal, negative if less
-    public int compareHands(Hand hand1, Hand hand2) {
-        return 0;
+    public PokerPlayer computeWinner(PokerPlayer player1, PokerPlayer player2) {
+        int player1Points = getHandPointValue(player1.getHand());
+        int player2Points = getHandPointValue(player2.getHand());
+
+        if (player1Points == player2Points) {
+            switch (player1.getHand().getRank()) {
+                case FLUSH:
+                    return flushTieBreaker(player1, player2);
+                case PAIR:
+                    return pairTieBreaker(player1, player2);
+                case HIGH_CARD:
+                    return highCardTieBreaker(player1, player2);
+            }
+        }
+        if (player1Points > player2Points) {
+            return player1;
+        } else if (player1Points < player2Points) {
+            return player2;
+        }
+        return null;
     }
 
     public int getHandPointValue(PokerHand hand) {

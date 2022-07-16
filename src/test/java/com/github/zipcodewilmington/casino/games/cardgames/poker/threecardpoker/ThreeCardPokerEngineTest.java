@@ -30,16 +30,18 @@ class ThreeCardPokerEngineTest {
     }
 
     @Test
-    void compareHands() {
+    void computeWinner() {
         List<PlayingCard> cards1 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.FIVE),
                 new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE), new PlayingCard(CardSuit.DIAMONDS, CardRank.FOUR));
         List<PlayingCard> cards2 = Arrays.asList(new PlayingCard(CardSuit.DIAMONDS, CardRank.THREE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.THREE), new PlayingCard(CardSuit.SPADES, CardRank.THREE));
-        Hand hand1 = new PokerHand(cards1);
-        Hand hand2 = new PokerHand(cards2);
+        PokerPlayer player1 = new PokerPlayer(cards1);
+        PokerPlayer player2 = new PokerPlayer(cards2);
 
-        int val = engine.compareHands(hand1, hand2);
-        Assert.assertTrue(val > 0);
+        PokerPlayer expectedWinner = player1;
+        PokerPlayer actualWinner = engine.computeWinner(player1, player2);
+
+        Assert.assertEquals(expectedWinner, actualWinner);
     }
 
     @Test
