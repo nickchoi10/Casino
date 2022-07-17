@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington.casino.games.slots;
 
-import com.github.zipcodewilmington.casino.PlayerSetup;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 
 public class SlotMain {
     SlotsEngine run = new SlotsEngine();
