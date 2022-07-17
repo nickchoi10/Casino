@@ -29,11 +29,6 @@ public class BPSEngine {
                 "Each player will make the same wager, winner gets all.\n\n");
     }
 
-<<<<<<< HEAD
-    public String BPS1P(String player1){
-        String bot = BPSAI();
-        return getWinner2P(player1, bot);
-=======
     //1-PLAYER GAME STUFF
 
     public static void PvE() {
@@ -98,7 +93,6 @@ public class BPSEngine {
         choice = TheScanner.getNumber("1) Play Again\n2) Return to Main Menu\n");
         if (choice == 1) {PvP();}
         else Casino.splashScreen();
->>>>>>> 851c6f3509d6256c5293d09457613243aa8fed79
     }
     public static boolean pvpWin(String p1, String p2, int wager){
         if (p1.equals(getWinner2P(p1, p2))) {
