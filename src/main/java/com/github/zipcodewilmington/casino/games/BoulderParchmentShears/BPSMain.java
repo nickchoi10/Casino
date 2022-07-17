@@ -8,23 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BPSMain {
+    private BPSEngine engine;
+    private ActiveAccount aa;
 
+    public void playBPS(){
+        engine = new BPSEngine();
+        aa = new ActiveAccount();
 
+        aa.numPlayers(2);
 
-    public static void playBPS(){
-        BPSEngine bps = new BPSEngine();
-        ActiveAccount.numPlayers(2);
-
-//        Account p1 = new Account ("1", "1", "1", 200);
-//        Account p2 = new Account ("2", "2", "2", 200);
-//        Account p3 = new Account ("3", "3", "3", 200);
-//        ActiveAccount.activeAccounts.clear();
-//        ActiveAccount.addActiveAccount(p1);
-//        ActiveAccount.addActiveAccount(p2);
-
-        BPSEngine.intro(ActiveAccount.activeAccounts.size());
-
-
+        engine.intro(aa.activeAccounts.size());
 
     }
 
