@@ -2,23 +2,24 @@ package com.github.zipcodewilmington.casino.games.slots;
 
 import com.github.zipcodewilmington.casino.PlayerSetup;
 
-public class SlotMain extends SlotsEngine {
+public class SlotMain {
+    SlotsEngine run = new SlotsEngine();
 
-    public void startSlot(){
+    public void startSlot() throws InterruptedException {
 
-        beginMessage();
-        beginningBalance();
-        while (play) {
-            currentBalance();
-            betMessage();
-            inputBet();
-            clearArray();
-            spinSlot();
-            displayBoard();
-            winConditions(slotList);
-            jackPotCondition(slotList);
-            losingCondition();
-            continuePlaying();
+        run.beginMessage();
+        run.beginningBalance();
+        while (run.play) {
+            run.currentBalance();
+            run.betMessage();
+            run.inputBet();
+            run.clearArray();
+            run.spinSlot();
+            run.displayBoard();
+            run.winConditions(run.slotList);
+            run.jackPotCondition(run.slotList);
+            run.losingCondition();
+            run.continuePlaying();
         }
     }
 

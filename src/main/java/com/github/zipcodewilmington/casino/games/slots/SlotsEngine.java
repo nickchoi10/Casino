@@ -1,20 +1,26 @@
 package com.github.zipcodewilmington.casino.games.slots;
 
-import com.github.zipcodewilmington.casino.PlayerSetup;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public abstract class SlotsEngine {
+public class SlotsEngine {
+//add thread.sleep to display board for effects
+
 
     ArrayList slotList;
     int betAmount;
     int balance =1000;
     boolean play=true;
+    Random rand;
 
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
 
     public SlotsEngine() {
+        rand = new Random();
         this.slotList = new ArrayList<>();
     }
 
@@ -27,24 +33,24 @@ public abstract class SlotsEngine {
     public void setPlaying(boolean play) {
         this.play= play;
     }
-    public void beginMessage() {
-        System.out.println("Hello, welcome to the StarDust's Slot Game\n" +
-                "Match 3 numbers across the board, you win!\n" +
-                "Get Triple 7 in the middle row, *JACKPOT*\n" +
-                "Good Luck!");
+    public String beginMessage() {
+        return "Hello, welcome to the StarDust's Slot Game\n" +
+                "Match 2 numbers across the board, you win 1/4 bet amount!\n" +
+                "Match 3 numbers across the board, you win your bet amount!\n" +
+                "Triple 7 in middle row is *JACKPOT*. You win 500x bet amount!\n" +
+                "Good Luck!";
     }
 
-    public void inputBet() {
+    public int inputBet() {
         Scanner scan = new Scanner(System.in);
-        betAmount = scan.nextInt();
+        return betAmount = scan.nextInt();
     }
 
-    public void betMessage(){
-        System.out.println("Please enter Bet Amount: ");
+    public String betMessage(){
+        return "Please enter Bet Amount: ";
     }
-    public void spinSlot() {
+    public ArrayList spinSlot() {
         ArrayList spin = new ArrayList();
-        Random rand = new Random();
         int slot1 = rand.nextInt(9) + 1;
         slotList.add(0, slot1);
         int slot2 = rand.nextInt(9) + 1;
@@ -63,15 +69,35 @@ public abstract class SlotsEngine {
         slotList.add(7, slot8);
         int slot9 = rand.nextInt(9) + 1;
         slotList.add(8, slot9);
+        return slotList;
     }
 
-    public void displayBoard(){
+    public void displayBoard() throws InterruptedException {
         String str = slotList.toString();
-        StringBuilder display = new StringBuilder();
-        display.append(str.charAt(1)+"|"+str.charAt(4)+"|"+str.charAt(7)+"\n"+
-                str.charAt(10)+"|"+str.charAt(13)+"|"+str.charAt(16)+"\n"+
-                str.charAt(19)+"|"+str.charAt(22)+"|"+str.charAt(25)+"\n");
-        System.out.println(display);
+        StringBuilder row1 = new StringBuilder();
+        StringBuilder row2 = new StringBuilder();
+        StringBuilder row3 = new StringBuilder();
+
+        row1.append(str.charAt(1)+"|"+str.charAt(4)+"|"+str.charAt(7));
+        row2.append(str.charAt(10)+"|"+str.charAt(13)+"|"+str.charAt(16));
+        row3.append(str.charAt(19)+"|"+str.charAt(22)+"|"+str.charAt(25));
+        System.out.println("Ready??");
+        Thread.sleep(1000);
+        System.out.println("set");
+        Thread.sleep(1000);
+        System.out.println("GO!!!!!");
+        Thread.sleep(1000);
+        System.out.println(row1);
+        Thread.sleep(2000);
+        System.out.println(row2);
+        Thread.sleep(2000);
+        System.out.println(row3);
+        Thread.sleep(2000);
+
+//        display.append(str.charAt(1)+"|"+str.charAt(4)+"|"+str.charAt(7)+"\n"+
+//                str.charAt(10)+"|"+str.charAt(13)+"|"+str.charAt(16)+"\n"+
+//                str.charAt(19)+"|"+str.charAt(22)+"|"+str.charAt(25)+"\n");
+//        System.out.println(display);
     }
 
     public void clearArray(){
@@ -84,7 +110,7 @@ public abstract class SlotsEngine {
         System.out.println("Your current balance is "+ balance+" dollars");
     }
 
-    public void winConditions(ArrayList slotList){
+    public int winConditions(ArrayList slotList){
         if(slotList.get(0)==slotList.get(1) && slotList.get(1)==slotList.get(2)||
                 slotList.get(6)==slotList.get(7) && slotList.get(7)==slotList.get(8)||
                 slotList.get(0)==slotList.get(3) && slotList.get(3)==slotList.get(6)||
@@ -92,12 +118,12 @@ public abstract class SlotsEngine {
                 slotList.get(2)==slotList.get(5) && slotList.get(5)==slotList.get(8)||
                 slotList.get(0)==slotList.get(4) && slotList.get(4)==slotList.get(8)){
             winMessage1();
-            balance+=betAmount;
+            return balance+=betAmount;
         }else{
-            balance-=betAmount;
+            return balance-=betAmount;
         }
     }
-    public void winConditions1(ArrayList slotList){
+    public int winConditions1(ArrayList slotList){
         if(slotList.get(0)==slotList.get(1) && slotList.get(1)!=slotList.get(2)||
                 slotList.get(3)==slotList.get(4) && slotList.get(4)!=slotList.get(5)||
                 slotList.get(6)==slotList.get(7) && slotList.get(7)!=slotList.get(8)||
@@ -113,22 +139,23 @@ public abstract class SlotsEngine {
                 slotList.get(2)!=slotList.get(5) && slotList.get(5)==slotList.get(8)||
                 slotList.get(0)!=slotList.get(4) && slotList.get(4)==slotList.get(8)){
             winMessage2();
-            balance+=betAmount/4;
+            return balance+=betAmount/4;
         }else{
-            balance-=betAmount;
+            return balance-=betAmount;
         }
     }
-    public void jackPotCondition(ArrayList slotList){
+    public int jackPotCondition(ArrayList slotList){
         if(slotList.get(3)==slotList.get(4)&&slotList.get(4)==slotList.get(5)){
             jackPotMessage();
-            balance+=betAmount*500;
         }
+        return balance+=betAmount*500;
     }
 
-    public void losingCondition(){
+    public String losingCondition(){
         if (balance <=0){
-            System.out.println("You do not have enough money!");
         }
+        return "You do not have enough money!";
+
     }
 
     public void winMessage1(){System.out.println("Congratulations, you have won "+betAmount+" dollars!!");}
