@@ -47,6 +47,10 @@ public class BlackjackMain implements GameInterface {
                 activeAccount.numPlayers(6);
                 System.out.println(ActiveAccount.activeAccounts.size());
                 blackjackEngine.startGame();
+                for (BlackjackPlayer blackjackPlayer : blackjackEngine.players) {
+                    System.out.println("How much would you like to wager?");
+                    blackjackPlayer.placeBet();
+                }
                 blackjackEngine.printCurrentState();
                 if (blackjackEngine.isBlackJack(blackjackEngine.players.get(0))) {
                     System.out.printf("BLACKJACK! Congrats %s%n", blackjackEngine.players.get(0).casinoAccount.getAccountName());

@@ -102,4 +102,8 @@ public class BlackjackPlayer {
         setHandValue(sum);
     }
 
+    public void placeBet() {
+        casinoAccount.makeBet(this.getCasinoAccount());
+    }
+
 }
