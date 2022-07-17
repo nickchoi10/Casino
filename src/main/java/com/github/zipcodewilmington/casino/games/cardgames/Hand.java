@@ -28,6 +28,10 @@ public class Hand {
         return card;
     }
 
+    public void removeCard(PlayingCard card) {
+        cards.remove(card);
+    }
+
     public List<PlayingCard> getCards() {
         return cards;
     }
