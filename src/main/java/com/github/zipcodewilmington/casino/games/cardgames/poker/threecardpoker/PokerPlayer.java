@@ -12,6 +12,8 @@ public class PokerPlayer implements PlayerInterface {
     int anteBet;
     int pairPlusBet;
 
+    int playBet;
+
     public PokerPlayer() {
         hand = new PokerHand();
     }
