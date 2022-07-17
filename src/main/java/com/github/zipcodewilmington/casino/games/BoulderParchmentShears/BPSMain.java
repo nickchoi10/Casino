@@ -9,9 +9,10 @@ import java.util.List;
 
 public class BPSMain {
 
-    public static void main(String[] args) {playBPS();}
+
 
     public static void playBPS(){
+        BPSEngine bps = new BPSEngine();
         ActiveAccount.numPlayers(2);
 
 //        Account p1 = new Account ("1", "1", "1", 200);
