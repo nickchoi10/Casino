@@ -123,10 +123,10 @@ public class Casino implements Runnable {
         int menuChoice;
         while (true) {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
-                    "1) High-Low Dice\n" +
+                    "1) Slot Machines\n" +
                     "2) Number Guess Game (No Gambling)\n" +
                     "3) Boulder Parchment Shears\n" +
-                    "4) Under Construction\n" +
+                    "4) High-Low Dice\n" +
                     "5) Under Construction\n" +
                     "6) Under Construction\n" +
                     "7) Return to Main Menu\n" +
@@ -136,13 +136,13 @@ public class Casino implements Runnable {
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
-            HighLowDiceMain.playGame();
+            SlotsGame.startSlot();
         } else if (menuChoice == 2) {
             NumberGuessMain.playGame();
         }else if (menuChoice == 3) {
             BPSMain.playBPS();
         }else if (menuChoice == 4) {
-            //load game 4
+            HighLowDiceMain.playGame();
         }else if (menuChoice == 5) {
             //load game 5
         }else if (menuChoice == 6) {
