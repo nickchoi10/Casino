@@ -17,7 +17,7 @@ public class RouletteWheel {
             } else if (getZero(spinResult)) {
                 System.out.print(spinResult);
                 return spinResult;
-            } else if (getDoubleZero(spinResult)) {
+            } else if (spinResult == 37) {
                 System.out.println("00");
                 return spinResult;
             }
@@ -33,10 +33,10 @@ public class RouletteWheel {
     public boolean getBlackOdd(int spinResult) {
         return spinResult % 2 != 0;
     }
-
-    public boolean getDoubleZero(int spinResult) {
-        return spinResult == 37;
-    }
+//
+//    public boolean getDoubleZero(int spinResult) {
+//        return spinResult == 37;
+//    }
 
     public boolean getZero(int spinResult) {
         return spinResult == 0;

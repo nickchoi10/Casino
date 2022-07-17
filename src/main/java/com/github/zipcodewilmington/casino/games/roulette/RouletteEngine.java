@@ -13,7 +13,7 @@ public class RouletteEngine {
     private String name;
     private String password;
     private int balance;
-    Account userAcct = new Account("Octavia", "Octavia", "Octavia", 2000);
+    Account userAcct = new Account("O", "O", "O", 2000);
 
 
 
@@ -38,17 +38,43 @@ public class RouletteEngine {
         if (scan.nextInt() == 1) {
             System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
             int wager = scan.nextInt();
-            System.out.println("What's your bet? Pick a number any number.");
+            System.out.println("What's your bet? Pick a number, any number.");
             int bet = scan.nextInt();
             placeStraightUpBet(wager, bet, balance);
         }
         if (scan.nextInt() == 2) {
             System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
             int wager = scan.nextInt();
-           //System.out.println("What's your bet? Select 1 for a RED or EVEN.");
+            //System.out.println("What's your bet? Select 1 for a RED or EVEN.");
             int bet = scan.nextInt();
-           // System.out.println("You chose)
+            // System.out.println("You chose)
             placeRedEvenBet(wager, bet, balance);
+        }
+        if (scan.nextInt() == 3) {
+            System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
+            int wager = scan.nextInt();
+            int bet = scan.nextInt();
+            placeBlackOddBet(wager, bet, balance);
+        }
+        if (scan.nextInt() == 4) {
+            System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
+            int wager = scan.nextInt();
+            int bet = scan.nextInt();
+            placeFirstDozenBet(wager, bet, balance);
+        }
+        if (scan.nextInt() == 4) {
+            System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
+            int wager = scan.nextInt();
+            int bet = scan.nextInt();
+            placeSecondDozenBet(wager, bet, balance);
+
+        if (scan.nextInt() == 4) {
+            System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
+            int wager = scan.nextInt();
+            int bet = scan.nextInt();
+            placeThirdDozenBet(wager, bet, balance);
+
+            }
         }
     }
 
@@ -106,19 +132,75 @@ public class RouletteEngine {
 
     public int placeRedEvenBet(int wager, int bet, int balance) {
         int payOut = 0;
-        int number, i;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
-        if (spinResult % 2 ==0) {
+        if (spinResult % 2 == 0) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = (wager * 2);
+            int winAmount = (wager * 1);
             payOut = Account.deposit(userAcct, winAmount);
-            System.out.println("Your pay out is " + payOut +".");
+            System.out.println("Your payout is " + payOut + ".");
         } else
             System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
         return payOut;
     }
-}
+
+    public int placeBlackOddBet (int wager, int bet, int balance) {
+        int payOut = 0;
+        RouletteWheel wheel = new RouletteWheel();
+        spinResult = wheel.spinWheel();
+        if (spinResult %2 != 0) {
+            System.out.println("Well, aren't you a lucky one. You win!");
+            int winAmount = wager * 2;
+            payOut = Account.deposit(userAcct, winAmount);
+            System.out.println(" Your new balance is " + (balance + winAmount) + ".");
+        } else
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+    return balance;
+    }
+
+    public int placeFirstDozenBet (int wager, int bet, int balance) {
+        int payOut = 0;
+        RouletteWheel wheel = new RouletteWheel();
+        spinResult = wheel.spinWheel();
+        if ( (spinResult >= 1) && (spinResult <= 12)) {
+            System.out.println("Well, aren't you a lucky one. You win!");
+            int winAmount = wager * 2;
+            payOut = Account.deposit(userAcct, winAmount);
+            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+        } else
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+        return balance;
+        }
+
+    public int placeSecondDozenBet (int wager, int bet, int balance) {
+        int payOut = 0;
+        RouletteWheel wheel = new RouletteWheel();
+        spinResult = wheel.spinWheel();
+        if ( (spinResult >= 13) && (spinResult <= 24)) {
+            System.out.println("Well, aren't you a lucky one. You win!");
+            int winAmount = wager * 2;
+            payOut = Account.deposit(userAcct, winAmount);
+            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+        } else
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+        return balance;
+    }
+
+    public int placeThirdDozenBet (int wager, int bet, int balance) {
+        int payOut = 0;
+        RouletteWheel wheel = new RouletteWheel();
+        spinResult = wheel.spinWheel();
+        if ( (spinResult >= 25) && (spinResult <= 36)) {
+            System.out.println("Well, aren't you a lucky one. You win!");
+            int winAmount = wager * 2;
+            payOut = Account.deposit(userAcct, winAmount);
+            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+        } else
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+        return balance;
+    }
+    }
+
 
     //Place a red/even bet.
     //TODO add win/lose feature.
