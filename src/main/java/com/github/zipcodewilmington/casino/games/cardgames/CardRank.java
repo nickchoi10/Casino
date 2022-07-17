@@ -14,7 +14,7 @@ public enum CardRank {
     JACK(11),
     QUEEN(12),
     KING(13);
-    int value;
+    public final int value;
 
     CardRank(int value) {
         this.value = value;

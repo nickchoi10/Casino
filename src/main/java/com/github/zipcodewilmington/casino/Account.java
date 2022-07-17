@@ -15,21 +15,18 @@ public class Account {
     private String name;
     private String password;
     private int balance;
-//    static List<Account> allAccounts = new ArrayList<>();
     static Map<String, Account> allAccounts = new HashMap<>();
 
 
     //CONSTRUCTORS
     public Account() {
         this.accountName = "";
-        this.name = "";
         this.password = "";
         this.balance = 0;
         allAccounts.put(accountName, this);
     }
-    public Account(String acctName, String name, String password, int balance){
+    public Account(String acctName, String password, int balance){
         this.accountName = acctName;
-        this.name = name;
         this.password = password;
         this.balance = balance;
         allAccounts.put(accountName, this);
@@ -103,6 +100,9 @@ public class Account {
 
     public static int deposit(Account account, int amount){
         return account.balance += amount;
+    }
+    public static void withdraw(Account account, int amount){
+        account.balance -= amount;
     }
 
     public static boolean accountExists(String acctName){
