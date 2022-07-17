@@ -1,5 +1,7 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
+import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
@@ -27,13 +29,13 @@ public class BlackjackEngine {
         playerBets = new HashMap<>();
     }
 
-    public static void startPrompt() {
+    public void startPrompt() {
         System.out.println("Welcome to Blackjack at Stardust Casino! \n");
         System.out.println("Please choose from the following: 1) Play Game 2) Quit \n Enter 1 or 2 \n");
     }
 
-    public static void instructionsPrompt() {
-        System.out.println("");
+    public void instructionsPrompt() {
+        System.out.println("All players are dealt two cards face up.");
         // Blackjack is usually a table of 2-7 players and uses one to 52-card deck.
         // Jack, Queen, King are all 10 points. Ace is one or 11 points.
         // deal one card face up to all players, then deal second card to all players. AKA deal 2 cards to player.
@@ -44,10 +46,31 @@ public class BlackjackEngine {
         // After each player Hit or Stand, dealer's turn to hit or stand.
     }
 
+    public static void main(String[] args) {
+        BlackjackMain bm = new BlackjackMain();
+        bm.run();
+    }
+
     public void startGame() {
         //initialize the game.
         // How many players.
         // Deal the card to the players.
+        for (Account account : ActiveAccount.activeAccounts) {
+            players.add(new BlackjackPlayer(account));
+        }
+
+        for (BlackjackPlayer blackjackPlayer : players) {
+            initializeHand(blackjackPlayer.hand);
+            blackjackPlayer.updateHandValue();
+        }
+
+        initializeHand(dealerHand);
+    }
+
+    private void initializeHand(Hand hand) {
+        for (int i = 0; i < 2; i++) {
+            hand.getCards().add(deck.dealCard());
+        }
     }
 
     public boolean isBlackJack(BlackjackPlayer blackjackPlayer) {
@@ -55,8 +78,9 @@ public class BlackjackEngine {
                 && blackjackPlayer.getHand().getCards().size() == 2;
     }
 
-    public void hit(Hand hand) {
-        hand.getCards().add(deck.dealCard());
+    public void hit(BlackjackPlayer blackjackPlayer) {
+        blackjackPlayer.hand.getCards().add(deck.dealCard());
+        blackjackPlayer.updateHandValue();
     }
 
     public void stand() {
@@ -80,6 +104,21 @@ public class BlackjackEngine {
         //call player's winPot method with totalWinning.
         players.get(0); //not finish!
         //reward amount is calculated in the engine.
+    }
+
+    public void resetGame() {
+        deck.reset();
+        players = new ArrayList<>();
+        dealerHand = new Hand();
+    }
+
+    public void printCurrentState() {
+        System.out.println("Current game status");
+        System.out.printf("\nDealer's hand: %s + Hidden Card", this.dealerHand.getCards().get(0));
+        for (BlackjackPlayer blackjackPlayer : this.players) {
+            System.out.printf("\nPlayer %s's hand: %s%n", blackjackPlayer.casinoAccount.getAccountName(), blackjackPlayer.hand.getCards());
+            System.out.printf("Current hand value: %d%n", blackjackPlayer.handValue);
+        }
     }
 
 

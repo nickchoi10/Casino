@@ -70,7 +70,7 @@ public class BlackjackPlayer {
         this.handValue = handValue;
     }
 
-    public void initializeHandValue() {
+    public void updateHandValue() {
         int sum = 0;
 
         for (PlayingCard card : hand.getCards()) {

@@ -32,5 +32,13 @@ public class PlayingCard implements Comparable<PlayingCard>{
     // TODO: Add console graphic representation of card
     public void printCard() {}
 
+    @Override
+    public String toString() {
+        return "PlayingCard{" +
+                "SUIT=" + SUIT +
+                ", RANK=" + RANK +
+                '}';
+    }
+
 }
 

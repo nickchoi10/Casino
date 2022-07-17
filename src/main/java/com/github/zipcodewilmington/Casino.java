@@ -3,6 +3,7 @@ package com.github.zipcodewilmington;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
+import com.github.zipcodewilmington.casino.games.cardgames.blackjack.BlackjackMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -15,6 +16,8 @@ public class Casino implements Runnable {
     private HighLowDiceMain hldm;
     private ActiveAccount aa;
     private BPSMain bps;
+
+    private BlackjackMain blm;
 
     @Override
     public void run() {
@@ -130,6 +133,7 @@ public class Casino implements Runnable {
         ngm = new NumberGuessMain();
         bps = new BPSMain();
         hldm = new HighLowDiceMain();
+        blm = new BlackjackMain();
 
         int menuChoice;
         while (true) {
@@ -155,7 +159,7 @@ public class Casino implements Runnable {
         }else if (menuChoice == 4) {
             hldm.playGame();
         }else if (menuChoice == 5) {
-            //load game 5
+            blm.run();
         }else if (menuChoice == 6) {
             //load game 6
         }else if (menuChoice == 7) {
