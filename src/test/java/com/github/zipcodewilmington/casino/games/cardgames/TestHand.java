@@ -55,7 +55,16 @@ class TestHand {
         Integer actualSize = hand.getNumberOfCards();
         Assert.assertNotNull(card);
         Assert.assertEquals(expectedSize, actualSize);
+    }
 
+    @Test
+    void testRemoveCardGivenCard() {
+        PlayingCard originalCard = hand.getCard(0);
+        hand.removeCard(originalCard);
+
+        PlayingCard actualCard = hand.getCard(0);
+
+        Assert.assertFalse(originalCard.equals(actualCard));
     }
 
     @Test
