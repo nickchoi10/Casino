@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino;
 
+import com.github.zipcodewilmington.Casino;
+import com.github.zipcodewilmington.utils.TheScanner;
+
 import java.util.*;
 
 public class Account {
