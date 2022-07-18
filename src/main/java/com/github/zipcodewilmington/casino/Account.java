@@ -9,6 +9,8 @@ import java.util.*;
 import static com.github.zipcodewilmington.casino.ActiveAccount.*;
 
 public class Account {
+    private ActiveAccount aa;
+    private Casino casino;
 
     //INITIALIZING VARIABLES
     private String accountName;
@@ -34,18 +36,18 @@ public class Account {
 
     //SETTERS
     public void setAccountName(String acctName){this.accountName = acctName;}
-    public void setName(String name){this.name = name;}
     public void setPassword(String password){this.password = password;}
     public void setBalance(int balance){this.balance = balance;}
 
     //GETTERS
     public String getAccountName(){return this.accountName;}
-    public String getName(){return this.name;}
     public String getPassword(){return this.password;}
     public Integer getBalance(){return this.balance;}
 
     //METHODS
-    public static void login(int menuReturn, int numPlayers, int maxPlayers){
+    public void login(int menuReturn, int numPlayers, int maxPlayers){
+        aa = new ActiveAccount();
+        casino = new Casino();
         Account tempAccount;
         Scanner scan = new Scanner(System.in);
         String acctName;
@@ -59,7 +61,7 @@ public class Account {
             } else if (accountExists(acctName) && activeAccounts.contains(tempAccount)) {
                 System.out.println("That account is already logged in, please log into a different account.\n");
             } else if (acctName.equals("exit")) {
-                Casino.splashScreen();
+                casino.splashScreen();
             } else if (!accountExists(acctName)) {
                 System.out.println("There is no record of an account with that name, please re-enter\n" +
                         "your account name, or return to the main menu and create an account.\n");
@@ -75,14 +77,14 @@ public class Account {
         }
         activeAccounts.add(tempAccount);
         if (menuReturn == 1) {
-            ActiveAccount.activeAccountManager();}
+            aa.activeAccountManager();}
         else {
-            ActiveAccount.checkActiveAccounts(numPlayers, maxPlayers);}
+            aa.checkActiveAccounts(numPlayers, maxPlayers);}
     }
 
 
 
-    public static int makeBet(Account account){
+    public int makeBet(Account account){
         int amount;
         while(true) {
            amount = TheScanner.getNumber("");
@@ -98,19 +100,27 @@ public class Account {
     }
 
 
-    public static void deposit(Account account, int amount){
+    public void deposit(Account account, int amount){
         account.balance += amount;
     }
-    public static void withdraw(Account account, int amount){
-        account.balance -= amount;
+    public void withdraw(Account account, int amount){
+        while(true) {
+            if (allAccounts.containsValue(account) && account.balance >= amount) {
+                account.balance -= amount;
+                break;
+            } else if (allAccounts.containsValue(account) && account.balance < amount) {
+                System.out.println("\nYou don't have that much in your account.\n" +
+                        "Current account balance for " + account.getAccountName() + " is: " + account.getBalance() + "Please enter a valid amount.\n");
+            }
+        }
     }
 
-    public static boolean accountExists(String acctName){
+    public boolean accountExists(String acctName){
             if (allAccounts.containsKey(acctName)) {
                 return true;
             } else return false;
         }
-    public static Account getAccount(String acctName) {
+    public Account getAccount(String acctName) {
         while(true) {
             if (allAccounts.containsKey(acctName)) {
                 return allAccounts.get(acctName);
@@ -118,7 +128,7 @@ public class Account {
         }
     }
 
-    public static void loginTest(){
+    public void loginTest(){
         Account tempAccount;
         String acctName;
         String pw;
@@ -131,7 +141,7 @@ public class Account {
             } else if (accountExists(acctName) && activeAccounts.contains(tempAccount)) {
                 System.out.println("That account is already logged in, please log into a different account.\n");
             } else if (acctName.equals("exit")) {
-                Casino.splashScreen();
+                casino.splashScreen();
             } else if (!accountExists(acctName)) {
                 System.out.println("There is no record of an account with that name, please re-enter\n" +
                         "your account name, or return to the main menu and create an account.\n");
@@ -147,7 +157,7 @@ public class Account {
         }
         activeAccounts.add(tempAccount);
     }
-    public static int makeBetTest(Account account, int amount){
+    public int makeBetTest(Account account, int amount){
         while(true) {
             if (allAccounts.containsValue(account) && account.balance >= amount) {
                 account.balance -= amount;
