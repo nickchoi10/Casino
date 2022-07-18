@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames;
 
-public class PlayingCard implements Comparable<PlayingCard>{
+public class PlayingCard implements Card, Comparable<PlayingCard>{
     private final CardSuit SUIT;
     private final CardRank RANK;
 

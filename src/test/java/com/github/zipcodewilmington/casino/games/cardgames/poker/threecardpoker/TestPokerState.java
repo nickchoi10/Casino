@@ -35,7 +35,7 @@ class TestPokerState {
     void testUserPlayNextState() {
         PokerState expectedState = PokerState.WINNERCALC;
 
-        PokerState actualState = PokerState.USERPLAY;
+        PokerState actualState = PokerState.USERPLAY.nextState();
         Assert.assertEquals(expectedState, actualState);
     }
 
