@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import java.util.*;
 
-public class PokerHand extends Hand implements PokerHandChecker {
+public class PokerHand extends Hand<PlayingCard> implements PokerHandChecker {
     ThreePokerHandRank handRank;
 
     public PokerHand(List<PlayingCard> cards) {
@@ -18,7 +18,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
 
 
     public PokerHand() {
-        this.cards = new ArrayList<PlayingCard>();
+        this.cards = new ArrayList<>();
     }
 
 
@@ -37,7 +37,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
-    private Map<CardRank, Integer> getRankOccurrence(Hand hand) {
+    private Map<CardRank, Integer> getRankOccurrence(Hand<PlayingCard> hand) {
         Map<CardRank, Integer> cardMap = new HashMap<>(3);
         for (PlayingCard c : hand.getCards()) {
             Integer count = cardMap.get(c.getRank());
@@ -50,7 +50,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
         return cardMap;
     }
 
-    public int getPairRanking(Hand hand) {
+    public int getPairRanking(Hand<PlayingCard> hand) {
         if (!isFullHand(hand.getCards())) {
             return 0;
         }
@@ -66,7 +66,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
         return 0;
     }
 
-    public int getPairOddRanking(Hand hand) {
+    public int getPairOddRanking(Hand<PlayingCard> hand) {
         if (!isFullHand(hand.getCards())) {
             return 0;
         }
@@ -83,7 +83,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
-    public boolean hasFlush(Hand hand) {
+    public boolean hasFlush(Hand<PlayingCard> hand) {
         List<PlayingCard> cards = hand.getCards();
         if (!isFullHand(hand.getCards())) {
             return false;
@@ -93,12 +93,12 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
-    public boolean isStraightFlush(Hand hand) {
+    public boolean isStraightFlush(Hand<PlayingCard> hand) {
         return (hasStraight(hand) && hasFlush(hand));
     }
 
 
-    public boolean hasStraight(Hand hand){
+    public boolean hasStraight(Hand<PlayingCard> hand){
         List<PlayingCard> cards = new ArrayList(hand.getCards());
         if (!isFullHand(hand.getCards())) {
             return false;
@@ -117,7 +117,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
 
-    public boolean hasThreeOfAKind(Hand hand) {
+    public boolean hasThreeOfAKind(Hand<PlayingCard> hand) {
         CardRank targetRank = null;
         for (PlayingCard card : hand.getCards()) {
             if (targetRank == null) {
@@ -149,7 +149,7 @@ public class PokerHand extends Hand implements PokerHandChecker {
     }
 
     /** getHighestCard returns the card with the highest CardRank value in a Hand **/
-    public PlayingCard getHighestCard(Hand hand, boolean isAceHighest) {
+    public PlayingCard getHighestCard(Hand<PlayingCard> hand, boolean isAceHighest) {
         PlayingCard max = null;
 
         for (PlayingCard card : hand.getCards()) {

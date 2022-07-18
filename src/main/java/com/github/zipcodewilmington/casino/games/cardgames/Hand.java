@@ -3,8 +3,8 @@ package com.github.zipcodewilmington.casino.games.cardgames;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hand {
-    protected List<PlayingCard> cards;
+public class Hand<T extends Card>{
+    protected List<T> cards;
 
 
     public Hand() {
@@ -12,27 +12,27 @@ public class Hand {
     }
 
 
-    public Hand(List<PlayingCard> cards) {
+    public Hand(List<T> cards) {
         this.cards = cards;
     }
 
 
-    public PlayingCard getCard(int index) {
+    public T getCard(int index) {
         return cards.get(index);
     }
 
 
-    public PlayingCard removeAndReturnCard(int index) {
-        PlayingCard card = cards.get(index);
+    public T removeAndReturnCard(int index) {
+        T card = cards.get(index);
         cards.remove(card);
         return card;
     }
 
-    public void removeCard(PlayingCard card) {
+    public void removeCard(T card) {
         cards.remove(card);
     }
 
-    public List<PlayingCard> getCards() {
+    public List<T> getCards() {
         return cards;
     }
 
@@ -47,7 +47,7 @@ public class Hand {
     }
 
 
-    public void swapCard(PlayingCard card, int index) {
+    public void swapCard(T card, int index) {
         try {
             cards.set(index, card);
         } catch (IndexOutOfBoundsException e) {
@@ -57,8 +57,8 @@ public class Hand {
 
     // TODO: call playing card toString or printCard methods instead
     public void printHand() {
-        for (PlayingCard card : cards) {
-            System.out.print(card.getSuit().toString() + " " + card.getRank().toString());
+        for (T card : cards) {
+            System.out.print(card.toString());
         }
     }
 
