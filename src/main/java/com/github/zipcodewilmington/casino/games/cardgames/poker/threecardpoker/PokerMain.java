@@ -49,6 +49,7 @@ public class PokerMain implements GameInterface {
 
     private void handleState(PokerState state, PokerPlayer player) {
         Account acc = player.getArcadeAccount();
+
         switch (state) {
             case MAIN_MENU:
                 int input = getSelectionInput(1, 2, mainMenuText());
