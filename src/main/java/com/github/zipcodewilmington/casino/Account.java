@@ -104,7 +104,15 @@ public class Account {
         account.balance += amount;
     }
     public void withdraw(Account account, int amount){
-        account.balance -= amount;
+        while(true) {
+            if (allAccounts.containsValue(account) && account.balance >= amount) {
+                account.balance -= amount;
+                break;
+            } else if (allAccounts.containsValue(account) && account.balance < amount) {
+                System.out.println("\nYou don't have that much in your account.\n" +
+                        "Current account balance for " + account.getAccountName() + " is: " + account.getBalance() + "Please enter a valid amount.\n");
+            }
+        }
     }
 
     public boolean accountExists(String acctName){
