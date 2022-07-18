@@ -4,6 +4,7 @@ import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.CardSuit;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
+import java.util.concurrent.TimeUnit;
 
 import java.util.*;
 
@@ -162,5 +163,17 @@ public class PokerHand extends Hand implements PokerHandChecker {
             }
         }
         return max;
+    }
+
+    public void printHand() {
+        for (PlayingCard card : getCards()) {
+            System.out.print(card.toString());
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                continue;
+            }
+        }
+        System.out.println();
     }
 }

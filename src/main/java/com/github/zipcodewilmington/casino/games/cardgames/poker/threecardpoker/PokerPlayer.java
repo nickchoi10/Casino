@@ -25,6 +25,7 @@ public class PokerPlayer implements PlayerInterface {
 
     public PokerPlayer(String name) {
         this.name = name;
+        account = new Account();
         hand = new PokerHand();
     }
 

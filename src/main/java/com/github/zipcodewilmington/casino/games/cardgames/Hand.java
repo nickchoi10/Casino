@@ -61,4 +61,5 @@ public class Hand {
             System.out.print(card.getSuit().toString() + " " + card.getRank().toString());
         }
     }
+
 }
