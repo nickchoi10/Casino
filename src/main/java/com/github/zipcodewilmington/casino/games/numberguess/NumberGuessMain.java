@@ -8,6 +8,7 @@ import java.util.Scanner;
  * Created by leon on 7/21/2020.
  */
 public class NumberGuessMain {
+    private Casino casino;
     static boolean running = true;
     static int input;
     static NumberGuessEngine guessEngine = new NumberGuessEngine();
@@ -17,14 +18,15 @@ public class NumberGuessMain {
 //        playGame();
 //    }
 
-    public static void playGame() {
+    public void playGame() {
+        casino = new Casino();
 
         guessEngine.prompt();
         //input = scanner.nextInt();
         guessEngine.getInput();
         if(input == 2) {
             running = false;
-            Casino.splashScreen();
+            casino.splashScreen();
         }
         while(running){
             int count = 0;
@@ -55,7 +57,7 @@ public class NumberGuessMain {
                 continue;
             } else if (input == 2) {
                 running = false;
-                Casino.splashScreen();
+                casino.splashScreen();
             }
         }
     }

@@ -5,21 +5,19 @@ import com.github.zipcodewilmington.casino.ActiveAccount;
 import org.junit.Assert;
 import org.junit.Test;
 
+//8 tests written
+
 public class AccountTest {
+    private Account acct;
+    private ActiveAccount aa;
     @Test
     public void testSetAccountName(){
+        acct = new Account();
+        aa = new ActiveAccount();
         Account account = new Account();
         account.setAccountName("Peter");
         String expected = "Peter";
         String actual = account.getAccountName();
-        Assert.assertEquals(expected, actual);
-    }
-    @Test
-    public void testSetName(){
-        Account account = new Account();
-        account.setName("Flo");
-        String expected = "Flo";
-        String actual = account.getName();
         Assert.assertEquals(expected, actual);
     }
     @Test
@@ -54,22 +52,25 @@ public class AccountTest {
     }
     @Test
     public void testAccountExists(){
+        acct = new Account();
         Account account1 = new Account("kyle", "kyle", 100);
-        boolean actual = Account.accountExists("kyle");
+        boolean actual = acct.accountExists("kyle");
         boolean expected = true;
         Assert.assertEquals(actual, expected);
     }
     @Test
     public void testMakeBet(){
+        acct = new Account();
         Account account = new Account("acctName", "pass", 500);
-        int actual = Account.makeBetTest(account, 200);
+        int actual = account.makeBetTest(account, 200);
         int expected = 300;
         Assert.assertEquals(expected, actual);
     }
     @Test
     public void testDeposit(){
+        acct = new Account();
         Account account = new Account("troy", "troy", 100);
-        Account.deposit(account, 100);
+        account.deposit(account, 100);
         int expected = 200;
         int actual = account.getBalance();
         Assert.assertEquals(actual, expected);
@@ -77,17 +78,25 @@ public class AccountTest {
 
     @Test
     public void testLogin() {
-        ActiveAccount.activeAccounts.clear();
+        acct = new Account();
         Account account = new Account("test", "test", 100);
-        Account.loginTest();
+        aa.activeAccounts.clear();
+        acct.loginTest();
 
-        int actual = ActiveAccount.activeAccounts.size();
+        int actual = aa.activeAccounts.size();
         int expected = 1;
 
         Assert.assertEquals(actual, expected);
     }
 
-
-
-
+    @Test
+    public void testGetBalance() {
+        acct = new Account();
+        aa = new ActiveAccount();
+        aa.activeAccounts.clear();
+        Account account = new Account ("test", "test", 2000);
+        int actual = account.getBalance();
+        int expected = 2000;
+        Assert.assertEquals(actual, expected);
+    }
 }
