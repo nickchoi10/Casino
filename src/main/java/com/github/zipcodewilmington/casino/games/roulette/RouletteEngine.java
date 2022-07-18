@@ -2,7 +2,6 @@ package com.github.zipcodewilmington.casino.games.roulette;
 
 import com.github.zipcodewilmington.casino.Account;
 
-import java.sql.SQLOutput;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -21,8 +20,9 @@ public class RouletteEngine {
     String userName = userAcct.getAccountName();
 
     //Welcomes player
-    public void welcomeMessage() {
+    public String welcomeMessage() {
         System.out.println("Welcome to the Roulette Table!");
+        return "Welcome to the Roulette Table!";
     }
     public void enterUserName() {
         System.out.println("Please enter your user name.");
@@ -88,14 +88,6 @@ public class RouletteEngine {
             wager = scanner.nextInt();
             placeThirdDozenBet(wager, bet, balance);
         }
-    }
-
-    //user input for bet wager one (how much player wants to bet)
-    public int betWagerOne() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println();
-        int playerWagerOne = scan.nextInt();
-        return playerWagerOne;
     }
 
     /* The straight-up bet in roulette, is an inside bet on a single number
