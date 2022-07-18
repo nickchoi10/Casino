@@ -1,5 +1,7 @@
 package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker;
 
+import com.sun.tools.javac.Main;
+
 public enum PokerState {
     MAIN_MENU {
         @Override
@@ -23,7 +25,7 @@ public enum PokerState {
     USERFOLD {
         @Override
         public PokerState nextState() {
-            return MAIN_MENU;
+            return RESULT_MENU;
         }
     },
     USERPLAY {
@@ -45,6 +47,6 @@ public enum PokerState {
         }
     };
     public PokerState nextState() {
-        return this;
+        return MAIN_MENU;
     };
 }

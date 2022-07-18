@@ -4,11 +4,13 @@ import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.Dealer;
+import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class PokerMain implements GameInterface {
     private List<PokerPlayer> players;
@@ -36,13 +38,13 @@ public class PokerMain implements GameInterface {
 
     public void run() {}
 
-//    public static void main(String[] args) {
-//        PokerMain poker = new PokerMain();
-//        Account acc = new Account("1", "2", 1000);
-//        PokerPlayer player = new PokerPlayer("Jeff");
-//        player.account = acc;
-//        poker.handleState(poker.getState(), player);
-//    }
+    public static void main(String[] args) {
+        PokerMain poker = new PokerMain();
+        Account acc = new Account("1", "2", 1000);
+        PokerPlayer player = new PokerPlayer("Jeff");
+        player.account = acc;
+        poker.handleState(poker.getState(), player);
+    }
 
     private void handleState(PokerState state, PokerPlayer player) {
         Account acc = player.getArcadeAccount();
@@ -51,58 +53,87 @@ public class PokerMain implements GameInterface {
                 int input = getSelectionInput(1, 2, mainMenuText());
                 switch (input) {
                     case 1:
-                        this.state = state.nextState();
+                        this.state = this.state.nextState();
                         handleState(this.state, player);
+                        return;
                     case 2:
                         return;
                 }
+
+
             case BETTING:
-                boolean success = handleBeforeBets(player);
-                if (!success) {
-                    System.out.println("You are required to have at least $%d in your balance to play.".formatted(minimumWager * 2));
+                if (!hasBalance(player, acc.getBalance(), minimumWager * 2)) {
                     return;
                 }
-                this.state = state.nextState();
+                int ante = askAnteWager(player, acc.getBalance());
+                int pairPlus = askPairPlusWager(player, acc.getBalance() - ante);
+                if (!hasBalance(player, acc.getBalance() - ante - pairPlus, minimumWager)) {
+                    return;
+                }
+                setBeforeBets(player, ante, pairPlus);
+                this.state = this.state.nextState();
                 handleState(this.state, player);
+                return;
+
+
             case DEALING:
-                dealer.setHand(new PokerHand(dealer.dealCards(3)));
-                player.setHand(new PokerHand(dealer.dealCards(3)));
+                System.out.println("DEALING...");
+                dealer.setHand(new PokerHand(dealer.dealCards(3, PlayingCard.class)));
+                player.setHand(new PokerHand(dealer.dealCards(3, PlayingCard.class)));
+
+                System.out.println(String.format("YOUR HAND:%s", player.getHand().getRank()));
                 player.getHand().printHand();
-                System.out.println(foldOrPlayText());
+                System.out.println("\n" + foldOrPlayText());
                 int choice = getSelectionInput(1, 2,"");
                 switch (choice) {
                     case 1:
                         this.state = PokerState.USERFOLD;
                         handleState(this.state, player);
+                        return;
                     case 2:
                         this.state = PokerState.USERPLAY;
                         handleState(this.state, player);
+                        return;
                 }
+
+
             case USERFOLD:
-                System.out.println("You have chosen to fold. Your wagers are now forfeit. Money deducted from account\n"
+                System.out.println("You are folding for this round. Your wagers are now forfeit. Money deducted from account\n"
                     + "Ante bet: %d\tPair Plus: %d".formatted(player.getAnteBet(), player.getPairPlusBet()));
-                acc.setBalance(acc.getBalance() - player.getAnteBet() - player.getPairPlusBet());
-                player.setAnteBet(0);
-                player.setPairPlusBet(0);
-                state.nextState();
+                handleFold(player);
+                this.state = this.state.nextState();
                 handleState(this.state, player);
+                return;
+
+
             case USERPLAY:
-                handlePlayBet(player);
-                this.state = state.nextState();
+                int playBet = getPlayBet(player, acc.getBalance() - player.getAnteBet() - player.getPairPlusBet());
+                if (!handlePlayBet(player, playBet)) {
+                    this.state = PokerState.USERFOLD;
+                    handleState(this.state, player);
+                    return;
+                }
+                this.state = this.state.nextState();
                 handleState(this.state, player);
+                return;
+
+
             case WINNERCALC:
                 PokerPlayer dealerPlayer = new PokerPlayer("Dealer", this.dealer.getHand().getCards());
                 PokerPlayer winner = engine.computeWinner(player, dealerPlayer);
-                handlePairPlus(player);
+                handlePairPlusResult(player);
                 if (winner == null) {
                     handlePlayTie(player);
                 } else if (winner.equals(player)) {
                     handlePlayWinner(player);
                 } else {
-                    handlePlayLoser(player);
+                    deductFromPlayLoser(player);
                 }
-                this.state = state.nextState();
+                this.state = this.state.nextState();
                 handleState(this.state, player);
+                return;
+
+
             case RESULT_MENU:
                 String msg = "Do you wish to continue?\n1. Next Round\n2. Quit";
                 int in = getSelectionInput(1, 2, msg);
@@ -132,23 +163,36 @@ public class PokerMain implements GameInterface {
         return res.toString();
     }
 
-    public void handlePlayBet(PokerPlayer player) {
+    public void handleFold(PokerPlayer player) {
         Account acc = player.getArcadeAccount();
-        int bal = acc.getBalance();
-        if (bal < minimumWager) {
+        acc.setBalance(acc.getBalance() - player.getAnteBet() - player.getPairPlusBet());
+        player.setAnteBet(0);
+        player.setPairPlusBet(0);
+    }
+
+    public int getPlayBet(PokerPlayer player, int balance) {
+        String msg = "Please make a wager of %d or more. Balance: %d".formatted(minimumWager, balance);
+        int wager = getSelectionInput(minimumWager, balance, msg);
+        return wager;
+    }
+
+    /** Returns false if player does not have enough balance to meet their play bet or the minimum **/
+    public boolean handlePlayBet(PokerPlayer player, int wager) {
+        Account acc = player.getArcadeAccount();
+        int bal = acc.getBalance() - player.getAnteBet() - player.getPairPlusBet();
+        if (bal < minimumWager || bal < wager ) {
             System.out.println("You do not have enough balance to play, you must fold!");
-            this.state = PokerState.USERFOLD;
-            handleState(this.state, player);
+            return false;
         }
-        String msg = "Please make a bet of $%d or more".formatted(minimumWager);
-        int wager = getSelectionInput(minimumWager, bal, msg);
         player.setPlayBet(wager);
+        return true;
     }
 
     private void handlePlayTie(PokerPlayer player) {
         System.out.println("Tie. Wagers returned");
         player.setPlayBet(0);
         player.setAnteBet(0);
+        player.setPlayBet(0);
     }
 
     private void handlePlayWinner(PokerPlayer player) {
@@ -157,63 +201,71 @@ public class PokerMain implements GameInterface {
         int anteBet = player.getAnteBet();
         int playBet = player.getPlayBet();
         if (isQualifiedDealer) {
-            System.out.println("Dealer hand qualified. You WIN: Ante wager: %d\t Play Wager: %d"
-                    .formatted(anteBet, playBet));
-            acc.setBalance(acc.getBalance() + anteBet + playBet);
+            int newBal = acc.getBalance() + anteBet + playBet;
+            System.out.println("Dealer hand QUALIFIED. You WIN:\nAnte wager: %d\nPlay Wager: %d\nBalance: %d(+%d)"
+                    .formatted(anteBet, playBet, newBal, anteBet + playBet));
+            acc.setBalance(newBal);
         } else {
-            System.out.println("Dealer hand not qualified. You WIN: Ante wager: %d".formatted(anteBet));
+            System.out.println(("Dealer hand NOT QUALIFIED." +
+                    " You WIN:\nAnte wager: %d\nBalance: %d(+%d)").formatted(anteBet, acc.getBalance() + anteBet, anteBet));
             acc.setBalance(acc.getBalance() + anteBet);
         }
         player.setAnteBet(0);
         player.setPlayBet(0);
     }
 
-    private void handlePairPlus(PokerPlayer player) {
+    private void handlePairPlusResult(PokerPlayer player) {
         boolean isPairPlus = player.getHand().getRank() != ThreePokerHandRank.HIGH_CARD;
         Account acc = player.getArcadeAccount();
         int pairBet = player.getPairPlusBet();
         if (isPairPlus) {
-            System.out.println("You've won the pair plus bet with your %s hand. Pair Plus wager: %d"
-                    .formatted(player.getHand().getRank().toString(), pairBet));
-            acc.setBalance(acc.getBalance() + pairBet);
+            int addBal = acc.getBalance() + pairBet;
+            System.out.println("You've won the pair plus bet with your %s hand.\nPair Plus wager: %d\nBalance: %d(+%d)"
+                    .formatted(player.getHand().getRank().toString(), pairBet, addBal, pairBet));
+            acc.setBalance(addBal);
         } else {
-            System.out.println("You've lost the pair plus bet. Pair Plus wager: %d".formatted(pairBet));
-            acc.setBalance(acc.getBalance() - pairBet);
+            int subBal = acc.getBalance() - pairBet;
+            System.out.println(("You've lost the pair plus bet with your HIGH CARD hand." +
+                    " Pair Plus wager: %d\nBalance: %d(-%d)").formatted(pairBet, subBal, pairBet));
+            acc.setBalance(subBal);
         }
         player.setPairPlusBet(0);
     }
 
-    private void handlePlayLoser(PokerPlayer player) {
-        System.out.println("You've lost. The following will be withdrawn from your account: Play wager: %d\n Ante wager: %d"
-                .formatted(player.getPlayBet(), player.getAnteBet()));
-        Account acc = player.getArcadeAccount();
-        acc.setBalance(acc.getBalance() - player.getAnteBet() - player.getPlayBet());
+    private void deductFromPlayLoser(PokerPlayer loserPlayer) {
+        System.out.println("You've lost. The following will be withdrawn from your account: \nPlay wager: %d\n Ante wager: %d"
+                .formatted(loserPlayer.getPlayBet(), loserPlayer.getAnteBet()));
+        Account acc = loserPlayer.getArcadeAccount();
+        acc.setBalance(acc.getBalance() - loserPlayer.getAnteBet() - loserPlayer.getPlayBet());
+        System.out.println(String.format("Your balance is: %d", loserPlayer.getArcadeAccount().getBalance()));
     }
 
-    // TODO Create and throw custom exception of NotE
-    /** Gets and adds player's wagers. Returns false if player does not have enough balance to make the minimum ante bet of $5. **/
-    public boolean handleBeforeBets(PokerPlayer player) {
-        Account acc = player.getArcadeAccount();
-        int bal = acc.getBalance();
-        if (bal < minimumWager * 2) {
+
+    public int askAnteWager(PokerPlayer player, int balance) {
+        String anteMsg = "Please make an ante wager above %d. You may bet up to %d".formatted(minimumWager, balance);
+        int anteWager = getSelectionInput(minimumWager, balance, anteMsg);
+        return anteWager;
+    }
+
+    public int askPairPlusWager(PokerPlayer player, int balance) {
+        String pairWagerMsg = "Please make a pair plus wager. Enter 0 to pass. You may bet up to %d".formatted(balance);
+        int pairPlusWager = getSelectionInput(0, balance, pairWagerMsg);
+        return pairPlusWager;
+    }
+
+    public boolean hasBalance(PokerPlayer player, int balance, int minimum) {
+        if (balance < minimum) {
             System.out.println("You do not have enough balance to play");
             return false;
         }
-        String anteMsg = "Please make an ante wager above %d. You may bet up to %d".formatted(minimumWager, bal);
-        int anteWager = getSelectionInput(1, bal, anteMsg);
-        player.setAnteBet(anteWager);
+        return true;
+    }
 
-        // Get pair plus wager
-        if (bal - anteWager - minimumWager < 0) {
-            System.out.println("Not enough balance remaining to make minimum play bet");
-            return false;
-        }
-        String pairWagerMsg = "Please make a pair plus wager. Enter 0 to pass. You may bet up to %d".formatted(bal);
-        int pairPlusWager = getSelectionInput(0, bal, pairWagerMsg);
+    public void setBeforeBets(PokerPlayer player, int anteWager, int pairPlusWager) {
+        player.setAnteBet(anteWager);
         if (pairPlusWager > 0) {
             player.setPairPlusBet(pairPlusWager);
         }
-        return true;
     }
 
     /** Lower and upper bound inclusive **/

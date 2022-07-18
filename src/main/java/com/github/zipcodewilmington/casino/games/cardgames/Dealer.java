@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class Dealer<T extends Hand, U extends Deck<PlayingCard>> {
+public class Dealer<T extends Hand<? extends Card>, U extends Deck<? extends Card>> {
     private T hand;
     private U deck;
 
@@ -29,12 +29,19 @@ public class Dealer<T extends Hand, U extends Deck<PlayingCard>> {
         this.deck = deck;
     }
 
-    public List<PlayingCard> dealCards(int numberOfCards) throws IllegalArgumentException {
-        List<PlayingCard> dealtCards = new ArrayList<>(numberOfCards);
+
+
+    public <S extends Card> List<S> dealCards(int numberOfCards, Class<S> cardType) throws IllegalArgumentException, ClassCastException {
+        List<S> dealtCards = new ArrayList<>(numberOfCards);
 
         try {
             for (int i = 0; i < numberOfCards; i++) {
-                dealtCards.add(deck.dealCard());
+                try {
+                    dealtCards.add(cardType.cast(deck.dealCard()));
+                } catch (ClassCastException e) {
+                    System.out.println("Wrong type of cards!");
+                    throw new ClassCastException();
+                }
             }
         } catch (NoSuchElementException e) {
             throw new IllegalArgumentException("NOT ENOUGH CARDS IN THE DECK");
