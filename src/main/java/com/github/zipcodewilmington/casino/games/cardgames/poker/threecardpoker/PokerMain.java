@@ -4,6 +4,7 @@ import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.Dealer;
+import com.github.zipcodewilmington.casino.games.cardgames.Deck;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
 
@@ -188,14 +189,13 @@ public class PokerMain implements GameInterface {
         return true;
     }
 
-    private void handlePlayTie(PokerPlayer player) {
+    protected void handlePlayTie(PokerPlayer player) {
         System.out.println("Tie. Wagers returned");
-        player.setPlayBet(0);
         player.setAnteBet(0);
         player.setPlayBet(0);
     }
 
-    private void handlePlayWinner(PokerPlayer player) {
+    protected void handlePlayWinner(PokerPlayer player) {
         Account acc = player.getArcadeAccount();
         boolean isQualifiedDealer = engine.dealerHandQualifies(this.dealer.getHand());
         int anteBet = player.getAnteBet();
@@ -214,7 +214,7 @@ public class PokerMain implements GameInterface {
         player.setPlayBet(0);
     }
 
-    private void handlePairPlusResult(PokerPlayer player) {
+    protected void handlePairPlusResult(PokerPlayer player) {
         boolean isPairPlus = player.getHand().getRank() != ThreePokerHandRank.HIGH_CARD;
         Account acc = player.getArcadeAccount();
         int pairBet = player.getPairPlusBet();
@@ -232,7 +232,7 @@ public class PokerMain implements GameInterface {
         player.setPairPlusBet(0);
     }
 
-    private void deductFromPlayLoser(PokerPlayer loserPlayer) {
+    protected void deductFromPlayLoser(PokerPlayer loserPlayer) {
         System.out.println("You've lost. The following will be withdrawn from your account: \nPlay wager: %d\n Ante wager: %d"
                 .formatted(loserPlayer.getPlayBet(), loserPlayer.getAnteBet()));
         Account acc = loserPlayer.getArcadeAccount();
@@ -295,6 +295,10 @@ public class PokerMain implements GameInterface {
 
     public void setState(PokerState state) {
         this.state = state;
+    }
+
+    public Dealer<PokerHand, StandardDeck> getDealer() {
+        return this.dealer;
     }
 
 }
