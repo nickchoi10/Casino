@@ -44,13 +44,15 @@ public class BPSEngine {
         wager = acct.makeBet(aa.activeAccounts.get(0));
         p1 = getThrow(1);
         p2 = AIThrow();
+        threw(p1);
+        threw(p2);
         if (pveWin(p1, p2, wager) == true)  {
-            acct.deposit(aa.activeAccounts.get(0), (wager*2));
+            acct.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
         } else if (draw(p1, p2)) {
-            acct.deposit(aa.activeAccounts.get(0), (wager));
+            acct.deposit(ActiveAccount.activeAccounts.get(0), (wager));
             PvE();
-        } else System.out.println(aa.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + "." +
-                aa.activeAccounts.get(0).getAccountName() + " lost :(\n\n");
+        } else System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + "." +
+                ActiveAccount.activeAccounts.get(0).getAccountName() + " lost :(\n\n");
         quitPvE();
     }
     public void quitPvE(){
@@ -61,8 +63,8 @@ public class BPSEngine {
     }
     public boolean pveWin(String p1, String p2, int wager){
         if (p1.equals(getWinner2P(p1, p2))) {
-            System.out.println(aa.activeAccounts.get(0).getAccountName() + "Wins! \n" +
-                    aa.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + ".\n" +
+            System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " Wins! \n" +
+                    ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + ".\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
             return true;}
         else return false;
@@ -81,11 +83,13 @@ public class BPSEngine {
         String p1;
         String p2;
         BPSRules2P();
-        System.out.println(aa.activeAccounts.get(0).getAccountName() + ", how much do the players want to wager?\n");
-        wager = acct.makeBet(aa.activeAccounts.get(0));
-        acct.withdraw(aa.activeAccounts.get(1), wager);
+        System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + ", how much do the players want to wager?\n");
+        wager = acct.makeBet(ActiveAccount.activeAccounts.get(0));
+        acct.withdraw(ActiveAccount.activeAccounts.get(1), wager);
         p1 = getThrow(1);
-        p2 = getThrow(1);
+        p2 = getThrow(2);
+        threw(p1);
+        threw(p2);
         win = getWinner2P(p1, p2);
         if (draw(p1, p2)) {
             PvP();
@@ -100,21 +104,18 @@ public class BPSEngine {
     }
     public boolean pvpWin(String p1, String p2, int wager){
         if (p1.equals(getWinner2P(p1, p2))) {
-            System.out.println(aa.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and " + aa.activeAccounts.get(1).getAccountName() + " threw " + p2 +  ".\n\n" +
-                    aa.activeAccounts.get(0).getAccountName() + " WINS!!\n" +
+            System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and " + ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 +  ".\n\n" +
+                    ActiveAccount.activeAccounts.get(0).getAccountName() + " WINS!!\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
-            acct.deposit(aa.activeAccounts.get(0), (wager*2));
+            acct.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
             return true;
         } else {
-            System.out.println(aa.activeAccounts.get(1).getAccountName() + " threw " + p2 + " and " + aa.activeAccounts.get(0).getAccountName() + " threw " + p1 +  ".\n\n" +
-                    aa.activeAccounts.get(1).getAccountName() + " WINS!!\n" +
+            System.out.println(ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 + " and " + ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 +  ".\n\n" +
+                    ActiveAccount.activeAccounts.get(1).getAccountName() + " WINS!!\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
-            acct.deposit(aa.activeAccounts.get(1), (wager*2));
+            acct.deposit(ActiveAccount.activeAccounts.get(1), (wager*2));
             return false;}
     }
-
-
-
 
 
     public String getThrow(int player){
@@ -177,32 +178,40 @@ public class BPSEngine {
         else {return "draw";}
     }
 
-    public void asciiArt(){
-        System.out.println("""
-                                
+    public void threw(String p) {
+        String hands = "";
+        switch (p) {
+            case "boulder":
+                hands = """
                     _______
                 ---'   ____)
                       (_____)
-                      (_____)
+                      (_____) BOULDER!
                       (____)
                 ---.__(___)
-                                
+                        """;
+                break;
+            case "parchment":
+                hands = """
                     _______
                 ---'   ____)____
                           ______)
-                          _______)
+                          _______) PARCHMENT!
                          _______)
                 ---.__________)
-                                
+                        """;
+                break;
+            case "shears":
+                hands = """
                     _______
                 ---'   ____)____
                           ______)
-                       __________)
+                       __________) SHEARS!
                       (____)
                 ---.__(___)
-                
-                
-                """);
+                        """;
+                break;
+        }
+        System.out.println(hands);
     }
-
 }
