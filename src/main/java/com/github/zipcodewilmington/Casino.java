@@ -10,13 +10,18 @@ import com.github.zipcodewilmington.utils.TheScanner;
 import java.util.Scanner;
 
 public class Casino implements Runnable {
+    private NumberGuessMain ngm;
+    private Account acct;
+    private HighLowDiceMain hldm;
+    private ActiveAccount aa;
+    private BPSMain bps;
 
     @Override
     public void run() {
         splashScreen();
     }
 
-    public static void splashScreen(){
+    public void splashScreen(){
         final String TEXT_RESET = "\u001B[0m"; // RESET TO DEFAULT
         final String GREEN_BRIGHT = "\033[0;92m";  // GREEN
         final String YELLOW_BRIGHT = "\033[0;93m"; // YELLOW
@@ -59,7 +64,8 @@ public class Casino implements Runnable {
         mainMenu();
     }
 
-    public static void mainMenu(){
+    public void mainMenu(){
+        aa = new ActiveAccount();
         int menuChoice;
 
         System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
@@ -78,7 +84,7 @@ public class Casino implements Runnable {
         if (menuChoice == 1) {
             createAccount();
         } else if (menuChoice == 2) {
-            ActiveAccount.activeAccountManager();
+            aa.activeAccountManager();
         } else if (menuChoice == 3) {
             pickGame();
         } else if (menuChoice == 4) {
@@ -88,14 +94,15 @@ public class Casino implements Runnable {
         }
     }
 
-    public static void createAccount(){
+    public void createAccount(){
+        acct = new Account();
         Scanner scan = new Scanner(System.in);
         System.out.println("Thank you for choosing to create an account with us here at the STARDUST VIP Casino!\n" +
                 "Please enter a username for your account!\n");
         String acctName;
         while(true) {
             acctName = scan.nextLine();
-            if (!Account.accountExists(acctName)){break;}
+            if (!acct.accountExists(acctName)){break;}
             else System.out.println("An account by that name already exists, please choose another name\n");
         }
         System.out.println("Excellent Choice! Welcome to the STARDUST VIP Club " + acctName + "! Just a few more questions\n" +
@@ -119,7 +126,11 @@ public class Casino implements Runnable {
     }
 
 
-    public static void pickGame(){
+    public void pickGame(){
+        ngm = new NumberGuessMain();
+        bps = new BPSMain();
+        hldm = new HighLowDiceMain();
+
         int menuChoice;
         while (true) {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
@@ -136,13 +147,13 @@ public class Casino implements Runnable {
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
-            SlotsGame.startSlot();
+            //slotmain
         } else if (menuChoice == 2) {
-            NumberGuessMain.playGame();
+            ngm.playGame();
         }else if (menuChoice == 3) {
-            BPSMain.playBPS();
+            bps.playBPS();
         }else if (menuChoice == 4) {
-            HighLowDiceMain.playGame();
+            hldm.playGame();
         }else if (menuChoice == 5) {
             //load game 5
         }else if (menuChoice == 6) {
@@ -154,12 +165,12 @@ public class Casino implements Runnable {
         }
     }
 
-    public static void quit(){
+    public void quit(){
         System.out.println("Thank you for visiting the STARDUST VIP Casino! Please visit again soon!");
         System.exit(0);
     }
 
-    public static void lounge(){
+    public void lounge(){
         System.out.println("""
                 |\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\\__/\s
                 |. . . . . . . . . . .[___|___|___|___|___|__]. . . . . . . . . . . . . . . .|
@@ -191,7 +202,6 @@ public class Casino implements Runnable {
         try {
             System.in.read();
         } catch (Exception e) {
-        }
-        mainMenu();
+        } mainMenu();
     }
 }

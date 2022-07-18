@@ -5,6 +5,7 @@ import com.github.zipcodewilmington.casino.games.dicegames.Dice;
 
 
 public class HighLowDiceMain {
+    private Casino casino;
     static boolean running = true;
     static Dice dice = new Dice();
     static HighLowDiceEngine mainGame = new HighLowDiceEngine();
@@ -12,12 +13,8 @@ public class HighLowDiceMain {
 
 
 
-
-    public static void main(String[] args){
-        playGame();
-    }
-
-    public static void playGame() {
+    public void playGame() {
+        casino = new Casino();
         mainGame.startPrompt();
 
         while (true) {
@@ -27,7 +24,7 @@ public class HighLowDiceMain {
                 playGame();
             } else if (input == 2) {
                 running = false;
-                Casino.splashScreen();
+                casino.splashScreen();
             } else break;
         }
 
@@ -53,7 +50,7 @@ public class HighLowDiceMain {
                 continue;
             } else if (input == 2) {
                 running = false;
-                Casino.splashScreen();
+                casino.splashScreen();
             }
         }
     }
