@@ -1,18 +1,18 @@
 package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker;
 
 import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.Gambler;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
 import java.util.List;
 
-public class PokerPlayer implements PlayerInterface {
+public class PokerPlayer extends Gambler {
     String name;
     Account account;
     PokerHand hand;
     int anteBet;
     int pairPlusBet;
-
     int playBet;
 
     public int getPlayBet() {
