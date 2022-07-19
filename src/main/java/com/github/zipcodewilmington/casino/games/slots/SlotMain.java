@@ -3,10 +3,14 @@ package com.github.zipcodewilmington.casino.games.slots;
 import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessEngine;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.Ascii;
+import com.github.zipcodewilmington.utils.IOConsole;
 
 import java.util.Scanner;
 
 public class SlotMain {
+    static IOConsole ioConsole = new IOConsole(AnsiColor.PURPLE);
     private ActiveAccount aa;
     SlotsEngine run = new SlotsEngine();
     private Casino casino;
@@ -21,6 +25,7 @@ public class SlotMain {
         casino = new Casino();
 //        SlotsEngine run = new SlotsEngine();
         run.beginMessage();
+        Ascii.printAscii("SLOTS", "\"", 300, 20, 24);
 //        run.beginningBalance();
         System.out.println("Hello, welcome to the StarDust's Slot Game\n" +
                 "Match 3 numbers across the board, you win your bet amount!\n" +
@@ -33,6 +38,7 @@ public class SlotMain {
         }
         while (running) {
             run.currentBalance();
+            System.out.println("Please Enter Bet amount: ");
             run.betMessage();
             run.inputBet();
             run.clearArray();
@@ -43,8 +49,8 @@ public class SlotMain {
             run.jackPotCondition(run.slotList);
             run.losingCondition();
             run.continuePlaying();
-
-            System.out.println("Do you want to continue playing?\n1) Continue 2) Quit\n");
+            ioConsole = new IOConsole(AnsiColor.AUTO);
+            ioConsole.println("Do you want to continue playing?\n1) Continue 2) Quit\n");
             input = scanner.nextInt();
             //guessEngine.getInput();
             if (input == 1) {
