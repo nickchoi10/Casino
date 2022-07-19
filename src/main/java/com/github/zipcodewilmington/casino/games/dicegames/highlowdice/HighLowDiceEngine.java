@@ -75,6 +75,13 @@ public class HighLowDiceEngine {
             System.out.println("Balance: " + aa.activeAccounts.get(0).getBalance());
         }
     }
+    public void slowText(){
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     //**********||PROMPTS||**********//
     public void startPrompt() {
