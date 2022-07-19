@@ -2,7 +2,7 @@ package com.github.zipcodewilmington.casino.games.cardgames;
 
 import java.util.*;
 
-public abstract class Deck<E> {
+public abstract class Deck<E extends Card> {
     protected Deque<E> cards;
 
 

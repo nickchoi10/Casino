@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class ThreeCardPokerEngine {
-    private Deck<PlayingCard> deck;
-
 
     public ThreeCardPokerEngine() {
-        deck = new StandardDeck();
     }
 
+    public boolean dealerHandQualifies(PokerHand hand) {
+        return getHandPointValue(hand) > 111;
+    }
     public PokerPlayer computeWinner(PokerPlayer player1, PokerPlayer player2) {
         int player1Points = getHandPointValue(player1.getHand());
         int player2Points = getHandPointValue(player2.getHand());
@@ -60,23 +60,23 @@ public class ThreeCardPokerEngine {
     }
 
     public PokerPlayer flushTieBreaker(PokerPlayer player1, PokerPlayer player2) throws IllegalArgumentException {
-        PokerHand hand1 = player1.getHand();
-        PokerHand hand2 = player2.getHand();
-        if (hand1.getRank() != ThreePokerHandRank.FLUSH || hand2.getRank() != ThreePokerHandRank.FLUSH) {
+        PokerHand player1Hand = player1.getHand();
+        PokerHand player2Hand = player2.getHand();
+        if (player1Hand.getRank() != ThreePokerHandRank.FLUSH || player2Hand.getRank() != ThreePokerHandRank.FLUSH) {
             throw new IllegalArgumentException("Both hands must be a flush");
         }
 
-        while (hand1.getNumberOfCards() > 0 && hand2.getNumberOfCards() > 0) {
-            PlayingCard card1 = hand1.getHighestCard(hand1, true);
-            PlayingCard card2 = hand2.getHighestCard(hand2, true);
+        while (player1Hand.getNumberOfCards() > 0 && player2Hand.getNumberOfCards() > 0) {
+            PlayingCard card1 = player1Hand.getHighestCard(player1Hand, true);
+            PlayingCard card2 = player2Hand.getHighestCard(player2Hand, true);
 
             if (card1.getRank().getValue() > card2.getRank().getValue()) {
                 return player1;
             } else if (card2.getRank().getValue() > card1.getRank().getValue()) {
                 return player2;
             }
-            hand1.removeCard(card1);
-            hand2.removeCard(card2);
+            player1Hand.removeCard(card1);
+            player2Hand.removeCard(card2);
         }
         return null;
     }
