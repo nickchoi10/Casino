@@ -66,11 +66,13 @@ public class HighLowDiceEngine {
 //        if(isWinner == true && results == 3;){
 //            acct.deposit(aa.activeAccounts.get(0), (wager*4));
 //        }else
-        if(isWinner == true){
+        if(isWinner){
             acct.deposit(aa.activeAccounts.get(0), (wager*2));
             System.out.println(aa.activeAccounts.get(0).getAccountName() + " Wins! \n You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account. \n"+ANSI_BLUE);
-        } else if(isWinner = false){
+            System.out.println("Balance: " + aa.activeAccounts.get(0).getBalance());
+        } else if(!isWinner){
             System.out.println(aa.activeAccounts.get(0).getAccountName() + " lost :( \n\n");
+            System.out.println("Balance: " + aa.activeAccounts.get(0).getBalance());
         }
     }
 
