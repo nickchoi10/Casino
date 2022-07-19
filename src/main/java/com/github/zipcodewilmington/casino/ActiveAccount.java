@@ -42,10 +42,10 @@ public class ActiveAccount {
             output.append("Account ").append(i + 1).append(": ").append(activeAccounts.get(i).getAccountName()).append("\n");
         }
         if (activeAccounts.size() != 0) {
-            System.out.println(output);
+            System.out.println("Logged in accounts:\n" + output);
             return output.toString();
         }
-        else return ("There are no active players!");
+        else return ("There are no logged in accounts!");
     }
 
     public void numPlayers(int maxPlayers) {
@@ -92,29 +92,43 @@ public class ActiveAccount {
         casino = new Casino();
         showActiveAccounts();
         System.out.println("What would you like to do ?\n" +
-                "1) Log in a new account\n" +
+                "1) Log in an account\n" +
                 "2) Log out of an active account\n" +
-                "3) Log out all active accounts\n" +
-                "4) Return to Main Menu\n");
+                "3) Check Account Balance\n" +
+                "4) Deposit Money into an Account\n" +
+                "5) Log out all active accounts\n" +
+                "6) Return to Main Menu\n");
         int choice;
         while (true) {
             choice = TheScanner.getNumber("");
-            if (choice >= 1 && choice <= 4) {
+            if (choice >= 1 && choice <= 6) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a valid menu choice.\n");
         }
         if (choice == 1) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             acct.login(1, 1, 1);
         } else if (choice == 2) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Type the Account Name you would like to remove\n");
             String acctName = scan.nextLine();
             aa.removeActiveAccount(acct.getAccount(acctName));
             activeAccountManager();
         } else if (choice == 3) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            acct.checkBalance();
+            activeAccountManager();
+        } else if (choice == 4) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            acct.menuDeposit();
+            activeAccountManager();
+        } else if (choice == 5) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             activeAccounts.clear();
             System.out.println("All players have been logged out.");
             activeAccountManager();
-        } else if (choice == 4) {
+        } else if (choice == 6) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             casino.mainMenu();
         }
     }

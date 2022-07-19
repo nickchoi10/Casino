@@ -38,7 +38,7 @@ class TestDealer {
 
     @Test
     void dealCardsNoIssue() {
-        PokerHand hand = new PokerHand(pokerDealer.dealCards(10));
+        PokerHand hand = new PokerHand(pokerDealer.dealCards(10, PlayingCard.class));
 
         Integer expectedCards = 10;
         Integer expectedCardsInDeck = 42;
@@ -53,7 +53,7 @@ class TestDealer {
     @Test
     void testDealCardsEmptyDeckThrowsException() {
        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-           new PokerHand(pokerDealer.dealCards(53));
+           new PokerHand(pokerDealer.dealCards(53, PlayingCard.class));
        });
 
        Assert.assertEquals("NOT ENOUGH CARDS IN THE DECK", e.getMessage());
@@ -74,7 +74,7 @@ class TestDealer {
 
     @Test
     public void testSetDeck() {
-        PokerHand hand = new PokerHand(pokerDealer.dealCards(10));
+        PokerHand hand = new PokerHand(pokerDealer.dealCards(10, PlayingCard.class));
 
         Integer expectedDeckAfterDeal = 42;
         Integer actualDeckSize = pokerDealer.getDeck().getDeckSize();

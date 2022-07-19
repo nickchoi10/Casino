@@ -9,12 +9,11 @@ import java.util.*;
 import static com.github.zipcodewilmington.casino.ActiveAccount.*;
 
 public class Account {
-    private ActiveAccount aa;
-    private Casino casino;
 
     //INITIALIZING VARIABLES
+    private ActiveAccount aa;
+    private Casino casino;
     private String accountName;
-    private String name;
     private String password;
     private int balance;
     static Map<String, Account> allAccounts = new HashMap<>();
@@ -32,6 +31,7 @@ public class Account {
         this.password = password;
         this.balance = balance;
         allAccounts.put(accountName, this);
+        activeAccounts.add(this);
     }
 
     //SETTERS
@@ -126,6 +126,31 @@ public class Account {
                 return allAccounts.get(acctName);
             } else System.out.println("No account exists with that UserName.");
         }
+    }
+
+    public void menuDeposit(){
+        String acctName;
+        Scanner scan = new Scanner(System.in);
+        Account tempAccount = new Account();
+        System.out.println("Type in the name of the account you would like to make a deposit in.\n");
+        acctName = scan.nextLine();
+        tempAccount = getAccount(acctName);
+        System.out.println("Current balance of " + acctName + " is " + tempAccount.getBalance() + ".\n" +
+                "How much would you like to deposit?");
+        int amount = TheScanner.getNumber("");
+        deposit(tempAccount, amount);
+        System.out.println("New balance of " + acctName + " is " + tempAccount.getBalance() + ".\n");
+
+    }
+
+    public void checkBalance(){
+        String acctName;
+        Scanner scan = new Scanner(System.in);
+        Account tempAccount = new Account();
+        System.out.println("Type in the name of the account you would like to check the balance of.\n");
+        acctName = scan.nextLine();
+        tempAccount = getAccount(acctName);
+        System.out.println("Current balance of " + acctName + " is " + tempAccount.getBalance() + ".\n");
     }
 
     public void loginTest(){
