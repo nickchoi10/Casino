@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
@@ -15,6 +16,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class PokerMain implements GameInterface {
+    private Casino casino;
     private List<PokerPlayer> players;
     private List<PokerPlayer> exitLobby;
     private Dealer<PokerHand, StandardDeck> dealer;
@@ -63,6 +65,7 @@ public class PokerMain implements GameInterface {
     }
 
     public void run() {
+        casino = new Casino();
         while(this.exitLobby.size() < this.players.size()) {
             for (PokerPlayer player : players) {
                 setState(PokerState.MAIN_MENU);
@@ -73,6 +76,7 @@ public class PokerMain implements GameInterface {
         }
         players = null;
         exitLobby = null;
+        casino.splashScreen();
     }
 
     public static void main(String[] args) {
