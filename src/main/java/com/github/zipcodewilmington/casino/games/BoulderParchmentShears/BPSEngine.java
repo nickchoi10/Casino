@@ -33,7 +33,6 @@ public class BPSEngine {
     }
 
     //1-PLAYER GAME STUFF
-
     public void PvE() {
         int wager;
         String p1;
