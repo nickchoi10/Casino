@@ -3,6 +3,7 @@ package com.github.zipcodewilmington;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
+import com.github.zipcodewilmington.casino.games.cardgames.blackjack.BlackjackMain;
 import com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker.PokerMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
@@ -21,7 +22,7 @@ public class Casino implements Runnable {
     private HighLowDiceMain hldm;
     private ActiveAccount aa;
     private BPSMain bps;
-
+    private BlackjackMain bjm;
 
     @Override
     public void run() {
@@ -155,6 +156,7 @@ public class Casino implements Runnable {
         ngm = new NumberGuessMain();
         bps = new BPSMain();
         hldm = new HighLowDiceMain();
+        bjm = new BlackjackMain();
         sm = new SlotMain();
         pokey = new PokerMain(ActiveAccount.activeAccounts.toArray(new Account[0]));
 
@@ -167,8 +169,9 @@ public class Casino implements Runnable {
                     "4) High-Low Dice\n" +
                     "5) Number Guess Game (No Gambling)\n" +
                     "6) Boulder Parchment Shears\n" +
-                    "7) Return to Main Menu\n" +
-                    "8) Leave Casino\n");
+                    "7) Blackjack\n" +
+                    "8) Return to Main Menu\n" +
+                    "9) Leave Casino\n");
             if (menuChoice >= 1 && menuChoice <= 8) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
@@ -193,8 +196,11 @@ public class Casino implements Runnable {
             bps.playBPS();
         }else if (menuChoice == 7) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            splashScreen();
+            bjm.run();
         }else if (menuChoice == 8) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            splashScreen();
+        }else if (menuChoice == 9) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             quit();
         }
