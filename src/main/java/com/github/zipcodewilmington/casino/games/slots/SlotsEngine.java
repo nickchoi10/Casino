@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class SlotsEngine {
 //add thread.sleep to display board for effects
 
-
     ArrayList slotList;
     int betAmount;
     int balance = ActiveAccount.activeAccounts.get(0).getBalance();
@@ -40,6 +39,7 @@ public class SlotsEngine {
     }
 
     public int inputBet() {
+        acct = new Account();
         while(true) {
             betAmount = acct.makeBet(ActiveAccount.activeAccounts.get(0));
             break;
