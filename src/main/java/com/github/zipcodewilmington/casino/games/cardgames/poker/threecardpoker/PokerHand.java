@@ -4,6 +4,10 @@ import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.CardSuit;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
+
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import java.util.*;
@@ -166,14 +170,62 @@ public class PokerHand extends Hand<PlayingCard> implements PokerHandChecker {
     }
 
     public void printHand() {
+        try {
+            String utf8 = "UTF-8";
+            PrintStream printer = new PrintStream(System.out, true, utf8);
+            String lowBorder = "┗┈┈┈┈┈┈┈┈┈┈┈┈┈┈┛  ";
+            String topBorder = "┏┈┈┈┈┈┈┈┈┈┈┈┈┈┈┓  ";
+            String section = "┊              ┊  ";
+            String sectionUtf = new String(section.getBytes(utf8));
         for (PlayingCard card : getCards()) {
-            System.out.print(card.toString());
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                continue;
-            }
+            String topUtf = new String(topBorder.getBytes(utf8), utf8);
+            printer.print(topUtf);
         }
-        System.out.println();
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            String upper = String.format("┊%-14d┊  ", card.getRank().getValue());
+            String upperUtf = new String(upper.getBytes(utf8), utf8);
+            printer.print(upperUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            printer.print(sectionUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            printer.print(sectionUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            String middle = String.format("┊%7s%-7s┊%-2s", card.getSuit().getUnicode(), "", "");
+            String middleUtf = new String(middle.getBytes(utf8), utf8);
+            printer.print(middleUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            printer.print(sectionUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            printer.print(sectionUtf);
+        }
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            String lower = String.format("┊%14d┊  ", card.getRank().getValue());
+            String lowerUtf = new String(lower.getBytes(utf8), utf8);
+            printer.print(lowerUtf);
+        }
+
+        printer.println();
+        for (PlayingCard card : getCards()) {
+            String lowBorderUtf = new String(lowBorder.getBytes(utf8), utf8);
+            printer.print(lowBorderUtf);
+        }
+        printer.println();
+
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Encoding not supported");
+            return;
+        }
     }
 }
