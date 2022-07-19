@@ -20,6 +20,7 @@ public class HighLowDiceMain {
     public void playGame() {
         acct = new Account();
         aa = new ActiveAccount();
+        aa.numPlayers(1);
         casino = new Casino();
         mainGame.startPrompt();
         int wager;
@@ -46,10 +47,15 @@ public class HighLowDiceMain {
 //            String msg = "";
 //            int playerInput = HighLowDiceEngine.ioConsole.getIntegerInput(msg);
             int toss = dice.tossAndSum(2);
+            mainGame.slowText();
             System.out.println("Roll: " + toss);
+            mainGame.slowText();
             int highOrLow = mainGame.checkHighOrLow(toss);
+            mainGame.slowText();
             mainGame.resultsCheck(highOrLow);
+            mainGame.slowText();
             mainGame.winOrLose(playerInput, highOrLow);
+            mainGame.slowText();
             mainGame.resolveBets();
 
             //acct.deposit(aa.activeAccounts.get(0), (wager*2));

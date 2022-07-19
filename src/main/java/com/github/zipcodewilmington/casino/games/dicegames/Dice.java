@@ -20,6 +20,11 @@ public class Dice {
 
     public Integer rollDice() {
         this.number = random.nextInt(6) + 1;
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         diceASCII(this.number);
         return this.number;
     }
