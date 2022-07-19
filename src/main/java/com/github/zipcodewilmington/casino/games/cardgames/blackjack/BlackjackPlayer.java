@@ -18,14 +18,14 @@ public class BlackjackPlayer {
 
 
     Account casinoAccount;
-    Hand hand;
+    Hand<PlayingCard> hand;
     int handValue;
 
     boolean isWinner;
 
 
     public BlackjackPlayer(Account casinoAccount) {
-        this.hand = new Hand();
+        this.hand = new Hand<>();
         this.casinoAccount = casinoAccount;
         this.isWinner = false;
 
@@ -45,11 +45,11 @@ public class BlackjackPlayer {
         this.casinoAccount = casinoAccount;
     }
 
-    public Hand getHand() {
+    public Hand<PlayingCard> getHand() {
         return hand;
     }
 
-    public void setHand(Hand hand) {
+    public void setHand(Hand<PlayingCard> hand) {
         this.hand = hand;
     }
 
