@@ -1,5 +1,7 @@
 package com.github.zipcodewilmington.casino.games.dicegames.highlowdice;
 
+import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -11,17 +13,20 @@ public class HighLowDiceEngine {
     static Scanner scanner = new Scanner(System.in);
     Integer results;
     static IOConsole ioConsole = new IOConsole(AnsiColor.BLUE);
+    public static final String ANSI_BLUE = "\u001B[34m";
+    private ActiveAccount aa;
+    private Account acct;
+    int wager;
+    boolean isWinner;
+
+
 
     //**********||GAME METHODS||**********//
-    public Integer placeBets() {
-        //System.out.println("Place your bets!");
-        //getInput().setBets;
-        return null;
-    }
-    public Integer resolveBets() {
-        //balance += getBets;
-        //balance = getBets * 4 //if results is Seven
-        return null;
+    public void placeBets() {
+        acct = new Account();
+        aa = new ActiveAccount();
+        System.out.println("How much would you like to wager?\n");
+        wager = acct.makeBet(aa.activeAccounts.get(0));
     }
     public Integer checkHighOrLow(int diceResult) {
         int results = 0;
@@ -51,8 +56,21 @@ public class HighLowDiceEngine {
     public void winOrLose(int playerInput, int highOrLow){
         if (playerInput == highOrLow) {
             System.out.println("You win!!\n");
+            isWinner = true;
         } else {
             System.out.println("You lose!!\n");
+            isWinner = false;
+        }
+    }
+    public void resolveBets() {
+//        if(isWinner == true && results == 3;){
+//            acct.deposit(aa.activeAccounts.get(0), (wager*4));
+//        }else
+        if(isWinner == true){
+            acct.deposit(aa.activeAccounts.get(0), (wager*2));
+            System.out.println(aa.activeAccounts.get(0).getAccountName() + " Wins! \n You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account. \n"+ANSI_BLUE);
+        } else if(isWinner = false){
+            System.out.println(aa.activeAccounts.get(0).getAccountName() + " lost :( \n\n");
         }
     }
 
