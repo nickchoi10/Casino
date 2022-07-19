@@ -8,8 +8,6 @@ import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import java.util.List;
 
 public class PokerPlayer extends Gambler {
-    String name;
-    Account account;
     PokerHand hand;
     int anteBet;
     int pairPlusBet;
@@ -25,7 +23,13 @@ public class PokerPlayer extends Gambler {
 
     public PokerPlayer(String name) {
         this.name = name;
-        account = new Account();
+        this.account = new Account();
+        hand = new PokerHand();
+    }
+
+    public PokerPlayer(Account account) {
+        this.name = account.getAccountName();
+        this.account = account;
         hand = new PokerHand();
     }
 
