@@ -5,6 +5,8 @@ import com.github.zipcodewilmington.casino.ActiveAccount;
 import org.junit.Assert;
 import org.junit.Test;
 
+//8 tests written
+
 public class AccountTest {
     private Account acct;
     private ActiveAccount aa;
@@ -77,13 +79,24 @@ public class AccountTest {
     @Test
     public void testLogin() {
         acct = new Account();
-        aa.activeAccounts.clear();
         Account account = new Account("test", "test", 100);
+        aa.activeAccounts.clear();
         acct.loginTest();
 
         int actual = aa.activeAccounts.size();
         int expected = 1;
 
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testGetBalance() {
+        acct = new Account();
+        aa = new ActiveAccount();
+        aa.activeAccounts.clear();
+        Account account = new Account ("test", "test", 2000);
+        int actual = account.getBalance();
+        int expected = 2000;
         Assert.assertEquals(actual, expected);
     }
 }

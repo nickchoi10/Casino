@@ -13,7 +13,7 @@ import java.util.List;
 
 class TestHand {
     //List<PlayingCard> cards;
-    Hand hand;
+    Hand<PlayingCard> hand;
 
     @BeforeEach
     public void init() {

@@ -7,6 +7,8 @@ public class Dice {
     private Random random = new Random();
     private Integer number;
     private Integer results;
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 
     public Dice() {
 
@@ -52,47 +54,48 @@ public class Dice {
     public void diceASCII(Integer results){
         //ASCII Dice
         if(results == 1) {
-            System.out.println(
+            System.out.println(ANSI_CYAN+
                     "-----\n" +
                     "|   |\n" +
                     "| o |\n" +
                     "|   |\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
         } else if (results == 2){
-            System.out.println(
+            System.out.println(ANSI_CYAN+
                     "-----\n" +
                     "|o  |\n" +
                     "|   |\n" +
                     "|  o|\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
         } else if (results == 3){
-            System.out.println("-----\n" +
+            System.out.println(ANSI_CYAN+
+                    "-----\n" +
                     "|o  |\n" +
                     "| o |\n" +
                     "|  o|\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
 
         } else if (results == 4){
-            System.out.println(
+            System.out.println(ANSI_CYAN+
                     "-----\n" +
                     "|o o|\n" +
                     "|   |\n" +
                     "|o o|\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
         } else if (results == 5){
-            System.out.println(
+            System.out.println(ANSI_CYAN+
                     "-----\n" +
                     "|o o|\n" +
                     "| o |\n" +
                     "|o o|\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
         } else if (results == 6){
-            System.out.println(
+            System.out.println(ANSI_CYAN+
                     "-----\n" +
                     "|o o|\n" +
                     "|o o|\n" +
                     "|o o|\n" +
-                    "-----");
+                    "-----"+ANSI_BLUE);
         }
     }
 }
