@@ -5,6 +5,7 @@ import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
+import com.github.zipcodewilmington.casino.games.slots.SlotMain;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.Scanner;
@@ -15,6 +16,8 @@ public class Casino implements Runnable {
     private HighLowDiceMain hldm;
     private ActiveAccount aa;
     private BPSMain bps;
+
+    private SlotMain slot;
 
     @Override
     public void run() {
@@ -147,6 +150,7 @@ public class Casino implements Runnable {
         ngm = new NumberGuessMain();
         bps = new BPSMain();
         hldm = new HighLowDiceMain();
+        slot = new SlotMain();
 
         int menuChoice;
         while (true) {
@@ -164,6 +168,7 @@ public class Casino implements Runnable {
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
+            slot.startSlot();
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             //slotmain
         } else if (menuChoice == 2) {
