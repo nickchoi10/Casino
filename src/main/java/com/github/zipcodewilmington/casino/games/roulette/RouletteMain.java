@@ -7,14 +7,19 @@ import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSEngin
 import java.util.Random;
 
     public class RouletteMain {
-        public static void main(String[] args) {
-            RouletteEngine miniRoulette  = new RouletteEngine();
-            miniRoulette.startRouletteGame();
-        }
-//          public void playRoulette() {
-//                ActiveAccount.numPlayers(1);gi
-//                RouletteEngine.welcomeMessage(ActiveAccount.activeAccounts.size());
-//            }
+        private RouletteEngine re;
+        private ActiveAccount aa;
+//        public static void main(String[] args) {
+//            RouletteEngine miniRoulette  = new RouletteEngine();
+//            miniRoulette.startRouletteGame();
+//        }
+          public void playRoulette() {
+              aa = new ActiveAccount();
+              re = new RouletteEngine();
+                aa.numPlayers(1);
+                re.welcomeMessage();
+                re.startRouletteGame();
+            }
 
         }
 

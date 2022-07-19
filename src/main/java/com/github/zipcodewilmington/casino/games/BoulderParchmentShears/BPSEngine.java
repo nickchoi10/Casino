@@ -40,7 +40,7 @@ public class BPSEngine {
         String p2;
         BPSRules2P();
         System.out.println(GREEN_BRIGHT + "How much do you want to wager?\n");
-        wager = acct.makeBet(aa.activeAccounts.get(0));
+        wager = acct.makeBet(ActiveAccount.activeAccounts.get(0));
         p1 = getThrow(1);
         p2 = AIThrow();
         threw(p1);
@@ -96,7 +96,7 @@ public class BPSEngine {
     }
     public void quitPvP(){
         int choice;
-        choice = TheScanner.getNumber(GREEN_BRIGHT + "\n1) Play Again\n2) Return to Main Menu\n");
+        choice = TheScanner.getNumber("\n1) Play Again\n2) Return to Main Menu\n");
         if (choice == 1) {PvP();}
         else casino.splashScreen();
     }
@@ -118,7 +118,7 @@ public class BPSEngine {
 
     public String getThrow(int player){
         String pt;
-        System.out.println(GREEN_BRIGHT + "Player " + player + ", pick your sign.\n" +
+        System.out.println("Player " + player + ", pick your sign.\n" +
                 "1) Boulder\n" +
                 "2) Parchment\n" +
                 "3) Shears");
