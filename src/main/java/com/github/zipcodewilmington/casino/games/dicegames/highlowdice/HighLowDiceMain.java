@@ -20,6 +20,7 @@ public class HighLowDiceMain {
     public void playGame() {
         acct = new Account();
         aa = new ActiveAccount();
+        aa.numPlayers(1);
         casino = new Casino();
         mainGame.startPrompt();
         int wager;
