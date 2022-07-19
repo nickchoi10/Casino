@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington.casino.games.roulette;
 
 import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.ActiveAccount;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -11,11 +12,12 @@ public class RouletteEngine {
     int bet;
     int wager;
     boolean isGameRestart;
-    //int money = 5000; don't think i need this
+    //int money = 5000; don't think I need this
     private String accountName;
     private String name;
     private String password;
-    private int balance;
+    int balance = ActiveAccount.activeAccounts.get(0).getBalance();
+    private Account acct;
     Account userAcct = new Account("O", "O", 0);
     String userName = userAcct.getAccountName();
 
@@ -24,16 +26,16 @@ public class RouletteEngine {
         System.out.println("Welcome to the Roulette Table!");
         return "Welcome to the Roulette Table!";
     }
-    public void enterUserName() {
-        System.out.println("Please enter your user name.");
-        String userName = scanner.nextLine();
-        userAcct = Account.getAccount(userName);
-    }
+//    public void enterUserName() {
+//        System.out.println("Please enter your user name.");
+//        String userName = scanner.nextLine();
+//        userAcct = Account.getAccount(userName);
+//    }
 
     public void startRouletteGame() {
         if (!isGameRestart) {
             welcomeMessage();
-            enterUserName();
+           //enterUserName(); //TODO Remove?
             beginFromStart();
         }
         else {
@@ -222,11 +224,9 @@ public class RouletteEngine {
     }
 }
 
-
     //Get user input; invoke firstBet method
     //spin wheel, compare bet to wheel
     //return something
-
 
 
 //    public int winLose() {
