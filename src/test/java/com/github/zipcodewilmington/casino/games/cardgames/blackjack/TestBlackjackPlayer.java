@@ -21,7 +21,7 @@ class TestBlackjackPlayer {
     void getCasinoAccount() {
         Account expected = new Account();
         BlackjackPlayer player = new BlackjackPlayer(expected);
-        Account actual = player.getCasinoAccount();
+        Account actual = player.getArcadeAccount();
 
         assertEquals(expected, actual);
     }
@@ -31,8 +31,8 @@ class TestBlackjackPlayer {
         Account account = new Account();
         BlackjackPlayer player = new BlackjackPlayer(account);
         Account expected = new Account();
-        player.setCasinoAccount(expected);
-        Account actual = player.getCasinoAccount();
+        player.setAccount(expected);
+        Account actual = player.getArcadeAccount();
 
         assertEquals(expected, actual);
     }
@@ -40,48 +40,33 @@ class TestBlackjackPlayer {
     @Test
     void getHand() {
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
-        Hand actual = blackjackPlayer.getHand();
+        Hand<PlayingCard> actual = blackjackPlayer.getHand();
 
         assertNotNull(actual);
     }
 
     @Test
     void setHand() {
-        Hand expected = new Hand(Arrays.asList(
+        Hand<PlayingCard> expected = new Hand<>(Arrays.asList(
                 new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.TWO)));
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
         blackjackPlayer.setHand(expected);
-        Hand actual = blackjackPlayer.getHand();
+        Hand<PlayingCard> actual = blackjackPlayer.getHand();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void isWinner() {
-        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
-
-        assertFalse(blackjackPlayer.isWinner);
-    }
-
-    @Test
-    void setWinner() {
-        BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
-        blackjackPlayer.setWinner(true);
-
-        assertTrue(blackjackPlayer.isWinner);
-    }
-
-    @Test
     void calculateHandValue() {
-        Hand hand = new Hand(Arrays.asList(
+        Hand<PlayingCard> hand = new Hand<>(Arrays.asList(
                 new PlayingCard(CardSuit.CLUBS, CardRank.FIVE),
                 new PlayingCard(CardSuit.HEARTS, CardRank.TEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.TWO)));
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
         blackjackPlayer.setHand(hand);
-        blackjackPlayer.initializeHandValue();
+        blackjackPlayer.updateHandValue();
 
         int expected = 17;
         int actual = blackjackPlayer.getHandValue();
@@ -91,12 +76,12 @@ class TestBlackjackPlayer {
 
     @Test
     void calculateHandValueWithAce() {
-        Hand hand = new Hand(Arrays.asList(
+        Hand<PlayingCard> hand = new Hand<>(Arrays.asList(
                 new PlayingCard(CardSuit.CLUBS, CardRank.ACE),
                 new PlayingCard(CardSuit.SPADES, CardRank.TWO)));
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
         blackjackPlayer.setHand(hand);
-        blackjackPlayer.initializeHandValue();
+        blackjackPlayer.updateHandValue();
 
         int expected = 13;
         int actual = blackjackPlayer.getHandValue();
@@ -106,16 +91,54 @@ class TestBlackjackPlayer {
 
     @Test
     void calculateHandValueWithFaceCard() {
-        Hand hand = new Hand(Arrays.asList(
+        Hand<PlayingCard> hand = new Hand<>(Arrays.asList(
                 new PlayingCard(CardSuit.CLUBS, CardRank.JACK),
                 new PlayingCard(CardSuit.CLUBS, CardRank.QUEEN),
                 new PlayingCard(CardSuit.SPADES, CardRank.KING)));
         BlackjackPlayer blackjackPlayer = new BlackjackPlayer(new Account());
         blackjackPlayer.setHand(hand);
-        blackjackPlayer.initializeHandValue();
+        blackjackPlayer.updateHandValue();
 
         int expected = 30;
         int actual = blackjackPlayer.getHandValue();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getGameStateStart() {
+        BlackjackPlayer player = new BlackjackPlayer();
+        GameState expected = GameState.START;
+        GameState actual = player.getGameState();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void setGameState() {
+        BlackjackPlayer player = new BlackjackPlayer();
+        GameState expected = GameState.WIN;
+        player.setGameState(GameState.WIN);
+        GameState actual = player.getGameState();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getHandValue() {
+        BlackjackPlayer player = new BlackjackPlayer();
+        int expected = 0;
+        int actual = player.getHandValue();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void setHandValue() {
+        BlackjackPlayer player = new BlackjackPlayer();
+        int expected = 21;
+        player.setHandValue(expected);
+        int actual = player.getHandValue();
 
         assertEquals(expected, actual);
     }

@@ -161,7 +161,7 @@ public class Casino implements Runnable {
                     "2) Number Guess Game (No Gambling)\n" +
                     "3) Boulder Parchment Shears\n" +
                     "4) High-Low Dice\n" +
-                    "5) Under Construction\n" +
+                    "5) Blackjack\n" +
                     "6) Under Construction\n" +
                     "7) Return to Main Menu\n" +
                     "8) Leave Casino\n");

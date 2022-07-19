@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
-import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
@@ -27,15 +26,10 @@ public class BlackjackMain implements GameInterface {
 
     }
 
-    public static void main(String[] args) {
-        BlackjackMain bm = new BlackjackMain();
-        bm.run();
-    }
     @Override
     public void run() {
         gameOn = true;
         blackjackEngine.startPrompt();
-        blackjackEngine.instructionsPrompt();
         int input = TheScanner.getNumber("Please choose from the following: 1) Play Game 2) Quit \nEnter 1 or 2 \n");
         while(gameOn){
             if(input == 1){
@@ -69,7 +63,7 @@ public class BlackjackMain implements GameInterface {
                     boolean currentTurn = true;
                     while (currentTurn) {
                         System.out.printf("Current turn : %s%n", blackjackPlayer.getName());
-                        int choice = TheScanner.getNumber("1 to hit, 2 to stand\n");
+                        int choice = TheScanner.getNumber("1 to Hit, 2 to Stand\n");
                         if (choice == 1) {
                             blackjackEngine.hit(blackjackPlayer);
                             blackjackEngine.printCurrentState();
@@ -81,7 +75,7 @@ public class BlackjackMain implements GameInterface {
                         } else if (choice == 2) {
                             currentTurn = blackjackEngine.stand();
                         } else {
-                            System.out.println("Not a valid number");
+                            System.out.println("Not a valid number.");
                         }
                     }
                 }
@@ -107,14 +101,14 @@ public class BlackjackMain implements GameInterface {
 
                 blackjackEngine.resetGame();
 
-                int continueChoice = TheScanner.getNumber("Do you want to keep playing? 1 - yes, 2 - no\n");
+                int continueChoice = TheScanner.getNumber("Do you want to keep playing? 1) Yes 2) No \nEnter 1 or 2 \n");
                 if (continueChoice == 1) {
                     input = continueChoice;
                 }
                 else if (continueChoice == 2) {
                     input = continueChoice;
                 } else {
-                    System.out.println("Not a valid number");
+                    System.out.println("Not a valid number.");
                 }
             } else if (input == 2) {
                 gameOn = false;

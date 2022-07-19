@@ -6,20 +6,10 @@ import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BlackjackPlayer extends Gambler {
-
-    //what does a BJ player do?
-    //place a bet
-    //dealt cards > as the player, i would add it to my hand.
-    //dealer would ask me, hit or stand. Player hit > Add card to list Play stand > end turn.
-    //if player wins, winPot -> add money to casino account.
 
     Hand<PlayingCard> hand;
     int handValue;
-
     GameState gameState;
 
     public BlackjackPlayer() {
@@ -32,13 +22,6 @@ public class BlackjackPlayer extends Gambler {
         this.setName(casinoAccount.getAccountName());
         this.hand = new Hand<>();
         this.gameState = GameState.START;
-
-        //the player now has a Hand that holds a List<PlayingCard>
-        //we are passing the casinoAccount param to retrieve the player's info.
-    }
-
-    public void addToHand(PlayingCard card) {
-        hand.getCards().add(card);
     }
 
     public Hand<PlayingCard> getHand() {
@@ -78,7 +61,6 @@ public class BlackjackPlayer extends Gambler {
                 sum += card.getRank().getValue();
             }
         }
-
         setHandValue(sum);
     }
 
@@ -93,7 +75,6 @@ public class BlackjackPlayer extends Gambler {
                 sum += card.getRank().getValue();
             }
         }
-
         setHandValue(sum);
     }
 
