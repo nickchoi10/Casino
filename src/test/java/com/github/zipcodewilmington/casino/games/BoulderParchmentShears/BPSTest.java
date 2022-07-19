@@ -13,13 +13,21 @@ public class BPSTest {
         String input2 = "parchment";
         String expected = "boulder";
         BPSEngine bps = new BPSEngine();
-
         // When
         String actual = bps.getWinner2P(input1, input2);
-
         // Then
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testPvEWin() {
+        String input1 = "boulder";
+        String input2 = "parchment";
+        BPSEngine bps = new BPSEngine();
+
+        boolean actual = bps.pveWin(input1, input2, 0);
+        boolean expected = true;
+        Assert.assertFalse(actual);
+    }
     
 }
