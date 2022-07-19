@@ -103,9 +103,10 @@ public class RouletteEngine {
             System.out.println("Your results are: " + spinResult + ". You win!");
             int winAmount = wager * 35;
             payOut = Account.deposit(userAcct, winAmount);
-            System.out.println("Your pay out is " + payOut);
+         //   System.out.println("Your pay out is " + payOut);
+            System.out.println("Your balance is" +(balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Play again and try to get your money back!");
         continueGamblingPrompt();
         return payOut;
     }
@@ -120,7 +121,7 @@ public class RouletteEngine {
             payOut = Account.deposit(userAcct, winAmount);
             System.out.println("Your payout is " + payOut + ".");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ".  Play again and try to get your money back!");
         continueGamblingPrompt();
         return payOut;
     }
