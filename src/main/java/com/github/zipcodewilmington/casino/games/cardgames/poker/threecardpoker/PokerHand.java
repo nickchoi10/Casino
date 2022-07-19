@@ -183,7 +183,7 @@ public class PokerHand extends Hand<PlayingCard> implements PokerHandChecker {
         }
         printer.println();
         for (PlayingCard card : getCards()) {
-            String upper = String.format("┊%-14d┊  ", card.getRank().getValue());
+            String upper = String.format("┊%-14s┊  ", card.getRank().getStrValue());
             String upperUtf = new String(upper.getBytes(utf8), utf8);
             printer.print(upperUtf);
         }
@@ -211,7 +211,7 @@ public class PokerHand extends Hand<PlayingCard> implements PokerHandChecker {
         }
         printer.println();
         for (PlayingCard card : getCards()) {
-            String lower = String.format("┊%14d┊  ", card.getRank().getValue());
+            String lower = String.format("┊%14s┊  ", card.getRank().getStrValue());
             String lowerUtf = new String(lower.getBytes(utf8), utf8);
             printer.print(lowerUtf);
         }

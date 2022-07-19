@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
@@ -8,13 +9,16 @@ import com.github.zipcodewilmington.casino.games.cardgames.Deck;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class PokerMain implements GameInterface {
+    private Casino casino;
     private List<PokerPlayer> players;
+    private List<PokerPlayer> exitLobby;
     private Dealer<PokerHand, StandardDeck> dealer;
     private ThreeCardPokerEngine engine;
     private PokerState state;
@@ -23,6 +27,21 @@ public class PokerMain implements GameInterface {
 
 
     public PokerMain() {
+        players = new ArrayList<>();
+        exitLobby = new ArrayList<>();
+        minimumWager = 5;
+        scanner = new Scanner(System.in);
+        engine = new ThreeCardPokerEngine();
+        dealer = new Dealer<>(new PokerHand(), new StandardDeck());
+        state = PokerState.MAIN_MENU;
+    }
+
+    public PokerMain(Account... accounts) {
+        players = new ArrayList<>();
+        exitLobby = new ArrayList<>();
+        for (Account a : accounts) {
+            this.players.add(new PokerPlayer(a));
+        }
         minimumWager = 5;
         scanner = new Scanner(System.in);
         engine = new ThreeCardPokerEngine();
@@ -34,17 +53,38 @@ public class PokerMain implements GameInterface {
     }
 
     public void remove(PlayerInterface player) {
-
+        players.remove(player);
     }
 
-    public void run() {}
+    public void remove(PokerPlayer player) {
+        players.remove(player);
+    }
+
+    public void addToExit(PokerPlayer player) {
+        exitLobby.add(player);
+    }
+
+    public void run() {
+        casino = new Casino();
+        while(this.exitLobby.size() < this.players.size()) {
+            for (PokerPlayer player : players) {
+                setState(PokerState.MAIN_MENU);
+                if (!exitLobby.contains(player)) {
+                    handleState(getState(), player);
+                }
+            }
+        }
+        players = null;
+        exitLobby = null;
+        casino.splashScreen();
+    }
 
 //    public static void main(String[] args) {
-//        PokerMain poker = new PokerMain();
-//        Account acc = new Account("1", "2", 1000);
-//        PokerPlayer player = new PokerPlayer("Jeff");
-//        player.account = acc;
-//        poker.handleState(poker.getState(), player);
+//
+//        Account acc1 = new Account("one", "2", 1000);
+//        Account acc2 = new Account("two", "2", 1000);
+//        PokerMain poker = new PokerMain(acc1, acc2);
+//        poker.run();
 //    }
 
     private void handleState(PokerState state, PokerPlayer player) {
@@ -52,13 +92,14 @@ public class PokerMain implements GameInterface {
 
         switch (state) {
             case MAIN_MENU:
-                int input = getSelectionInput(1, 2, mainMenuText());
+                int input = getSelectionInput(1, 2, mainMenuText(player.getName()));
                 switch (input) {
                     case 1:
                         this.state = this.state.nextState();
                         handleState(this.state, player);
                         return;
                     case 2:
+                        addToExit(player);
                         return;
                 }
 
@@ -146,15 +187,15 @@ public class PokerMain implements GameInterface {
                     case 1:
                         return;
                     case 2:
-                        this.remove(player);
+                        this.addToExit(player);
                         return;
                 }
         }
     }
 
-    public String mainMenuText() {
+    public String mainMenuText(String name) {
         StringBuilder res = new StringBuilder();
-        res.append("WELCOME TO THREE CARD POKER\nChoose an Option:\n1. Play\n2. Leave");
+        res.append(String.format("WELCOME TO THREE CARD POKER %s\nChoose an Option:\n1. Play\n2. Leave", name));
         return res.toString();
     }
 
