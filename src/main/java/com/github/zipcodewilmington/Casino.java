@@ -81,7 +81,7 @@ public class Casino implements Runnable {
         final String TEXT_RESET = "\u001B[0m"; // RESET TO DEFAULT
         aa = new ActiveAccount();
         int menuChoice;
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("""
                                (( _______
                      _______     /\\O    O\\
@@ -149,7 +149,7 @@ public class Casino implements Runnable {
                 System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.\n");
             }else break;
         }
-
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("Thank you! Your account is now prepared and logged in!\n" +
                 "Enjoy your time at the STARDUST VIP Casino and Lounge!!!!");
         Account account = new Account(acctName, password, balance);
@@ -168,6 +168,7 @@ public class Casino implements Runnable {
 
         int menuChoice;
         while (true) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
                     "1) Slot Machines\n" +
                     "2) Three Card Poker\n" +
@@ -183,8 +184,8 @@ public class Casino implements Runnable {
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
-            sm.startSlot();
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            sm.startSlot();
         } else if (menuChoice == 2) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             pokey.run();
@@ -213,7 +214,8 @@ public class Casino implements Runnable {
     }
 
     public void quit(){
-        System.out.println("Thank you for visiting the STARDUST VIP Casino! Please visit again soon!");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("Thank you for visiting the STARDUST VIP Casino! Please visit again soon!\n\n\n\n");
         System.exit(0);
     }
 
