@@ -27,6 +27,8 @@ public class RouletteEngine {
 
     public void startRouletteGame() {
         if (!isGameRestart) {
+            Object Ascii;
+            Ascii.printAscii("ROULETTE", "\"", 300, 20, 24);
             welcomeMessage();
             beginFromStart();
         }
@@ -105,8 +107,9 @@ public class RouletteEngine {
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Please play again!");
         } else
             System.out.println("Sorry, better luck next time! Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Play again and try to get your money back!");
+        System.out.println("\n");
         continueGamblingPrompt();
-        return balance; //TODO look @ this
+        return balance;
     }
 
     public int placeRedEvenBet(int wager, int bet, int balance) {
@@ -203,7 +206,7 @@ public class RouletteEngine {
     }
 
     public void wagerPrompt() {
-        System.out.println("What's your wager for your bet? Remember, you're only allowed one!");
+        System.out.println("What's your wager for your bet?");
 
     }
 
