@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.BoulderParchmentShears;
 
+import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSEngine;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,11 +33,13 @@ public class BPSTest {
 
     @Test
     public void testPvPWin() {
+        Account account1 = new Account();
+        Account account2 = new Account();
         String input1 = "boulder";
         String input2 = "parchment";
         BPSEngine bps = new BPSEngine();
 
-        boolean actual = bps.pvpWin(input1, input2, 0);
+        boolean actual = bps.pvpWin(input1, input2, 1);
         boolean expected = true;
         Assert.assertFalse(actual);
     }
