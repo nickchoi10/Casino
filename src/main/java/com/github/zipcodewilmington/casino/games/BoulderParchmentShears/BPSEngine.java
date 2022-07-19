@@ -205,4 +205,8 @@ public class BPSEngine {
         }
         System.out.println(hands);
     }
+
+    public void victory(){
+        System.out.println();
+    }
 }

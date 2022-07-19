@@ -13,6 +13,8 @@ import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.Scanner;
 
+import static com.github.zipcodewilmington.utils.AnsiColor.CYAN;
+
 public class Casino implements Runnable {
     private NumberGuessMain ngm;
     private Account acct;
@@ -36,7 +38,8 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
-        System.out.println(TEXT_RESET + """
+        final String CYAN = "\u001B[36m";
+        System.out.println(YELLOW_BRIGHT + """
                  WELCOME TO...
                  
                  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.\s
@@ -62,7 +65,7 @@ public class Casino implements Runnable {
                                     | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                   \s
                                      '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                   \s
                 
-                Press Enter to GAMBLE!\n""");
+                Press Enter to GAMBLE!\n""" + TEXT_RESET);
 
 
 
@@ -73,6 +76,9 @@ public class Casino implements Runnable {
     }
 
     public void mainMenu(){
+        final String YELLOW_BRIGHT = "\033[0;93m"; // YELLOW
+        final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
+        final String TEXT_RESET = "\u001B[0m"; // RESET TO DEFAULT
         aa = new ActiveAccount();
         int menuChoice;
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -90,7 +96,7 @@ public class Casino implements Runnable {
                   
                 """);
 
-        System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
+        System.out.println("Welcome to the " + CYAN_BRIGHT + "STAR" + YELLOW_BRIGHT + "DUST" + TEXT_RESET + " VIP Casino and Lounge!\n");
 
         while (true) {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
@@ -238,7 +244,7 @@ public class Casino implements Runnable {
                 !!;;;!!!!!__|| `====================================`
                 !!!;!!!!!!\\_\\|
                 ====================================================================================
-                 ~@~    Welcome to the Lounge. Relax, have a cigar, and press Enter to leave     ~@~
+                 ~@~    Welcome to the Lounge. Relax, have a drink, and press Enter to leave     ~@~
                 """);
         try {
             System.in.read();
