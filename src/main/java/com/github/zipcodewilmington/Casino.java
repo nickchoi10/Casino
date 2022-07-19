@@ -3,23 +3,28 @@ package com.github.zipcodewilmington;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
+import com.github.zipcodewilmington.casino.games.cardgames.blackjack.BlackjackMain;
 import com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker.PokerMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
+import com.github.zipcodewilmington.casino.games.roulette.RouletteMain;
 import com.github.zipcodewilmington.casino.games.slots.SlotMain;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.Scanner;
 
+import static com.github.zipcodewilmington.utils.AnsiColor.CYAN;
+
 public class Casino implements Runnable {
     private NumberGuessMain ngm;
     private Account acct;
     private SlotMain sm;
+    private RouletteMain rm;
     private PokerMain pokey;
     private HighLowDiceMain hldm;
     private ActiveAccount aa;
     private BPSMain bps;
-
+    private BlackjackMain bjm;
 
     @Override
     public void run() {
@@ -33,7 +38,8 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
-        System.out.println(TEXT_RESET + """
+        final String CYAN = "\u001B[36m";
+        System.out.println(YELLOW_BRIGHT + """
                  WELCOME TO...
                  
                  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.\s
@@ -59,7 +65,7 @@ public class Casino implements Runnable {
                                     | '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |                   \s
                                      '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'                   \s
                 
-                Press Enter to GAMBLE!\n""");
+                Press Enter to GAMBLE!\n""" + TEXT_RESET);
 
 
 
@@ -70,9 +76,12 @@ public class Casino implements Runnable {
     }
 
     public void mainMenu(){
+        final String YELLOW_BRIGHT = "\033[0;93m"; // YELLOW
+        final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
+        final String TEXT_RESET = "\u001B[0m"; // RESET TO DEFAULT
         aa = new ActiveAccount();
         int menuChoice;
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("""
                                (( _______
                      _______     /\\O    O\\
@@ -87,7 +96,7 @@ public class Casino implements Runnable {
                   
                 """);
 
-        System.out.println("Welcome to the STARDUST VIP Casino and Lounge!\n");
+        System.out.println("Welcome to the " + CYAN_BRIGHT + "STAR" + YELLOW_BRIGHT + "DUST" + TEXT_RESET + " VIP Casino and Lounge!\n");
 
         while (true) {
             menuChoice = TheScanner.getNumber("Please choose one of the following options by entering it's number: \n" +
@@ -140,7 +149,7 @@ public class Casino implements Runnable {
                 System.out.println("Whoa there moneybags, we can't be responsible for THAT much money. Pick something lower.\n");
             }else break;
         }
-
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("Thank you! Your account is now prepared and logged in!\n" +
                 "Enjoy your time at the STARDUST VIP Casino and Lounge!!!!");
         Account account = new Account(acctName, password, balance);
@@ -149,36 +158,40 @@ public class Casino implements Runnable {
 
 
     public void pickGame(){
+        rm = new RouletteMain();
         ngm = new NumberGuessMain();
         bps = new BPSMain();
         hldm = new HighLowDiceMain();
+        bjm = new BlackjackMain();
         sm = new SlotMain();
-        pokey = new PokerMain();
+        pokey = new PokerMain(ActiveAccount.activeAccounts.toArray(new Account[0]));
 
         int menuChoice;
         while (true) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
                     "1) Slot Machines\n" +
                     "2) Three Card Poker\n" +
-                    "3) Boulder Parchment Shears\n" +
+                    "3) Roulette\n" +
                     "4) High-Low Dice\n" +
                     "5) Number Guess Game (No Gambling)\n" +
-                    "6) Under Construction\n" +
-                    "7) Return to Main Menu\n" +
-                    "8) Leave Casino\n");
+                    "6) Boulder Parchment Shears\n" +
+                    "7) Blackjack\n" +
+                    "8) Return to Main Menu\n" +
+                    "9) Leave Casino\n");
             if (menuChoice >= 1 && menuChoice <= 8) {
                 break;
             } else System.out.println("That is not a valid choice, please choose a number from the menu.\n");
         }
         if (menuChoice == 1) {
-            sm.startSlot();
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            sm.startSlot();
         } else if (menuChoice == 2) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             pokey.run();
         }else if (menuChoice == 3) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            bps.playBPS();
+            rm.playRoulette();
         }else if (menuChoice == 4) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             hldm.playGame();
@@ -187,18 +200,22 @@ public class Casino implements Runnable {
             ngm.playGame();
         }else if (menuChoice == 6) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            //load game 6
+            bps.playBPS();
         }else if (menuChoice == 7) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            splashScreen();
+            bjm.run();
         }else if (menuChoice == 8) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            splashScreen();
+        }else if (menuChoice == 9) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             quit();
         }
     }
 
     public void quit(){
-        System.out.println("Thank you for visiting the STARDUST VIP Casino! Please visit again soon!");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("Thank you for visiting the STARDUST VIP Casino! Please visit again soon!\n\n\n\n");
         System.exit(0);
     }
 
@@ -229,7 +246,7 @@ public class Casino implements Runnable {
                 !!;;;!!!!!__|| `====================================`
                 !!!;!!!!!!\\_\\|
                 ====================================================================================
-                 ~@~    Welcome to the Lounge. Relax, have a cigar, and press Enter to leave     ~@~
+                 ~@~    Welcome to the Lounge. Relax, have a drink, and press Enter to leave     ~@~
                 """);
         try {
             System.in.read();

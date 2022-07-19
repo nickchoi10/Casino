@@ -29,5 +29,16 @@ public class BPSTest {
         boolean expected = true;
         Assert.assertFalse(actual);
     }
+
+    @Test
+    public void testPvPWin() {
+        String input1 = "boulder";
+        String input2 = "parchment";
+        BPSEngine bps = new BPSEngine();
+
+        boolean actual = bps.pvpWin(input1, input2, 0);
+        boolean expected = true;
+        Assert.assertFalse(actual);
+    }
     
 }

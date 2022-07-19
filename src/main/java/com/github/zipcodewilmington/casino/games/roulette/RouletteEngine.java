@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class RouletteEngine {
     Scanner scanner = new Scanner(System.in);
-    Account userAcct = new Account("O", "O", 2000);
-    //Account userAcct = ActiveAccount.activeAccounts.get(0); //TODO Uncommentout & remove line above
+//    Account userAcct = new Account("O", "O", 2000);
+    Account userAcct = ActiveAccount.activeAccounts.get(0);
     private Account acct;
     private Casino casino;
     int spinResult;
@@ -102,7 +102,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if ((spinResult == bet)) {
             System.out.println("Your results are: " + spinResult + ". You win!");
-            int winAmount = wager * 35;
+            int winAmount = (wager * 35);
             acct.deposit(userAcct, winAmount);
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Please play again!");
         } else
@@ -118,7 +118,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if (spinResult % 2 == 0) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = (wager * 1);
+            int winAmount = (wager * 2);
             acct.deposit(userAcct, winAmount);
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Please play again!");
         } else
@@ -133,7 +133,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if (spinResult % 2 != 0) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = wager * 2;
+            int winAmount = (wager * 2);
             acct.deposit(userAcct, winAmount);
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() +". Please play again!");
         } else
@@ -148,7 +148,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if ((spinResult >= 1) && (spinResult <= 12)) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = wager * 2;
+            int winAmount = (wager * 2);
             acct.deposit(userAcct, winAmount);
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Please play again!");
         } else
@@ -163,7 +163,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if ((spinResult >= 13) && (spinResult <= 24)) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = wager * 2;
+            int winAmount = (wager * 2);
             acct.deposit(userAcct, winAmount);
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() +". Please play again!");
         } else
@@ -178,7 +178,7 @@ public class RouletteEngine {
         spinResult = wheel.spinWheel();
         if ((spinResult >= 25) && (spinResult <= 36)) {
             System.out.println("Well, aren't you a lucky one. You win!");
-            int winAmount = wager * 2;
+            int winAmount = (wager * 2);
             acct.deposit(userAcct, winAmount);
             System.out.println(" Your new balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ".");
         } else
@@ -218,7 +218,6 @@ public class RouletteEngine {
         String userInput = scanner.nextLine();
         if (Objects.equals(userInput.toUpperCase(), "Y")) {
             isGameRestart = true;
-            rouletteMenu();
             beginFromStart();
         } else if (Objects.equals(userInput.toUpperCase(), "N")) {
             System.out.println("Thank you for playing Roulette! We hope to see you soon!");
@@ -226,35 +225,3 @@ public class RouletteEngine {
         }
     }
 }
-
-    //Get user input; invoke firstBet method
-    //spin wheel, compare bet to wheel
-    //return something
-
-
-//    public int winLose() {
-//        Scanner scan = new Scanner(System.in);
-//        int playerBet = scan.nextInt();
-//        if (playerBet == spinResult) {
-//            int win = bet;
-//            money += win;
-//        } else {
-//            int lose = bet;
-//            money -= lose;
-//        }
-//        return money;
-//    }
-//}
-
-
-//    public void run() {
-//        String rules();
-//        for (spinResult == playerBet) {
-//        }
-//    }
-//
-//}
-
-
-
-
