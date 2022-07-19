@@ -39,13 +39,13 @@ public class PokerMain implements GameInterface {
 
     public void run() {}
 
-    public static void main(String[] args) {
-        PokerMain poker = new PokerMain();
-        Account acc = new Account("1", "2", 1000);
-        PokerPlayer player = new PokerPlayer("Jeff");
-        player.account = acc;
-        poker.handleState(poker.getState(), player);
-    }
+//    public static void main(String[] args) {
+//        PokerMain poker = new PokerMain();
+//        Account acc = new Account("1", "2", 1000);
+//        PokerPlayer player = new PokerPlayer("Jeff");
+//        player.account = acc;
+//        poker.handleState(poker.getState(), player);
+//    }
 
     private void handleState(PokerState state, PokerPlayer player) {
         Account acc = player.getArcadeAccount();
