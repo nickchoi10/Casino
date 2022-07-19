@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// 47 tests in poker
 class PokerHandTest {
     PokerHand hand;
 

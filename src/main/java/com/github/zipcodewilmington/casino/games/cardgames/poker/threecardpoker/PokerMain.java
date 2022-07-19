@@ -8,6 +8,7 @@ import com.github.zipcodewilmington.casino.games.cardgames.Dealer;
 import com.github.zipcodewilmington.casino.games.cardgames.Deck;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import com.github.zipcodewilmington.casino.games.cardgames.StandardDeck;
+import com.github.zipcodewilmington.utils.Ascii;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -66,6 +67,7 @@ public class PokerMain implements GameInterface {
 
     public void run() {
         casino = new Casino();
+        Ascii.printAscii("POKER", "\"", 300, 20, 24);
         while(this.exitLobby.size() < this.players.size()) {
             for (PokerPlayer player : players) {
                 setState(PokerState.MAIN_MENU);
@@ -195,7 +197,7 @@ public class PokerMain implements GameInterface {
 
     public String mainMenuText(String name) {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("WELCOME TO THREE CARD POKER %s\nChoose an Option:\n1. Play\n2. Leave", name));
+        res.append(String.format("WELCOME TO THREE CARD POKER, %s!\nChoose an Option:\n1. Play\n2. Leave", name));
         return res.toString();
     }
 
