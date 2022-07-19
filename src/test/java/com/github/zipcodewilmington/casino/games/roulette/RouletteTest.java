@@ -35,8 +35,9 @@ public class RouletteTest {
         Assert.assertEquals(welcomeMessage, testEngine.welcomeMessage());
 
     }
+
     @Test
-    public void  placeStraightUpBetLoseTest() {
+    public void placeStraightUpBetLoseTest() {
         //Given
         int wager = 50;
         int bet = 2;
@@ -55,28 +56,38 @@ public class RouletteTest {
         int expected = 4950;
         int actual = payOut;
         Assert.assertEquals(expected, actual);
-        }
+    }
 
     @Test
-    public void  placeStraightUpBetWinTest() {
+    public void placeStraightUpBetWinTest() {
         //Given
         int wager = 50;
         int bet = 2;
         int balance = 5000;
-        int payOut;
+        int winAmount;
+        //int payOut;
 
         //When
         int result = 2;
 
         //Then
         if (result == bet) {
-            payOut = wager * 35;
+            //payOut = wager * 35''
+            winAmount = (wager * 35) + balance;
         } else {
-            payOut = balance - wager;
+            //payOut = balance - wager;
+            balance = -wager;
         }
-        int expected = 50 * 35;
-        int actual = payOut;
+        int expected = (50 * 35) + 5000;
+        int actual = balance;
         Assert.assertEquals(expected, actual);
     }
 }
+
+//    @Test
+//    public void placeRedEvenBetLoseTest() {
+//        //Given
+//       // int wager;
+//    }
+//}
 

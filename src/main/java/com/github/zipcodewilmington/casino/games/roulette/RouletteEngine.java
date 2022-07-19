@@ -3,6 +3,7 @@ package com.github.zipcodewilmington.casino.games.roulette;
 import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
+import com.github.zipcodewilmington.utils.Ascii;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.Objects;
@@ -27,6 +28,8 @@ public class RouletteEngine {
 
     public void startRouletteGame() {
         if (!isGameRestart) {
+            Ascii.printAscii("ROULETTE", "\"", 300, 20, 24);
+            System.out.println("\n");
             welcomeMessage();
             beginFromStart();
         }
@@ -105,8 +108,9 @@ public class RouletteEngine {
             System.out.println("Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Please play again!");
         } else
             System.out.println("Sorry, better luck next time! Your balance is " + ActiveAccount.activeAccounts.get(0).getBalance() + ". Play again and try to get your money back!");
+        System.out.println("\n");
         continueGamblingPrompt();
-        return balance; //TODO look @ this
+        return balance;
     }
 
     public int placeRedEvenBet(int wager, int bet, int balance) {
@@ -186,10 +190,11 @@ public class RouletteEngine {
 
     public void rouletteMenu() {
 //        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome, to Roulette! Please select a bet. Keep in mind that bets are limited\n" +
-                "to 1 per round. Take a look at the Roulette Menu below and select a number to start having fun! \n" +
+        System.out.println("Welcome, to Roulette! Please select a bet. Take a look at the Roulette Menu " +
+                            "below and select a number to start having fun! \n" +
+                "\n" +
                 "1.) Place a Straight Up Bet. This covers the ball landing on numbers 00, 0, and 1-36 " +
-                "    (payout is 35:1). \n" +
+                     "(payout is 35:1). \n" +
                 "2.) Place a Red/Even Bet. This covers the ball landing on numbers 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, \n" +
                 "    22, 24, 26, 28, 30, 32, 34, 36 (payout is 1:1). \n" +
                 "3.) Place a Black/Odd Bet. This covers the ball landing on numbers 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, \n" +
@@ -197,13 +202,14 @@ public class RouletteEngine {
                 "4.) Place a 1st Dozen Bet. This covers the ball landing on numbers 1 - 12 (payout is 2:1). \n" +
                 "5.) Place a 2nd Dozen Bet. This covers the ball landing on numbers 13 - 24 (payout is 2:1). \n" +
                 "6.) Place a 3rd Dozen Bet. This covers the ball landing on numbers 25 - 36 (payout is 2:1). \n" +
-                "Select your bet from the menu. \n");
+                    "\n" +
+                     "Select your bet from the menu. \n");
 //        String userInput = scanner.nextLine();
 
     }
 
     public void wagerPrompt() {
-        System.out.println("What's your wager for your bet? Remember, you're only allowed one!");
+        System.out.println("What's your wager for your bet?");
 
     }
 
