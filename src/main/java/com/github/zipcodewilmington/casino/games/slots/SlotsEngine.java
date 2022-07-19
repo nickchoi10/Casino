@@ -13,8 +13,6 @@ public class SlotsEngine {
 
     ArrayList slotList;
     int betAmount;
-    int balance = ActiveAccount.activeAccounts.get(0).getBalance();
-
     private Account acct;
     boolean play=true;
     Random rand;
@@ -181,7 +179,7 @@ public class SlotsEngine {
     }
 
     public String losingCondition(){
-        if (balance <=0){
+        if (ActiveAccount.activeAccounts.get(0).getBalance() <=0){
         }
         return "You do not have enough money!";
 
@@ -192,7 +190,7 @@ public class SlotsEngine {
 //    public void jackPotMessage(){System.out.println("WINNER WINNER CHICKEN DINNER!!!, you won "+betAmount*500+" dollars!!");}
 
     public void continuePlaying(){
-        if (balance<=0){
+        if (ActiveAccount.activeAccounts.get(0).getBalance()<=0){
             System.out.println("Do you wish to continue?");
             Scanner scan = new Scanner(System.in);
             String yesOrNo = scan.nextLine();
