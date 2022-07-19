@@ -25,6 +25,8 @@ public class PokerMain implements GameInterface {
 
 
     public PokerMain() {
+        players = new ArrayList<>();
+        exitLobby = new ArrayList<>();
         minimumWager = 5;
         scanner = new Scanner(System.in);
         engine = new ThreeCardPokerEngine();
