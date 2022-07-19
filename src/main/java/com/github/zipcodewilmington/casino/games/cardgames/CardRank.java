@@ -29,5 +29,4 @@ public enum CardRank {
     public String getStrValue() {
         return strValue;
     }
-
 }
