@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
 import com.github.zipcodewilmington.casino.Account;
+import com.github.zipcodewilmington.casino.Gambler;
 import com.github.zipcodewilmington.casino.games.cardgames.CardRank;
 import com.github.zipcodewilmington.casino.games.cardgames.Hand;
 import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
@@ -8,7 +9,7 @@ import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackjackPlayer {
+public class BlackjackPlayer extends Gambler {
 
     //what does a BJ player do?
     //place a bet
@@ -16,18 +17,21 @@ public class BlackjackPlayer {
     //dealer would ask me, hit or stand. Player hit > Add card to list Play stand > end turn.
     //if player wins, winPot -> add money to casino account.
 
-
-    Account casinoAccount;
     Hand<PlayingCard> hand;
     int handValue;
 
-    boolean isWinner;
+    GameState gameState;
 
+    public BlackjackPlayer() {
+        this.hand = new Hand<>();
+        this.gameState = GameState.START;
+    }
 
     public BlackjackPlayer(Account casinoAccount) {
+        this.setAccount(casinoAccount);
+        this.setName(casinoAccount.getAccountName());
         this.hand = new Hand<>();
-        this.casinoAccount = casinoAccount;
-        this.isWinner = false;
+        this.gameState = GameState.START;
 
         //the player now has a Hand that holds a List<PlayingCard>
         //we are passing the casinoAccount param to retrieve the player's info.
@@ -35,14 +39,6 @@ public class BlackjackPlayer {
 
     public void addToHand(PlayingCard card) {
         hand.getCards().add(card);
-    }
-
-    public Account getCasinoAccount() {
-        return casinoAccount;
-    }
-
-    public void setCasinoAccount(Account casinoAccount) {
-        this.casinoAccount = casinoAccount;
     }
 
     public Hand<PlayingCard> getHand() {
@@ -53,14 +49,13 @@ public class BlackjackPlayer {
         this.hand = hand;
     }
 
-    public boolean isWinner() {
-        return isWinner;
+    public GameState getGameState() {
+        return gameState;
     }
 
-    public void setWinner(boolean winner) {
-        isWinner = winner;
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
-
 
     public int getHandValue() {
         return handValue;
@@ -102,8 +97,12 @@ public class BlackjackPlayer {
         setHandValue(sum);
     }
 
-    public void placeBet() {
-        casinoAccount.makeBet(this.getCasinoAccount());
+    public int placeBet() {
+        return getArcadeAccount().makeBet(getArcadeAccount());
     }
 
+    @Override
+    public <SomeReturnType> SomeReturnType play() {
+        return null;
+    }
 }

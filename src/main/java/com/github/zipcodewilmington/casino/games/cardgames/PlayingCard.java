@@ -35,13 +35,5 @@ public class PlayingCard implements Card, Comparable<PlayingCard>{
         return ("[ %s %s ]".formatted(RANK.toString(), SUIT.toString()));
     }
 
-    @Override
-    public String toString() {
-        return "PlayingCard{" +
-                "SUIT=" + SUIT +
-                ", RANK=" + RANK +
-                '}';
-    }
-
 }
 
