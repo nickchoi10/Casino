@@ -211,7 +211,7 @@ public class RouletteEngine {
         casino = new Casino();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Would you like to continue gambling? Type 'Y' for 'Yes' or 'N' for 'No'.");
+        System.out.println("Type 'Y' for 'Yes' or 'N' for 'No'.");
         String userInput = scanner.nextLine();
         if (Objects.equals(userInput.toUpperCase(), "Y")) {
             isGameRestart = true;
