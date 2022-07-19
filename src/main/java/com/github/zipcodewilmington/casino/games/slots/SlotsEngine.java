@@ -2,6 +2,7 @@ package com.github.zipcodewilmington.casino.games.slots;
 
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
+import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,9 +40,11 @@ public class SlotsEngine {
     }
 
     public int inputBet() {
-        System.out.println("Please enter Bet Amount: ");
-        Scanner scan = new Scanner(System.in);
-        return betAmount = scan.nextInt();
+        while(true) {
+            betAmount = acct.makeBet(ActiveAccount.activeAccounts.get(0));
+            break;
+        }
+        return betAmount;
     }
 
     public String betMessage(){
@@ -146,7 +149,6 @@ public class SlotsEngine {
             System.out.println("Congratulations, you have won "+betAmount+" dollars!!");
             acct.deposit(ActiveAccount.activeAccounts.get(0), betAmount);
         }else{
-            acct.withdraw(ActiveAccount.activeAccounts.get(0), betAmount);
             System.out.println("You did not win anything");
         }
     }
