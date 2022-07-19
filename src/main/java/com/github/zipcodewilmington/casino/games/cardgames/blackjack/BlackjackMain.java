@@ -1,17 +1,20 @@
 package com.github.zipcodewilmington.casino.games.cardgames.blackjack;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 public class BlackjackMain implements GameInterface {
+    Casino casino;
     BlackjackEngine blackjackEngine;
     ActiveAccount activeAccount;
     boolean gameOn;
 
 
     public BlackjackMain() {
+        casino = new Casino();
         blackjackEngine = new BlackjackEngine();
         activeAccount = new ActiveAccount();
     }
@@ -112,6 +115,7 @@ public class BlackjackMain implements GameInterface {
                 }
             } else if (input == 2) {
                 gameOn = false;
+                casino.run();
             } else {
                 System.out.println("Not a valid number.");
             }

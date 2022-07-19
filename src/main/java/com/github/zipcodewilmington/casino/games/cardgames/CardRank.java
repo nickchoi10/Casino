@@ -25,12 +25,8 @@ public enum CardRank {
     public int getValue() {
         return value;
     }
-<<<<<<< HEAD
-=======
 
     public String getStrValue() {
         return strValue;
     }
-
->>>>>>> master
 }
