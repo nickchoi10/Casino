@@ -1,8 +1,8 @@
 package com.github.zipcodewilmington.casino;
 
 public abstract class Gambler implements PlayerInterface {
-    String name;
-    Account account;
+    protected String name;
+    protected Account account;
 
     public String getName() {
         return name;
