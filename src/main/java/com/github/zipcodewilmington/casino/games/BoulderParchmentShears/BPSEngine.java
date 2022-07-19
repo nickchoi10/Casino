@@ -10,7 +10,6 @@ public class BPSEngine {
     private Casino casino;
     private ActiveAccount aa;
     private Account acct;
-    Scanner scan = new Scanner(System.in);
     static Random randy = new Random();
     static Integer botRoll = 0;
     static String botThrow;
@@ -66,6 +65,7 @@ public class BPSEngine {
             System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " Wins! \n" +
                     ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + ".\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
+            acct.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
             return true;}
         else return false;
     }
@@ -79,7 +79,6 @@ public class BPSEngine {
     //2-PLAYER GAME STUFF
     public void PvP() {
         int wager;
-        String win;
         String p1;
         String p2;
         BPSRules2P();
@@ -90,7 +89,6 @@ public class BPSEngine {
         p2 = getThrow(2);
         threw(p1);
         threw(p2);
-        win = getWinner2P(p1, p2);
         if (draw(p1, p2)) {
             PvP();
         } else pvpWin(p1, p2, wager);
@@ -157,13 +155,6 @@ public class BPSEngine {
         } else return "boulder";
     }
     public String getLosingMove(String handSign) {
-        if (handSign.equals("boulder")) {
-            return "shears";
-        } else if (handSign.equals("parchment")) {
-            return "boulder";
-        } else return "parchment";
-    }
-    public String getDraw2P(String handSign) {
         if (handSign.equals("boulder")) {
             return "shears";
         } else if (handSign.equals("parchment")) {
