@@ -3,6 +3,7 @@ package com.github.zipcodewilmington;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.casino.games.BoulderParchmentShears.BPSMain;
+import com.github.zipcodewilmington.casino.games.cardgames.poker.threecardpoker.PokerMain;
 import com.github.zipcodewilmington.casino.games.dicegames.highlowdice.HighLowDiceMain;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessMain;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Casino implements Runnable {
     private NumberGuessMain ngm;
     private Account acct;
+    private PokerMain pokey;
     private HighLowDiceMain hldm;
     private ActiveAccount aa;
     private BPSMain bps;
@@ -28,7 +30,7 @@ public class Casino implements Runnable {
         final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
         final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
         final String RED_BRIGHT = "\033[0;91m";    // RED
-        System.out.println("""
+        System.out.println(TEXT_RESET + """
                  WELCOME TO...
                  
                  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.\s
@@ -152,10 +154,10 @@ public class Casino implements Runnable {
         while (true) {
             menuChoice = TheScanner.getNumber("Enter a number for the game you would like to play below:\n" +
                     "1) Slot Machines\n" +
-                    "2) Number Guess Game (No Gambling)\n" +
+                    "2) Three Card Poker\n" +
                     "3) Boulder Parchment Shears\n" +
                     "4) High-Low Dice\n" +
-                    "5) Under Construction\n" +
+                    "5) Number Guess Game (No Gambling)\n" +
                     "6) Under Construction\n" +
                     "7) Return to Main Menu\n" +
                     "8) Leave Casino\n");
@@ -168,7 +170,7 @@ public class Casino implements Runnable {
             //slotmain
         } else if (menuChoice == 2) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            ngm.playGame();
+            pokey.run();
         }else if (menuChoice == 3) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             bps.playBPS();
@@ -177,7 +179,7 @@ public class Casino implements Runnable {
             hldm.playGame();
         }else if (menuChoice == 5) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            //load game 5
+            ngm.playGame();
         }else if (menuChoice == 6) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             //load game 6
