@@ -7,14 +7,33 @@ import com.github.zipcodewilmington.casino.games.cardgames.PlayingCard;
 import java.util.List;
 
 public class PokerPlayer implements PlayerInterface {
+    String name;
     Account account;
     PokerHand hand;
     int anteBet;
     int pairPlusBet;
 
-    public PokerPlayer() {
+    int playBet;
+
+    public int getPlayBet() {
+        return playBet;
+    }
+
+    public void setPlayBet(int playBet) {
+        this.playBet = playBet;
+    }
+
+    public PokerPlayer(String name) {
+        this.name = name;
+        account = new Account();
         hand = new PokerHand();
     }
+
+    public PokerPlayer(String name, List<PlayingCard> cards) {
+        this.name = name;
+        hand = new PokerHand(cards);
+    }
+
     public PokerPlayer(List<PlayingCard> cards) {
         hand = new PokerHand(cards);
     }
