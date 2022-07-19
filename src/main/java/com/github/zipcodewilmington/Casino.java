@@ -232,7 +232,7 @@ public class Casino implements Runnable {
                 !!;;;!!!!!__|| `====================================`
                 !!!;!!!!!!\\_\\|
                 ====================================================================================
-                 ~@~    Welcome to the Lounge. Relax, have a cigar, and press Enter to leave     ~@~
+                 ~@~    Welcome to the Lounge. Relax, have a drink, and press Enter to leave     ~@~
                 """);
         try {
             System.in.read();
