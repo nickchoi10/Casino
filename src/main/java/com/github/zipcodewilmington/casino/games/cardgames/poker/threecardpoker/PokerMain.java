@@ -82,10 +82,9 @@ public class PokerMain implements GameInterface {
                 System.out.println("DEALING...");
                 dealer.setHand(new PokerHand(dealer.dealCards(3, PlayingCard.class)));
                 player.setHand(new PokerHand(dealer.dealCards(3, PlayingCard.class)));
-
-                System.out.println(String.format("YOUR HAND:%s", player.getHand().getRank()));
                 player.getHand().printHand();
-                System.out.println("\n" + foldOrPlayText());
+                System.out.println(String.format("YOUR HAND: %s", player.getHand().getRank()));
+                System.out.println("\n\n" + foldOrPlayText());
                 int choice = getSelectionInput(1, 2,"");
                 switch (choice) {
                     case 1:
@@ -101,7 +100,8 @@ public class PokerMain implements GameInterface {
 
             case USERFOLD:
                 System.out.println("You are folding for this round. Your wagers are now forfeit. Money deducted from account\n"
-                    + "Ante bet: %d\tPair Plus: %d".formatted(player.getAnteBet(), player.getPairPlusBet()));
+                    + String.format("Ante bet: %d\tPair Plus: %d\nBalance: %d(-%d)", player.getAnteBet(), player.getPairPlusBet(),
+                        acc.getBalance(), player.getAnteBet() + player.getPairPlusBet()));
                 handleFold(player);
                 this.state = this.state.nextState();
                 handleState(this.state, player);
@@ -121,8 +121,11 @@ public class PokerMain implements GameInterface {
 
 
             case WINNERCALC:
-                PokerPlayer dealerPlayer = new PokerPlayer("Dealer", this.dealer.getHand().getCards());
+                PokerHand dealerHand = this.dealer.getHand();
+                PokerPlayer dealerPlayer = new PokerPlayer("Dealer", dealerHand.getCards());
                 PokerPlayer winner = engine.computeWinner(player, dealerPlayer);
+                System.out.println(String.format("DEALER HAND: %s", dealerHand.getRank().toString()));
+                dealerHand.printHand();
                 handlePairPlusResult(player);
                 if (winner == null) {
                     handlePlayTie(player);
