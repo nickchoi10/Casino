@@ -1,12 +1,12 @@
 package com.github.zipcodewilmington.casino;
 
-
 import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.*;
-
 import static com.github.zipcodewilmington.casino.ActiveAccount.*;
+
+
 
 public class Account {
 
@@ -102,6 +102,7 @@ public class Account {
 
     public void deposit(Account account, int amount){
         account.balance += amount;
+
     }
     public void withdraw(Account account, int amount){
         while(true) {
