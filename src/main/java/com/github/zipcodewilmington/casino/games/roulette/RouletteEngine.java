@@ -12,25 +12,15 @@ public class RouletteEngine {
     int bet;
     int wager;
     boolean isGameRestart;
-    //int money = 5000; don't think I need this
-    private String accountName;
-    private String name;
-    private String password;
-    int balance = ActiveAccount.activeAccounts.get(0).getBalance();
+    int balance;
     private Account acct;
     Account userAcct = new Account("O", "O", 0);
-    String userName = userAcct.getAccountName();
+    //String userName = userAcct.getAccountName();
 
     //Welcomes player
     public String welcomeMessage() {
-        System.out.println("Welcome to the Roulette Table!");
-        return "Welcome to the Roulette Table!";
+        return ("Welcome to the Roulette Table!");
     }
-//    public void enterUserName() {
-//        System.out.println("Please enter your user name.");
-//        String userName = scanner.nextLine();
-//        userAcct = Account.getAccount(userName);
-//    }
 
     public void startRouletteGame() {
         if (!isGameRestart) {
@@ -102,93 +92,88 @@ public class RouletteEngine {
         if ((spinResult == bet)) {
             System.out.println("Your results are: " + spinResult + ". You win!");
             int winAmount = wager * 35;
-            payOut = Account.deposit(userAcct, winAmount);
+            acct.deposit(userAcct, winAmount);
          //   System.out.println("Your pay out is " + payOut);
             System.out.println("Your balance is" +(balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Play again and try to get your money back!");
+            System.out.println("Sorry, better luck next time! Your balance is " + (balance - wager) + ". Play again and try to get your money back!");
         continueGamblingPrompt();
-        return payOut;
+        return balance; //TODO look @ this
     }
 
     public int placeRedEvenBet(int wager, int bet, int balance) {
-        int payOut = 0;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
         if (spinResult % 2 == 0) {
             System.out.println("Well, aren't you a lucky one. You win!");
             int winAmount = (wager * 1);
-            payOut = Account.deposit(userAcct, winAmount);
-            System.out.println("Your payout is " + payOut + ".");
+            acct.deposit(userAcct, winAmount);
+            System.out.println("Your balance is" + (balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ".  Play again and try to get your money back!");
+            System.out.println("Sorry, better luck next time! Your balance is " + (balance - wager) + ".  Play again and try to get your money back!");
         continueGamblingPrompt();
-        return payOut;
+        return balance;
     }
 
     public int placeBlackOddBet(int wager, int bet, int balance) {
-        int payOut = 0;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
         if (spinResult % 2 != 0) {
             System.out.println("Well, aren't you a lucky one. You win!");
             int winAmount = wager * 2;
-            payOut = Account.deposit(userAcct, winAmount);
-            System.out.println(" Your new balance is " + (balance + winAmount) + ".");
+            acct.deposit(userAcct, winAmount);
+            System.out.println("Your balance is" +(balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your balance is " + (balance - wager) + ". Please play again!");
         continueGamblingPrompt();
         return balance;
     }
 
     public int placeFirstDozenBet(int wager, int bet, int balance) {
-        int payOut = 0;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
         if ((spinResult >= 1) && (spinResult <= 12)) {
             System.out.println("Well, aren't you a lucky one. You win!");
             int winAmount = wager * 2;
-            payOut = Account.deposit(userAcct, winAmount);
-            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+            acct.deposit(userAcct, winAmount);
+            System.out.println("Your balance is" +(balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Play again and try to get your money back!");
         continueGamblingPrompt();
         return balance;
     }
 
     public int placeSecondDozenBet(int wager, int bet, int balance) {
-        int payOut = 0;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
         if ((spinResult >= 13) && (spinResult <= 24)) {
             System.out.println("Well, aren't you a lucky one. You win!");
             int winAmount = wager * 2;
-            payOut = Account.deposit(userAcct, winAmount);
-            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+            acct.deposit(userAcct, winAmount);
+            System.out.println("Your balance is" +(balance + winAmount) + ". Please play again!");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Play again and try to get your money back!");
         continueGamblingPrompt();
         return balance;
     }
 
     public int placeThirdDozenBet(int wager, int bet, int balance) {
-        int payOut = 0;
         RouletteWheel wheel = new RouletteWheel();
         spinResult = wheel.spinWheel();
         if ((spinResult >= 25) && (spinResult <= 36)) {
             System.out.println("Well, aren't you a lucky one. You win!");
             int winAmount = wager * 2;
-            payOut = Account.deposit(userAcct, winAmount);
-            System.out.println(" Your new balance is " + (balance + payOut) + ".");
+            acct.deposit(userAcct, winAmount);
+            System.out.println(" Your new balance is " + (balance + winAmount) + ".");
         } else
-            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Please play again!");
+            System.out.println("Sorry, better luck next time! Your new balance is " + (balance - wager) + ". Play again and try to get your money back!");
         continueGamblingPrompt();
         return balance;
     }
 
     public void rouletteMenu() {
 //        Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome, " + userName + ", to Roulette! Please select a bet. Keep in mind that bets are limited\n" +
+        System.out.println("Welcome, to Roulette! Please select a bet. Keep in mind that bets are limited\n" +
                 "to 1 per round. Take a look at the Roulette Menu below and select a number to start having fun! \n" +
                 "1.) Place a Straight Up Bet. This covers the ball landing on numbers 00, 0, and 1-36 " +
                 "    (payout is 35:1). \n" +
@@ -205,7 +190,7 @@ public class RouletteEngine {
     }
 
     public void wagerPrompt() {
-        System.out.println("What's your wager for your bet? Remember, " + userName + ", you're only allowed one!");
+        System.out.println("What's your wager for your bet? Remember, you're only allowed one!");
 
     }
 
@@ -219,7 +204,7 @@ public class RouletteEngine {
             rouletteMenu();
             beginFromStart();
         } else if (Objects.equals(userInput.toUpperCase(), "N")) {
-            System.out.println("Thank you, " + userName + ", for playing Roulette! We hope to see you soon!");
+            System.out.println("Thank you for playing Roulette! We hope to see you soon!");
             //TODO return to main menu
         }
     }

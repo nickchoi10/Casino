@@ -4,6 +4,9 @@ import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.*;
+import static com.github.zipcodewilmington.casino.ActiveAccount.*;
+
+
 
 public class Account {
 
@@ -97,13 +100,9 @@ public class Account {
     }
 
 
-<<<<<<< HEAD
-    public static int deposit(Account account, int amount){
-        return account.balance += amount;
-=======
     public void deposit(Account account, int amount){
         account.balance += amount;
->>>>>>> 7a76649eb8dc3bb44ad0c86a0d2bb1d4e178ec06
+
     }
     public void withdraw(Account account, int amount){
         while(true) {
