@@ -22,13 +22,16 @@ public class SlotMain {
 //        SlotsEngine run = new SlotsEngine();
         run.beginMessage();
 //        run.beginningBalance();
+        System.out.println("Hello, welcome to the StarDust's Slot Game\n" +
+                "Match 3 numbers across the board, you win your bet amount!\n" +
+                "Triple 7 in middle row is *JACKPOT*. You win 500x bet amount!\n" +
+                "Good Luck!");
 
         if (input == 2) {
             running = false;
             casino.splashScreen();
         }
         while (running) {
-            run.beginMessage();
             run.currentBalance();
             run.betMessage();
             run.inputBet();

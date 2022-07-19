@@ -39,7 +39,7 @@ public class SlotsEngine {
     }
 
     public int inputBet() {
-        betMessage();
+        System.out.println("Please enter Bet Amount: ");
         Scanner scan = new Scanner(System.in);
         return betAmount = scan.nextInt();
     }
@@ -129,10 +129,10 @@ public class SlotsEngine {
         slotList.clear();
     }
     public void beginningBalance(){
-        System.out.println("Your deposited amount is "+ balance +" dollars");
+        System.out.println("Your deposited amount is "+ ActiveAccount.activeAccounts.get(0).getBalance() +" dollars");
     }
     public void currentBalance(){
-        System.out.println("Your current balance is "+ balance+" dollars");
+        System.out.println("Your current balance is "+ ActiveAccount.activeAccounts.get(0).getBalance()+" dollars");
     }
 
     public void winConditions(ArrayList slotList){
@@ -143,38 +143,39 @@ public class SlotsEngine {
                 slotList.get(1)==slotList.get(4) && slotList.get(4)==slotList.get(7)||
                 slotList.get(2)==slotList.get(5) && slotList.get(5)==slotList.get(8)||
                 slotList.get(0)==slotList.get(4) && slotList.get(4)==slotList.get(8)){
-            winMessage1();
+            System.out.println("Congratulations, you have won "+betAmount+" dollars!!");
             acct.deposit(ActiveAccount.activeAccounts.get(0), betAmount);
         }else{
             acct.withdraw(ActiveAccount.activeAccounts.get(0), betAmount);
+            System.out.println("You did not win anything");
         }
     }
-    public int winConditions1(ArrayList slotList){
-        if(slotList.get(0)==slotList.get(1) && slotList.get(1)!=slotList.get(2)||
-                slotList.get(3)==slotList.get(4) && slotList.get(4)!=slotList.get(5)||
-                slotList.get(6)==slotList.get(7) && slotList.get(7)!=slotList.get(8)||
-                slotList.get(0)==slotList.get(3) && slotList.get(3)!=slotList.get(6)||
-                slotList.get(1)==slotList.get(4) && slotList.get(4)!=slotList.get(7)||
-                slotList.get(2)==slotList.get(5) && slotList.get(5)!=slotList.get(8)||
-                slotList.get(0)==slotList.get(4) && slotList.get(4)!=slotList.get(8)||
-                slotList.get(0)!=slotList.get(1) && slotList.get(1)==slotList.get(2)||
-                slotList.get(3)!=slotList.get(4) && slotList.get(4)==slotList.get(5)||
-                slotList.get(6)!=slotList.get(7) && slotList.get(7)==slotList.get(8)||
-                slotList.get(0)!=slotList.get(3) && slotList.get(3)==slotList.get(6)||
-                slotList.get(1)!=slotList.get(4) && slotList.get(4)==slotList.get(7)||
-                slotList.get(2)!=slotList.get(5) && slotList.get(5)==slotList.get(8)||
-                slotList.get(0)!=slotList.get(4) && slotList.get(4)==slotList.get(8)){
-            winMessage2();
-            return balance+=betAmount/4;
-        }else{
-            return balance-=betAmount;
-        }
-    }
+//    public void winConditions1(ArrayList slotList){
+//        if(slotList.get(0)==slotList.get(1) && slotList.get(1)!=slotList.get(2)||
+//                slotList.get(3)==slotList.get(4) && slotList.get(4)!=slotList.get(5)||
+//                slotList.get(6)==slotList.get(7) && slotList.get(7)!=slotList.get(8)||
+//                slotList.get(0)==slotList.get(3) && slotList.get(3)!=slotList.get(6)||
+//                slotList.get(1)==slotList.get(4) && slotList.get(4)!=slotList.get(7)||
+//                slotList.get(2)==slotList.get(5) && slotList.get(5)!=slotList.get(8)||
+//                slotList.get(0)==slotList.get(4) && slotList.get(4)!=slotList.get(8)||
+//                slotList.get(0)!=slotList.get(1) && slotList.get(1)==slotList.get(2)||
+//                slotList.get(3)!=slotList.get(4) && slotList.get(4)==slotList.get(5)||
+//                slotList.get(6)!=slotList.get(7) && slotList.get(7)==slotList.get(8)||
+//                slotList.get(0)!=slotList.get(3) && slotList.get(3)==slotList.get(6)||
+//                slotList.get(1)!=slotList.get(4) && slotList.get(4)==slotList.get(7)||
+//                slotList.get(2)!=slotList.get(5) && slotList.get(5)==slotList.get(8)||
+//                slotList.get(0)!=slotList.get(4) && slotList.get(4)==slotList.get(8)){
+//            System.out.println("Congratulations, you have won "+betAmount/4+" dollars!!");
+//            acct.deposit(ActiveAccount.activeAccounts.get(0), betAmount/4);
+//        }else{
+//            acct.withdraw(ActiveAccount.activeAccounts.get(0), betAmount);
+//        }
+//    }
     public void jackPotCondition(ArrayList slotList){
         if(slotList.get(3)==slotList.get(4)&&slotList.get(4)==slotList.get(5)){
-            jackPotMessage();
+            acct.deposit(ActiveAccount.activeAccounts.get(0), betAmount*500);
+            System.out.println("WINNER WINNER CHICKEN DINNER!!!, you won "+betAmount*500+" dollars!!");
         }
-        acct.deposit(ActiveAccount.activeAccounts.get(0), betAmount);
     }
 
     public String losingCondition(){
@@ -184,9 +185,9 @@ public class SlotsEngine {
 
     }
 
-    public void winMessage1(){System.out.println("Congratulations, you have won "+betAmount+" dollars!!");}
-    public void winMessage2(){System.out.println("Congratulations, you have won "+betAmount/4+" dollars!!");}
-    public void jackPotMessage(){System.out.println("WINNER WINNER CHICKEN DINNER!!!, you won "+betAmount+" dollars!!");}
+//    public void winMessage1(){System.out.println("Congratulations, you have won "+betAmount+" dollars!!");}
+//    public void winMessage2(){System.out.println("Congratulations, you have won "+betAmount/4+" dollars!!");}
+//    public void jackPotMessage(){System.out.println("WINNER WINNER CHICKEN DINNER!!!, you won "+betAmount*500+" dollars!!");}
 
     public void continuePlaying(){
         if (balance<=0){
