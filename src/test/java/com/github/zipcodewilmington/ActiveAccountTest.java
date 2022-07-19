@@ -51,7 +51,7 @@ public class ActiveAccountTest {
         acct = new Account();
         aa.activeAccounts.clear();
         String actual = aa.showActiveAccounts();
-        String expected = "There are no active players!";
+        String expected = "There are no logged in accounts!";
         Assert.assertEquals(actual, expected);
     }
 }

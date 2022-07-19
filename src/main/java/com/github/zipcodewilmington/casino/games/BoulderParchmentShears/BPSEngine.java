@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BPSEngine {
+    final String GREEN_BRIGHT = "\033[0;92m";
     private Casino casino;
     private ActiveAccount aa;
     private Account acct;
@@ -19,7 +20,7 @@ public class BPSEngine {
         acct = new Account();
         casino = new Casino();
         int choice;
-        System.out.println("\nWelcome to Boulder Parchment Shears!\nThe game of mental dominance over your foes.\n");
+        System.out.println(GREEN_BRIGHT + "\nWelcome to Boulder Parchment Shears!\nThe game of mental dominance over your foes.\n");
         if (numPlayers == 1) {
             System.out.println("Since there is one player, you will be competing against our high-tech AI.");
             PvE();
@@ -28,7 +29,7 @@ public class BPSEngine {
         }
     }
     public void BPSRules2P() {
-        System.out.println("The rules are simple. Boulder beats Shears, Shears beats Parchment, Parchment beats Boulder.\n" +
+        System.out.println(GREEN_BRIGHT + "The rules are simple. Boulder beats Shears, Shears beats Parchment, Parchment beats Boulder.\n" +
                 "Each player will make the same wager, winner gets all.\n\n");
     }
 
@@ -38,7 +39,7 @@ public class BPSEngine {
         String p1;
         String p2;
         BPSRules2P();
-        System.out.println("How much do you want to wager?\n");
+        System.out.println(GREEN_BRIGHT + "How much do you want to wager?\n");
         wager = acct.makeBet(aa.activeAccounts.get(0));
         p1 = getThrow(1);
         p2 = AIThrow();
@@ -55,13 +56,13 @@ public class BPSEngine {
     }
     public void quitPvE(){
         int choice;
-        choice = TheScanner.getNumber("1) Play Again\n2) Return to Main Menu\n");
+        choice = TheScanner.getNumber(GREEN_BRIGHT + "\n 1) Play Again\n2) Return to Main Menu\n");
         if (choice == 1) {PvE();}
         else casino.splashScreen();
     }
     public boolean pveWin(String p1, String p2, int wager){
         if (p1.equals(getWinner2P(p1, p2))) {
-            System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " Wins! \n" +
+            System.out.println(GREEN_BRIGHT + ActiveAccount.activeAccounts.get(0).getAccountName() + " Wins! \n" +
                     ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and the AI threw " + p2 + ".\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
             acct.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
@@ -70,7 +71,7 @@ public class BPSEngine {
     }
     public boolean draw(String p1, String p2) {
         if (p1.equals(p2)) {
-            System.out.println("It's a draw! Wager's have been returned, play again.");
+            System.out.println(GREEN_BRIGHT + "It's a draw! Wager's have been returned, play again.");
             return true;}
         else return false;
     }
@@ -81,7 +82,7 @@ public class BPSEngine {
         String p1;
         String p2;
         BPSRules2P();
-        System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + ", how much do the players want to wager?\n");
+        System.out.println(GREEN_BRIGHT + ActiveAccount.activeAccounts.get(0).getAccountName() + ", how much do the players want to wager?\n");
         wager = acct.makeBet(ActiveAccount.activeAccounts.get(0));
         acct.withdraw(ActiveAccount.activeAccounts.get(1), wager);
         p1 = getThrow(1);
@@ -95,19 +96,19 @@ public class BPSEngine {
     }
     public void quitPvP(){
         int choice;
-        choice = TheScanner.getNumber("1) Play Again\n2) Return to Main Menu\n");
+        choice = TheScanner.getNumber(GREEN_BRIGHT + "\n1) Play Again\n2) Return to Main Menu\n");
         if (choice == 1) {PvP();}
         else casino.splashScreen();
     }
     public boolean pvpWin(String p1, String p2, int wager){
         if (p1.equals(getWinner2P(p1, p2))) {
-            System.out.println(ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and " + ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 +  ".\n\n" +
+            System.out.println(GREEN_BRIGHT + ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 + " and " + ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 +  ".\n\n" +
                     ActiveAccount.activeAccounts.get(0).getAccountName() + " WINS!!\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
             acct.deposit(ActiveAccount.activeAccounts.get(0), (wager*2));
             return true;
         } else {
-            System.out.println(ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 + " and " + ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 +  ".\n\n" +
+            System.out.println(GREEN_BRIGHT + ActiveAccount.activeAccounts.get(1).getAccountName() + " threw " + p2 + " and " + ActiveAccount.activeAccounts.get(0).getAccountName() + " threw " + p1 +  ".\n\n" +
                     ActiveAccount.activeAccounts.get(1).getAccountName() + " WINS!!\n" +
                     "You wagered " + wager + " and won " + (wager*2) + ". That amount has been deposited in your account.\n");
             acct.deposit(ActiveAccount.activeAccounts.get(1), (wager*2));
@@ -117,7 +118,7 @@ public class BPSEngine {
 
     public String getThrow(int player){
         String pt;
-        System.out.println("Player " + player + ", pick your sign.\n" +
+        System.out.println(GREEN_BRIGHT + "Player " + player + ", pick your sign.\n" +
                 "1) Boulder\n" +
                 "2) Parchment\n" +
                 "3) Shears");
@@ -135,7 +136,7 @@ public class BPSEngine {
                 pt = "shears";
                 System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 break;
-            } else System.out.println("That is not a valid choice, choose 1, 2, or 3.");
+            } else System.out.println(GREEN_BRIGHT + "That is not a valid choice, choose 1, 2, or 3.");
         }
         return pt;
     }
@@ -172,7 +173,7 @@ public class BPSEngine {
         String hands = "";
         switch (p) {
             case "boulder":
-                hands = """
+                hands = GREEN_BRIGHT + """
                     _______
                 ---'   ____)
                       (_____)
@@ -182,7 +183,7 @@ public class BPSEngine {
                         """;
                 break;
             case "parchment":
-                hands = """
+                hands = GREEN_BRIGHT + """
                     _______
                 ---'   ____)____
                           ______)
@@ -192,7 +193,7 @@ public class BPSEngine {
                         """;
                 break;
             case "shears":
-                hands = """
+                hands = GREEN_BRIGHT + """
                     _______
                 ---'   ____)____
                           ______)
