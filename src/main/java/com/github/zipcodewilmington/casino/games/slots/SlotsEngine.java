@@ -2,6 +2,8 @@ package com.github.zipcodewilmington.casino.games.slots;
 
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 import com.github.zipcodewilmington.utils.TheScanner;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 
 public class SlotsEngine {
 //add thread.sleep to display board for effects
-
+    static IOConsole ioConsole = new IOConsole(AnsiColor.PURPLE);
     ArrayList slotList;
     int betAmount;
     private Account acct;
@@ -80,25 +82,27 @@ public class SlotsEngine {
         row1.append(str.charAt(1)+"|"+str.charAt(4)+"|"+str.charAt(7));
         row2.append(str.charAt(10)+"|"+str.charAt(13)+"|"+str.charAt(16));
         row3.append(str.charAt(19)+"|"+str.charAt(22)+"|"+str.charAt(25));
-        System.out.println("Ready??");
+        ioConsole = new IOConsole(AnsiColor.PURPLE);
+        ioConsole.println("Ready??");
         try {
             Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("set");
+        ioConsole.println("set");
         try {
             Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("GO!!!!!");
+        ioConsole.println("GO!!!!!");
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(row1);
+        ioConsole = new IOConsole(AnsiColor.BLUE);
+        ioConsole.println(row1.toString());
         try {
             Thread.sleep(700);
         } catch (InterruptedException e) {
@@ -133,7 +137,8 @@ public class SlotsEngine {
         System.out.println("Your deposited amount is "+ ActiveAccount.activeAccounts.get(0).getBalance() +" dollars");
     }
     public void currentBalance(){
-        System.out.println("Your current balance is "+ ActiveAccount.activeAccounts.get(0).getBalance()+" dollars");
+        ioConsole = new IOConsole(AnsiColor.AUTO);
+        ioConsole.println("Your current balance is "+ ActiveAccount.activeAccounts.get(0).getBalance()+" dollars");
     }
 
     public void winConditions(ArrayList slotList){
