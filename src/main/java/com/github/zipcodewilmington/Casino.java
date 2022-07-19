@@ -156,7 +156,7 @@ public class Casino implements Runnable {
         bps = new BPSMain();
         hldm = new HighLowDiceMain();
         sm = new SlotMain();
-        pokey = new PokerMain();
+        pokey = new PokerMain(ActiveAccount.activeAccounts.toArray(new Account[0]));
 
         int menuChoice;
         while (true) {
