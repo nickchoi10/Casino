@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.casino.games.roulette;
 
+import com.github.zipcodewilmington.Casino;
 import com.github.zipcodewilmington.casino.Account;
 import com.github.zipcodewilmington.casino.ActiveAccount;
 import com.github.zipcodewilmington.utils.TheScanner;
@@ -12,6 +13,7 @@ public class RouletteEngine {
     Account userAcct = new Account("O", "O", 2000);
     //Account userAcct = ActiveAccount.activeAccounts.get(0); //TODO Uncommentout & remove line above
     private Account acct;
+    private Casino casino;
     int spinResult;
     int bet;
     int wager;
@@ -26,7 +28,6 @@ public class RouletteEngine {
     public void startRouletteGame() {
         if (!isGameRestart) {
             welcomeMessage();
-           //enterUserName(); //TODO Remove?
             beginFromStart();
         }
         else {
@@ -40,6 +41,7 @@ public class RouletteEngine {
 
     //Allows player to place a different kind of bet
     public void beginFromStart() {
+        acct = new Account();
         rouletteMenu();
         int userInput = TheScanner.getNumber("");
 
@@ -206,6 +208,7 @@ public class RouletteEngine {
     }
 
     public void continueGamblingPrompt() {
+        casino = new Casino();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Would you like to continue gambling? Type 'Y' for 'Yes' or 'N' for 'No'.");
@@ -216,7 +219,7 @@ public class RouletteEngine {
             beginFromStart();
         } else if (Objects.equals(userInput.toUpperCase(), "N")) {
             System.out.println("Thank you for playing Roulette! We hope to see you soon!");
-            //TODO return to main menu
+            casino.splashScreen();
         }
     }
 }
